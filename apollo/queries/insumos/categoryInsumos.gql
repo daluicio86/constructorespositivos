@@ -1,0 +1,6 @@
+query {
+  categoryInsumos(sort: "categoryname") {
+    id
+    categoryname
+  }
+}

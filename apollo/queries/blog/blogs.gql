@@ -1,0 +1,12 @@
+query {
+  blogs(sort: "created_at") {
+    id
+    titulo
+    contenido
+    resumen
+    slug
+    image {
+      url
+    }
+  }
+}

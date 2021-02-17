@@ -1,0 +1,10 @@
+query calculadoras {
+  calculadoras {
+    id
+    link_title
+    link
+    logo {
+      url
+    }
+  }
+}

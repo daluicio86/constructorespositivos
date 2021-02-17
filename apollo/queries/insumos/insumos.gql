@@ -1,0 +1,14 @@
+query insumos($id: ID!) {
+  categoryInsumos(where: { id: $id }) {
+    categoryname
+    insumos(sort: "nombre_empresa:asc") {
+      id
+      nombre_empresa
+      website
+      telefono
+      logo {
+        url
+      }
+    }
+  }
+}

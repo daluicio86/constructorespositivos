@@ -1,0 +1,12 @@
+query {
+  proyectos(sort: "nombre") {
+    id
+    created_at
+    updated_at
+    nombre
+    informacion
+    slug
+    latitude
+    longitude
+  }
+}

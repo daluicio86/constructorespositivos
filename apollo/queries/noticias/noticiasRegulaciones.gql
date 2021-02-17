@@ -1,0 +1,17 @@
+query {
+  noticiasRegulaciones {
+    id
+    created_at
+    updated_at
+    titulo
+    resumen
+    slug
+    contenido
+    foto {
+      url
+    }
+    descargable {
+      url
+    }
+  }
+}

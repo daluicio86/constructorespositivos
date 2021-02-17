@@ -1,0 +1,14 @@
+query insumos {
+  insumos(sort: "nombre_empresa:asc") {
+    id
+    nombre_empresa
+    category_insumos {
+      categoryname
+    }
+    logo {
+      url
+    }
+    website
+    telefono
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <section class="cont">
     <div class="banner">
-      <img src="../../assets/images/banner_quienes.jpg" />
+      <img src="../../assets/images/banner_remodelacion.jpg" />
     </div>
     <div id="header">
       <h1>BLOG</h1>

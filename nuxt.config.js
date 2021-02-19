@@ -2,6 +2,7 @@ module.exports = {
   /*
   ** Headers of the page
   */
+  ssr: true,
   env: {
     strapiBaseUri: process.env.API_URL || "https://strapi.constructorespositivos.com/graphql",
     baseURL: "https://strapi.constructorespositivos.com"

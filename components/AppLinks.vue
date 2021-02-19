@@ -16,7 +16,7 @@
         <nuxt-link to="/quienes_somos">QUIENES SOMOS</nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/blogs">BLOG Y NOTICIAS</nuxt-link>
+        <nuxt-link to="/blog">BLOG Y NOTICIAS</nuxt-link>
       </li>
     </ul>
   </div>

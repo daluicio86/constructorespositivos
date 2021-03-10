@@ -24,7 +24,11 @@
           class="col-sm-4 calculadora-item"
           v-bind:key="key"
         >
-          <a class="calcualdora-link" @click="sendGAEvent" target="_blank">
+          <a
+            class="calcualdora-link"
+            @click="sendGAEvent(calculadora.link)"
+            target="_blank"
+          >
             <div class="logo-banco">
               <img
                 :src="
@@ -179,7 +183,7 @@ export default {
     },
     sendGAEvent(link, label) {
       console.log("sending ga event");
-
+      console.log("open" + link);
       this.$ga.event({
         eventCategory: "calculadora",
         eventAction: "abrir",

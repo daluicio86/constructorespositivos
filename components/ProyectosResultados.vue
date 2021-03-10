@@ -26,7 +26,7 @@
               /></a>
             </div>
             <div class="item info">
-              <a class="information" @click="moreInfo">
+              <a class="information" @click="openLinkProyecto(title, website)">
                 <font-awesome-icon :icon="['fas', 'info']"
               /></a>
             </div>
@@ -84,6 +84,15 @@ export default {
     this.direction_path = this.maps_path + this.lat + "," + this.lon;
   },
   methods: {
+    openLinkProyecto(link, label) {
+      console.log("openLink proyecto:" + link + "," + label);
+      this.$ga.event({
+        eventCategory: "proyectos",
+        eventAction: "abrir",
+        eventLabel: label
+      });
+      this.moreInfo();
+    },
     moreInfo() {
       this.$emit("showRegistro", this.website);
     }

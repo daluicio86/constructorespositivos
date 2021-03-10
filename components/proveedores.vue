@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     openLinkBuscadorProveedores(link, label) {
-      console.log("openLinkbuscador:" + link + "," + label);
       this.$ga.event({
         eventCategory: "insumos",
         eventAction: "abrir",

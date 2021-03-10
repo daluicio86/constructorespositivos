@@ -277,7 +277,10 @@ export default {
     },
     mostrarResultados() {
       this.loading = true;
-
+      this.$ga.event({
+        eventCategory: "proyectos",
+        eventAction: "buscar"
+      });
       this.getProyectosCercanos();
     },
     async getUserLocation() {

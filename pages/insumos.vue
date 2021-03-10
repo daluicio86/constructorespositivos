@@ -311,7 +311,10 @@ export default {
 }
 .categorias >>> #vs1__listbox {
   width: 500px;
+  top: 3px;
+  position: relative;
 }
+
 #map {
   text-align: center;
   margin: 30px;

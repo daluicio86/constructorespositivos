@@ -11,7 +11,6 @@
             <a
               class="website"
               @click="openLinkBuscadorProveedores(website, nombre_empresa)"
-              target="_blank"
               >{{ website }}</a
             >
           </div>
@@ -42,6 +41,7 @@ export default {
   },
   methods: {
     openLinkBuscadorProveedores(link, label) {
+      console.log("openLinkbuscador:" + link + "," + label);
       this.$ga.event({
         eventCategory: "insumos",
         eventAction: "abrir",
@@ -81,5 +81,6 @@ figure img {
   color: #c12e24;
   font-size: 14px;
   text-decoration: underline;
+  cursor: pointer;
 }
 </style>

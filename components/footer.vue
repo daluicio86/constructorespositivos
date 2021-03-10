@@ -18,7 +18,7 @@
             </div>
             <div class="col-sm-6">
               <nuxt-link to="/quienes_somos">QUIENES SOMOS</nuxt-link>
-              <nuxt-link to="/blogs">BLOG Y NOTICIAS</nuxt-link>
+              <nuxt-link to="/blog">BLOG Y NOTICIAS</nuxt-link>
               <!-- <nuxt-link to="/">CONTÁCTANOS</nuxt-link> -->
             </div>
           </div>

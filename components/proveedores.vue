@@ -8,7 +8,12 @@
       <div class="row">
         <div class="col-sm">
           <div class="datos_proyecto">
-            <a class="website" :href="website" target="_blank">{{ website }}</a>
+            <a
+              class="website"
+              @click="openLinkBuscadorProveedores(website, nombre_empresa)"
+              target="_blank"
+              >{{ website }}</a
+            >
           </div>
           <div class="datos_proyecto">
             Tel:
@@ -34,6 +39,16 @@ export default {
     return {
       image_path: ""
     };
+  },
+  methods: {
+    openLinkBuscadorProveedores(link, label) {
+      this.$ga.event({
+        eventCategory: "insumos",
+        eventAction: "abrir",
+        eventLabel: label
+      });
+      window.open(link, "_blank");
+    }
   },
   computed: {},
   mounted() {

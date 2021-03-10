@@ -78,9 +78,15 @@
                   proveedor.nombre_empresa
                 }}</span>
                 <span class="proveedor-sitio"
-                  ><a :href="proveedor.website">{{
-                    proveedor.website
-                  }}</a></span
+                  ><a
+                    @click="
+                      openLinkAllProovedores(
+                        proveedor.website,
+                        proveedor.nombre_empresa
+                      )
+                    "
+                    >{{ proveedor.website }}</a
+                  ></span
                 >
                 <span class="proveedor-tel"
                   ><a :href="`tel:${proveedor.website}`"
@@ -170,7 +176,7 @@ export default {
         this.$apollo.queries.insumos.skip = false;
         const result = await this.$apollo.queries.insumos.refetch();
         this.insumos_obj = await result.data.categoryInsumos[0].insumos;
-        // console.log(this.insumos_obj.insumos);
+
         if (this.insumos_obj.length > 0) {
           this.proovedores_resultado = true;
           this.noresults = false;
@@ -180,6 +186,14 @@ export default {
         }
         this.loading = false;
       }
+    },
+    openLinkAllProovedores(link, label) {
+      this.$ga.event({
+        eventCategory: "insumos",
+        eventAction: "abrir",
+        eventLabel: label
+      });
+      window.open(link, "_blank");
     }
   }
 };

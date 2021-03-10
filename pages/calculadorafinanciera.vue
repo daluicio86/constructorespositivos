@@ -24,7 +24,7 @@
           class="col-sm-4 calculadora-item"
           v-bind:key="key"
         >
-          <a :href="calculadora.link" target="_blank">
+          <a class="calcualdora-link" @click="sendGAEvent" target="_blank">
             <div class="logo-banco">
               <img
                 :src="
@@ -176,6 +176,16 @@ export default {
   methods: {
     mostrarResultados() {
       this.resultados_proyectos = true;
+    },
+    sendGAEvent(link, label) {
+      console.log("sending ga event");
+
+      this.$ga.event({
+        eventCategory: "calculadora",
+        eventAction: "abrir",
+        eventLabel: label
+      });
+      window.open(link, "_blank");
     }
   },
 
@@ -378,6 +388,9 @@ h6 {
 }
 .header-prestamo h6 {
   color: white !important;
+}
+.calcualdora-link {
+  cursor: pointer;
 }
 @media (max-width: 767px) {
   .logo-banco img {

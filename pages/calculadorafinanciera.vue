@@ -4,7 +4,7 @@
       <img src="../assets/images/banner1.jpg" />
     </div>
     <div id="header">
-      <h1>CALCULA TU CRÉDITO</h1>
+      <h1>CALCULA TU CRÉDITO - BETA</h1>
       <h2>EN VARIAS INSTITUCIONES FINANCIERAS</h2>
     </div>
     <div v-if="!loading" class="container calculadoras">

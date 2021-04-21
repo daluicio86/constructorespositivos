@@ -135,6 +135,7 @@ export default {
       query: categoryInsumos,
       variables() {
         // return { id: this.categoria.id };
+        //no variables
       }
     },
     insumos: {

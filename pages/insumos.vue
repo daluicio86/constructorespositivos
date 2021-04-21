@@ -62,7 +62,7 @@
             <span>VER</span> PROVEEDORES
           </button>
           <div v-if="verproveedores" class="proveedores-todos">
-            <h3>TODOS LOS PROOVEDORES</h3>
+            <h3>TODOS LOS PROVEEDORES</h3>
             <div class="proveedores-container">
               <div
                 class="proveedor"

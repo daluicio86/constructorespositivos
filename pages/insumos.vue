@@ -12,7 +12,7 @@
         <b-embed
           type="iframe"
           aspect="16by9"
-          src="https://www.youtube.com/embed/-pIj0x6Y3A0?rel=0"
+          src="https://www.youtube.com/embed/EO2dCOXhe9U?rel=0"
           allowfullscreen
         ></b-embed>
       </div>

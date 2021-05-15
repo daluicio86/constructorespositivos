@@ -182,8 +182,6 @@ export default {
       this.resultados_proyectos = true;
     },
     sendGAEvent(link, label) {
-      console.log("sending ga event");
-      console.log("open" + link);
       this.$ga.event({
         eventCategory: "calculadora",
         eventAction: "abrir",

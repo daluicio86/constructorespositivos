@@ -5,6 +5,9 @@
         <nuxt-link to="/">ENCUENTRA LA CASA DE TUS SUEÑOS</nuxt-link>
       </li>
       <li class="nav-item">
+        <nuxt-link to="/visyvip">PROYECTOS VIS Y VIP</nuxt-link>
+      </li>
+      <li class="nav-item">
         <nuxt-link to="/calculadorafinanciera"
           >CALCULADORA DE CRÉDITO</nuxt-link
         >

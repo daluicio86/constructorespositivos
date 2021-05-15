@@ -9,14 +9,15 @@
           <div class="row">
             <div class="col-sm-6">
               <nuxt-link to="/">ENCUENTRA LA CASA DE TUS SUEÑOS</nuxt-link>
-              <nuxt-link to="/calculadorafinanciera"
-                >CALCULADORA DE CRÉDITO</nuxt-link
-              >
+              <nuxt-link to="/visyvip">PROYECTOS VIS Y VIP</nuxt-link>
               <nuxt-link to="/insumos"
                 >MATERIALES PARA LA REMODELACIÓN</nuxt-link
               >
             </div>
             <div class="col-sm-6">
+              <nuxt-link to="/calculadorafinanciera"
+                >CALCULADORA DE CRÉDITO</nuxt-link
+              >
               <nuxt-link to="/quienes_somos">QUIENES SOMOS</nuxt-link>
               <nuxt-link to="/blog">BLOG Y NOTICIAS</nuxt-link>
               <!-- <nuxt-link to="/">CONTÁCTANOS</nuxt-link> -->

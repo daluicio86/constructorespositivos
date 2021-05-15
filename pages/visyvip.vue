@@ -39,8 +39,7 @@
                 el 5% de entrada.
               </li>
               <li>
-                Viviendas desde 50 m2: 2 dormitorios.*Viviendas desde 50 m2: 2
-                dormitorios.
+                Viviendas desde 50 m2: 2 dormitorios.
               </li>
               <li>Viviendas desde 57 m2: 3 dormitorios.</li>
               <li>Desde USD 23.024 23 hasta USD 40.608.</li>

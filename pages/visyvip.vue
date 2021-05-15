@@ -167,7 +167,7 @@
             class="link"
             @click="
               gotoCalculadora(
-                'https://www.pichincha.com/portal/simuladores/simulador-de-creditos/code/52222107',
+                'https://www.pichincha.com/portal/principal/personas/creditos/credito-hipotecario/credito-de-vivienda-de-interes-publico',
                 'Pichincha'
               )
             "

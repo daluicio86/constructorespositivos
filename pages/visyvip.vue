@@ -10,7 +10,7 @@
     <div class="container">
       <!-- Start pasos -->
       <section id="contenido" class="row">
-        <div class="col-sm-12 col-md-4">
+        <div class="columna">
           <div class="type_container">
             <div
               @click="
@@ -55,7 +55,7 @@
             AQUI TU VIVIENDA
           </button>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="columna">
           <div class="type_container">
             <div
               @click="
@@ -74,32 +74,24 @@
             <p>De $40.608 a $71.064<br /><br /></p>
             <img src="../assets/images/vivienda_interes2.jpg" />
             <span class="subtitulo"
-              >(Vivienda con subsidio parcial del Estado).</span
-            >
+              >Préstamo hipotecario con tasa de interés preferencial del 4,99%
+              hasta 25 años plazo y con el 5% de entrada.
+            </span>
             <ul>
               <li>
-                Bono de USD 6.000 (Seis mil dólares); Préstamo hipotecario con
-                tasa de interés preferencial del 4,99% hasta 25 años plazo y con
-                el 5% de entrada.
-              </li>
-              <li>
-                Viviendas desde 50 m2: 2 dormitorios.*Viviendas desde 50 m2: 2
-                dormitorios.
+                Viviendas desde 50 m2: 2 dormitorios.
               </li>
               <li>Viviendas desde 57 m2: 3 dormitorios.</li>
-              <li>Desde USD 23.024 23 hasta USD 40.608.</li>
-              <li>Ingresos máximos de 2.5 SBU ($1.000).</li>
-              <li>Primera y única vivienda.</li>
-              <li>
-                No haber recibido ningún bono subsidio por parte del estado.
-              </li>
+              <li>Viviendas desde 57 m2: 3 dormitorios.</li>
+              <li>Desde USD 40.608 hasta USD 71.064.</li>
+              <li>Ingresos máximos de 6.34 SBU ($2.536).</li>
             </ul>
           </div>
           <button @click="gotoHome" class="vivienda-btn">
             AQUI TU VIVIENDA
           </button>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="columna">
           <div class="type_container">
             <div
               @click="
@@ -119,24 +111,16 @@
 
             <img src="../assets/images/vivienda_interes3.jpg" />
             <span class="subtitulo"
-              >(Vivienda con subsidio parcial del Estado).</span
+              >Adquiera su vivienda en proyectos de Interés Público
+              desarrollados por Promotores Inmobiliarios Privados Casas y/o
+              departamentos.</span
             >
             <ul>
               <li>
-                Bono de USD 6.000 (Seis mil dólares); Préstamo hipotecario con
-                tasa de interés preferencial del 4,99% hasta 25 años plazo y con
-                el 5% de entrada.
+                Con tasa de interés preferencial del 4,99%.
               </li>
               <li>
-                Viviendas desde 50 m2: 2 dormitorios.*Viviendas desde 50 m2: 2
-                dormitorios.
-              </li>
-              <li>Viviendas desde 57 m2: 3 dormitorios.</li>
-              <li>Desde USD 23.024 23 hasta USD 40.608.</li>
-              <li>Ingresos máximos de 2.5 SBU ($1.000).</li>
-              <li>Primera y única vivienda.</li>
-              <li>
-                No haber recibido ningún bono subsidio por parte del estado.
+                Ingresos máximos de 6.34 SBU ($2.536).
               </li>
             </ul>
           </div>
@@ -171,7 +155,7 @@
             class="link"
             @click="
               gotoCalculadora(
-                'https://www.aplicacionesbp.com.ec:4443/simulador-credito-web/faces/Segmento-Credito',
+                'https://www.bancodelpacifico.com/personas/creditos',
                 'Pacifico'
               )
             "
@@ -183,7 +167,7 @@
             class="link"
             @click="
               gotoCalculadora(
-                'https://www.aplicacionesbp.com.ec:4443/simulador-credito-web/faces/Segmento-Credito',
+                'https://www.pichincha.com/portal/simuladores/simulador-de-creditos/code/52222107',
                 'Pichincha'
               )
             "
@@ -209,7 +193,7 @@
             class="link"
             @click="
               gotoCalculadora(
-                'https://www.mutualistapichincha.com/credito-hipotecario',
+                'https://www.mutualistapichincha.com/es/web/portal-inmobiliario/inicio',
                 'mutualista pichincha'
               )
             "
@@ -311,11 +295,17 @@ export default {
   font-size: 28px;
   font-weight: lighter;
 }
+#contenido {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+}
 .type_container {
   background: #aa381a;
   margin: 20px 10px;
   padding: 20px 0px;
   color: white;
+  height: 92%;
 }
 .type_container img {
   width: 100%;
@@ -389,6 +379,11 @@ export default {
   align-items: center;
 }
 @media (max-width: 767px) {
+  #contenido {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
   .header h1 {
     font-size: 26px;
   }
@@ -397,6 +392,9 @@ export default {
   }
   .banco {
     margin: 20px;
+  }
+  .type_container {
+    height: auto;
   }
 }
 </style>

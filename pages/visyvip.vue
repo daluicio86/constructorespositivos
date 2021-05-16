@@ -50,8 +50,18 @@
               </li>
             </ul>
           </div>
-          <button @click="gotoHome" class="vivienda-btn">
-            AQUI TU VIVIENDA
+          <button
+            @click="
+              gotoUrl(
+                'https://www.miduvi.net/vivienda-de-inter%C3%A9s-social',
+                'vivienda',
+                'vipvis',
+                'clic'
+              )
+            "
+            class="vivienda-btn"
+          >
+            MÁS INFORMACIÓN
           </button>
         </div>
         <div class="columna">
@@ -86,8 +96,18 @@
               <li>Ingresos máximos de 6.34 SBU ($2.536).</li>
             </ul>
           </div>
-          <button @click="gotoHome" class="vivienda-btn">
-            AQUI TU VIVIENDA
+          <button
+            @click="
+              gotoUrl(
+                'https://www.miduvi.net/vivienda-de-inter%C3%A9s-p%C3%BAblico',
+                'vivienda',
+                'vipvis',
+                'clic'
+              )
+            "
+            class="vivienda-btn"
+          >
+            MÁS INFORMACIÓN
           </button>
         </div>
         <div class="columna">
@@ -123,8 +143,18 @@
               </li>
             </ul>
           </div>
-          <button @click="gotoHome" class="vivienda-btn">
-            AQUI TU VIVIENDA
+          <button
+            @click="
+              gotoUrl(
+                'https://www.miduvi.net/proyectos-de-inter%C3%A9s-social',
+                'vivienda',
+                'vipvis',
+                'clic'
+              )
+            "
+            class="vivienda-btn"
+          >
+            MÁS INFORMACIÓN
           </button>
         </div>
       </section>

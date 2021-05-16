@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4 col-sm-12">
+          <div class="col-md-3 col-sm-12">
             <nuxt-link to="#" v-scroll-to="'#ubicar'">
               <div class="card_home arrow">
                 <figure>
@@ -72,11 +72,25 @@
                 <div class="foot_card">
                   <h3>ENCUENTRA LA CASA</h3>
                   <h4>DE TUS SUEÑOS</h4>
+                  <br />
                 </div>
               </div>
             </nuxt-link>
           </div>
-          <div class="col-md-4 col-sm-12">
+          <div class="col-md-3 col-sm-12">
+            <nuxt-link to="/visyvip">
+              <div class="card_home arrow">
+                <figure>
+                  <img src="../assets/images/paso4.jpg" />
+                </figure>
+                <div class="foot_card">
+                  <h3>PROYECTOS VIS Y VIP</h3>
+                  <h4>VIVIENDA INTERÉS SOCIAL/PÚBLICO</h4>
+                </div>
+              </div>
+            </nuxt-link>
+          </div>
+          <div class="col-md-3 col-sm-12">
             <nuxt-link to="/calculadorafinanciera">
               <div class="card_home arrow">
                 <figure>
@@ -89,7 +103,7 @@
               </div>
             </nuxt-link>
           </div>
-          <div class="col-md-4 col-sm-12">
+          <div class="col-md-3 col-sm-12">
             <nuxt-link to="/insumos">
               <div class="card_home">
                 <figure><img src="../assets/images/paso3.jpg" /></figure>

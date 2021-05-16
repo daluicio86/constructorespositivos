@@ -67,7 +67,10 @@
             <nuxt-link to="#" v-scroll-to="'#ubicar'">
               <div class="card_home arrow">
                 <figure>
-                  <img src="../assets/images/paso1.jpg" />
+                  <img
+                    alt="Encuentra la casa de tus sueños"
+                    src="../assets/images/paso4.jpg"
+                  />
                 </figure>
                 <div class="foot_card">
                   <h3>ENCUENTRA LA CASA</h3>
@@ -81,7 +84,10 @@
             <nuxt-link to="/visyvip">
               <div class="card_home arrow">
                 <figure>
-                  <img src="../assets/images/paso4.jpg" />
+                  <img
+                    alt="Viviendad de interés social y público"
+                    src="../assets/images/paso1.jpg"
+                  />
                 </figure>
                 <div class="foot_card">
                   <h3>PROYECTOS VIS Y VIP</h3>
@@ -94,7 +100,10 @@
             <nuxt-link to="/calculadorafinanciera">
               <div class="card_home arrow">
                 <figure>
-                  <img src="../assets/images/paso2.jpg" />
+                  <img
+                    alt="Calculadoras de créditos"
+                    src="../assets/images/paso2.jpg"
+                  />
                 </figure>
                 <div class="foot_card">
                   <h3>CALCULA TU CRÉDITO</h3>
@@ -106,7 +115,12 @@
           <div class="col-md-3 col-sm-12">
             <nuxt-link to="/insumos">
               <div class="card_home">
-                <figure><img src="../assets/images/paso3.jpg" /></figure>
+                <figure>
+                  <img
+                    alt="Encuentra material y acabados para la construccion"
+                    src="../assets/images/paso3.jpg"
+                  />
+                </figure>
                 <div class="foot_card">
                   <h3>ENCUENTRA MATERIALES</h3>
                   <h4>Y ACABADOS PARA LA CONTRUCCIÓN</h4>

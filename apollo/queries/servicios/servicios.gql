@@ -1,0 +1,14 @@
+query servicios($id: ID!) {
+  categoryServicios(where: { id: $id }) {
+    categoria
+    servicios(sort: "nombre:asc") {
+      id
+      nombre
+      web
+      telefono
+      imagen_servicio {
+        url
+      }
+    }
+  }
+}

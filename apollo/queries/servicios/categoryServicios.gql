@@ -1,0 +1,6 @@
+query {
+  categoryServicios(sort: "categoria") {
+    id
+    categoria
+  }
+}

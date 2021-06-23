@@ -1,0 +1,14 @@
+query servicios {
+  servicios(sort: "nombre:asc") {
+    id
+    nombre
+    category_servicios{
+      categoria
+    }
+    imagen_servicio {
+      url
+    }
+    web
+    telefono
+  }
+}

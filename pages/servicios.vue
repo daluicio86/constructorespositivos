@@ -4,7 +4,7 @@
       <img src="../assets/images/banner_insumos.jpg" />
     </div>
     <div id="header">
-      <h1>TODO LO QUE NECESITAS</h1>
+      <h1>PROVEEDORES DE SERVICIOS</h1>
       <h2>PARA LA CONSTRUCCIÓN</h2>
     </div>
     <div class="container">
@@ -44,14 +44,15 @@
         <div v-if="proovedores_resultado" class="proveedores_container">
           <h4>{{ categoria.categoria }}</h4>
           <div id="proveedores_resultado">
-            <proveedores
+            <proveedoresServicios
               v-for="(proveedor, index) in servicios_obj"
               :key="index"
               :image="proveedor.imagen_servicio.url"
               :website="proveedor.web"
               :telefono="proveedor.telefono"
               :nombre_empresa="proveedor.nombre"
-            ></proveedores>
+              :ciudad="proveedor.ciudad"
+            ></proveedoresServicios>
           </div>
         </div>
         <div class="no-result" v-if="noresults">
@@ -78,6 +79,9 @@
                 <span v-if="verproveedores" class="proveedor-categoria">{{
                   proveedor.category_servicio.categoria
                 }}</span>
+                <span class="proveedor-ciudad">{{
+                  proveedor.ciudadcategoria
+                }}</span>
                 <span class="proveedor-sitio"
                   ><a
                     @click="
@@ -98,6 +102,9 @@
             </div>
           </div>
         </div>
+        <button class="registra_servicios">
+          REGISTRA Y PUBLICA TUS SERVICIOS
+        </button>
       </section>
     </div>
     <section>
@@ -111,12 +118,12 @@ import footerPage from "~/components/footer";
 import categoryServicios from "~/apollo/queries/servicios/categoryServicios";
 import servicios from "~/apollo/queries/servicios/servicios";
 import todosServicios from "~/apollo/queries/servicios/Todosservicios";
-import proveedores from "~/components/proveedores";
+import proveedoresServicios from "~/components/proveedoresServicios";
 
 export default {
   components: {
     footerPage,
-    proveedores
+    proveedoresServicios
   },
   data() {
     return {
@@ -365,6 +372,11 @@ export default {
 }
 .proveedor-tel a {
   color: #5e5e5e;
+}
+.registra_servicios {
+  display: block;
+  margin: 0 auto;
+  background: #5e5e5e !important;
 }
 @media (max-width: 767px) {
   #header h1 {

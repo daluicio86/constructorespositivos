@@ -75,6 +75,9 @@
                   "
                 />
                 <span class="proveedor-nombre">{{ proveedor.nombre }}</span>
+                <span v-if="verproveedores" class="proveedor-categoria">{{
+                  proveedor.category_servicio.categoria
+                }}</span>
                 <span class="proveedor-sitio"
                   ><a
                     @click="

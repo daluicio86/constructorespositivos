@@ -2,7 +2,7 @@ query servicios {
   servicios(sort: "nombre:asc") {
     id
     nombre
-    category_servicios{
+    category_servicio {
       categoria
     }
     imagen_servicio {

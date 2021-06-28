@@ -84,4 +84,7 @@ figure img {
   text-decoration: underline;
   cursor: pointer;
 }
+.ciudad {
+  font-weight: bold;
+}
 </style>

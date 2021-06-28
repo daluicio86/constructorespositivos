@@ -47,7 +47,7 @@
             <proveedores
               v-for="(proveedor, index) in insumos_obj"
               :key="index"
-              :image="proveedor.logo.url"
+              :image="proveedor.logo[0].url"
               :website="proveedor.website"
               :telefono="proveedor.telefono"
               :nombre_empresa="proveedor.nombre_empresa"
@@ -71,7 +71,7 @@
               >
                 <img
                   :src="
-                    `https://strapi.constructorespositivos.com${proveedor.logo.url}`
+                    `https://strapi.constructorespositivos.com${proveedor.logo[0].url}`
                   "
                 />
                 <span class="proveedor-nombre">{{

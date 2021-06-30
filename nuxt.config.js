@@ -5,7 +5,8 @@ module.exports = {
 
   env: {
     strapiBaseUri: process.env.API_URL || "https://strapi.constructorespositivos.com/graphql",
-    baseURL: "https://strapi.constructorespositivos.com"
+    baseURL: "https://strapi.constructorespositivos.com",
+    strapiJwt: process.env.STRAPI_JWT || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjI0ODM0ODU0LCJleHAiOjE2Mjc0MjY4NTR9.f92_JmR40Xq4VIBFJGpvEk9i4mK8874zgFYZ3uUu2gM",
   },
   head: {
     title: 'Constructores Positivos',
@@ -35,7 +36,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    transpile: [/^vue2-google-maps($|\/)/],
+    transpile: ['vee-validate', /^vue2-google-maps($|\/)/],
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -43,7 +44,10 @@ module.exports = {
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
-        })
+        });
+        config.node = {
+          fs: 'empty'
+        }
       }
     }
   },

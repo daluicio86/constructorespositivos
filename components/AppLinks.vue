@@ -15,11 +15,14 @@
       <li class="nav-item">
         <nuxt-link to="/insumos">MATERIALES PARA LA REMODELACIÓN</nuxt-link>
       </li>
+      <!-- <li class="nav-item">
+        <nuxt-link to="/servicios">SERVICIOS</nuxt-link>
+      </li> -->
       <li class="nav-item">
         <nuxt-link to="/quienes_somos">QUIENES SOMOS</nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/blog">BLOG Y NOTICIAS</nuxt-link>
+        <nuxt-link to="/blog">BLOG</nuxt-link>
       </li>
     </ul>
   </div>
@@ -32,13 +35,13 @@
   margin: 0;
 }
 .nav-item {
-  margin: 0 10px;
+  margin: 0 5px;
 }
 .nav-item a {
   text-decoration: none;
   color: #aa381a;
-  border: 1px solid #aa381a;
-  padding: 2px 10px;
+  /* border: 1px solid #aa381a; */
+  padding: 2px 5px;
   border-radius: 8px;
   font-size: 13px;
 }

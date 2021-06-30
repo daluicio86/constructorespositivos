@@ -102,7 +102,7 @@
             </div>
           </div>
         </div>
-        <button class="registra_servicios">
+        <button @click="openLoginServicios" class="registra_servicios">
           REGISTRA Y PUBLICA TUS SERVICIOS
         </button>
       </section>
@@ -202,6 +202,9 @@ export default {
         eventLabel: label
       });
       window.open(link, "_blank");
+    },
+    openLoginServicios() {
+      this.$router.push("/authentication/login");
     }
   }
 };

@@ -1,0 +1,7 @@
+mutation updateServicio($input: updateServicioInput!) {
+  updateServicio(input: $input) {
+    servicio{
+      id
+    }
+  }
+}

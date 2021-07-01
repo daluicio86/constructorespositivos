@@ -222,8 +222,14 @@
                     </b-form-checkbox>
                   </b-form-group>
 
+                  <!---------------------------------------------------------- Button SUBMIT -->
                   <div class="smallcontainer">
-                    <b-button @click="doRegister">ACEPTAR</b-button><br />
+                    <b-button v-if="!hasPreviousData" @click="doRegister"
+                      >CREAR</b-button
+                    ><br />
+                    <b-button v-if="hasPreviousData" @click="doUpdate"
+                      >ACTUALIZAR</b-button
+                    ><br />
 
                     <!-- Alerta Signup Success -->
                     <b-alert
@@ -269,7 +275,6 @@
                       @dismissed="dismissCountDownAxios = 0"
                       @dismiss-count-down="countDownAxiosChanged"
                     >
-                      <!-- p>Error: {{axiosError.message}}</p -->
                       <b-progress
                         variant="danger"
                         :max="dismissSecs"
@@ -280,6 +285,47 @@
                   </div>
                 </td>
                 <td style="padding:50px">
+                  <div>
+                    <!-- Observaciones -->
+                    <validation-provider
+                      v-slot="{ errors, valid }"
+                      name="Observacion"
+                      rules="required"
+                      v-if="hasPreviousData"
+                    >
+                      <b-form-group label="Observaciones">
+                        <b-form-textarea
+                          id="textarea"
+                          v-model="observacion"
+                          placeholder="Enter something..."
+                          rows="3"
+                          max-rows="6"
+                          :disabled="true"
+                        ></b-form-textarea>
+                        <b-form-invalid-feedback :state="valid">
+                          <span v-for="(error, index) in errors" :key="index">{{
+                            error
+                          }}</span>
+                        </b-form-invalid-feedback>
+                      </b-form-group>
+                    </validation-provider>
+
+                    <!-- APROBADO -->
+                    <b-form-group v-if="hasPreviousData">
+                      <b-form-checkbox
+                        id="checkbox-aprobado"
+                        v-model="aprobado"
+                        name="captcha-2"
+                        value="true"
+                        unchecked-value="false"
+                        switch
+                        size="lg"
+                        :disabled="true"
+                      >
+                        <p>Estado: {{ aprobado ? "ABROBADO" : "NEGADO" }}</p>
+                      </b-form-checkbox>
+                    </b-form-group>
+                  </div>
                   <!-- FILES --->
                   <div class="large-12 medium-12 small-12 cell">
                     <table>
@@ -317,37 +363,30 @@
     </section>
   </section>
 </template>
-
 <script>
 import footerPage from "~/components/footer";
 import categoryServicios from "~/apollo/queries/servicios/categoryServicios";
 import servicios from "~/apollo/queries/servicios/servicios";
 import todosServicios from "~/apollo/queries/servicios/Todosservicios";
 import proveedoresServicios from "~/components/proveedoresServicios";
-
 // Graphql queries/mutations
 import createServicio from "~/apollo/mutations/servicios/createServicio";
 import updateServicio from "~/apollo/mutations/servicios/updateServicio";
+import servicioByUserId from "~/apollo/queries/servicios/servicioByUserId";
 import upload from "~/apollo/mutations/upload/upload";
-
+import getFile from "~/apollo/queries/upload/getFile";
 import { extend, setInteractionMode, ValidationProvider } from "vee-validate";
 import { required, max, email } from "vee-validate/dist/rules";
-import axios from "axios";
 import { mapMutations } from "vuex";
-import { gql } from "@nuxtjs/apollo";
-
 setInteractionMode("eager");
-
 extend("required", {
   ...required,
   message: "{_field_} no puede estar en vacio"
 });
-
 extend("email", {
   ...email,
   message: "{_field_} debe ser un correo electrónico válido"
 });
-
 export default {
   name: "service-register",
   components: {
@@ -373,8 +412,9 @@ export default {
       web: "",
       ciudad: "",
       direccion: "",
-      aptcha: false,
       selected: "first",
+      observacion: "",
+      aprobado: false,
       proovedores_resultado: false,
       servicios_obj: { logo: { url: "" } },
       servicios_todos: "",
@@ -390,8 +430,55 @@ export default {
       file: null,
       imageUrl: null,
       servicioId: 0,
-      uploadId: 0
+      uploadId: 0,
+      hasPreviousData: false,
+      oldService: null,
+      oldFile: null
     };
+  },
+  created() {},
+  async mounted() {
+    try {
+      var preData = await this.$apollo.queries.servicioByUserId.refetch();
+      this.oldService = preData.data.servicios[0];
+      console.log(`this.oldService-->${JSON.stringify(this.oldService)}`);
+      this.hasPreviousData =
+        Object.keys(this.oldService).length != 0 ? true : false;
+
+      // si no hay datos previos retorno
+      if (!this.hasPreviousData) return;
+
+      this.$apollo.queries.servicios.skip = false;
+      const result = await this.$apollo.queries.categoryServicios.refetch();
+      var categoryList = await result.data.categoryServicios;
+
+      this.servicioId = this.oldService.id;
+      this.nombre = this.oldService.nombre;
+      this.descripcion = this.oldService.resumen_descripcion;
+      this.telefono = this.oldService.telefono;
+      this.email = this.oldService.email;
+      this.web = this.oldService.web;
+      this.ciudad = this.oldService.ciudad;
+      this.direccion = this.oldService.direccion;
+      this.observacion = this.oldService.observacion;
+      this.aprobado =
+        this.oldService.aprobado == null ? false : this.oldService.aprobado;
+      this.categoria = {
+        id: this.oldService.category_servicio.id,
+        categoria: categoryList.find(
+          x => x.id == this.oldService.category_servicio.id
+        ).categoria
+      };
+
+      // Obtengo Imagen
+      this.uploadId = this.oldService.imagen_servicio.id;
+      this.$apollo.queries.getFile.skip = false;
+      var preData2 = await this.$apollo.queries.getFile.refetch();
+      this.imageUrl = process.env.baseURL + `${preData2.data.files[0].url}`;
+      // console.log(`this.imageUrl-->${this.imageUrl}`);
+    } catch (err) {
+      console.log(`err-->${JSON.stringify(err)}`);
+    }
   },
   apollo: {
     categoryServicios: {
@@ -406,7 +493,7 @@ export default {
       prefetch: false,
       query: servicios,
       variables() {
-        return { id: this.categoria.id };
+        return { id: parseInt(this.loggedUser.id) };
       },
       skip() {
         return this.skipQuery;
@@ -418,10 +505,34 @@ export default {
       skip() {
         return this.skipQuery;
       }
+    },
+    servicioByUserId: {
+      prefetch: false,
+      query: servicioByUserId,
+      variables() {
+        return { id: parseInt(this.loggedUser.id) };
+      }
+      //      result({ data, loading, networkStatus }) {
+      //        const dataIsReady = data && networkStatus === 7;
+      //        if (dataIsReady) {
+      //          console.log(`data-->${JSON.stringify(data)}`);
+      //          this.oldService =data
+      //          //  this.loading = false;
+      //        }
+      //      }
+    },
+    getFile: {
+      prefetch: false,
+      query: getFile,
+      variables() {
+        return { id: parseInt(this.uploadId) };
+      }
     }
   },
   methods: {
     async doRegister() {
+      // Verificar si ya existe registro
+
       // creando servicio
       console.log("Registering servicio...");
 
@@ -484,9 +595,85 @@ export default {
         console.error(error);
       }
     },
+    async doUpdate() {
+      // actualizando servicio
+      console.log("Updating servicio...");
+
+      if (
+        this.categoria === null ||
+        this.nombre.length == 0 ||
+        this.descripcion.length == 0 ||
+        this.telefono.length == 0 ||
+        this.email.length == 0 ||
+        this.web.length == 0 ||
+        this.ciudad.length == 0 ||
+        this.direccion.length == 0 ||
+        !this.captcha
+      ) {
+        this.dismissCountDown = this.dismissSecs;
+        return;
+      }
+
+      const input = {
+        where: { id: this.servicioId },
+        data: {
+          nombre: this.nombre,
+          telefono: this.telefono,
+          resumen_descripcion: this.descripcion,
+          web: this.web,
+          category_servicio: this.categoria.id,
+          ciudad: this.ciudad,
+          direccion: this.direccion,
+          email: this.email
+        }
+      };
+
+      try {
+        var result = await this.$apollo.mutate({
+          mutation: updateServicio,
+          variables: {
+            input: input
+          }
+        });
+
+        // Verifico si hay errores
+        if (result.data.graphQLErrors) {
+          if (result.data.networkError) {
+            this.axiosError[id] =
+              result.data.networkError.resul.errors[0].extensions.code;
+            this.axiosError[id] =
+              result.data.networkError.resul.errors[0].message;
+          } else {
+            this.axiosError[id] = "0";
+            this.axiosError[id] = "Unknown Error.";
+          }
+          this.dismissCountDownAxios = this.dismissSecs;
+          return;
+        }
+
+        // SI NO ACTUALIZO EL SERVICIO
+        if (!result.data.updateServicio.servicio.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+          return;
+        }
+
+        // SI HA CAMBIADO LA IMAGEN
+        if (!this.imageUrl.includes(`${process.env.baseURL}`)) {
+          console.log("Cambio la imagen");
+          if (await this.uploadFile()) {
+            this.dismissCountDownSignup = this.dismissSecs;
+            return;
+          }
+        }
+
+        this.dismissCountDownSignup = this.dismissSecs;
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async uploadFile() {
-      // console.log(`Uploading file to servicio...`);
-      // console.log(`this.servicioId-->${this.servicioId}`);
+      // console.log(`Uploading file with servicio: ${this.servicioId}`);
+      // console.log(`this.file.name-->${this.file.name}`);
       try {
         var result = await this.$apollo.mutate({
           mutation: upload,
@@ -536,7 +723,7 @@ export default {
     },
     async upateServiceImage() {
       // actualizando image del servicio
-      // console.log("Updating image servicio...");
+      console.log(`Updating image servicio with upload id ${this.uploadId}...`);
 
       const input = {
         where: { id: this.servicioId },
@@ -657,7 +844,6 @@ export default {
       this.imageUrl = null;
     }
   },
-  mounted() {},
   computed: {
     isLogged() {
       if (process.browser) {
@@ -811,7 +997,6 @@ export default {
   border-radius: 5px;
   padding: 6px 20px;
 }
-
 #insumos >>> .vs__selected-options {
   /* position: absolute;
   margin-left: -20px; */
@@ -850,7 +1035,6 @@ export default {
   flex-wrap: wrap;
   width: 400px;
 }
-
 #map {
   text-align: center;
   margin: 30px;
@@ -956,7 +1140,6 @@ button:hover {
 .button:hover {
   background: #3789d3;
 }
-
 input[type="file"] {
   display: none;
 }
@@ -976,7 +1159,6 @@ input[type="file"] {
   padding: 2px 10px;
   min-height: 300px;
 }
-
 #preview img {
   max-width: 100%;
   max-height: 300px;

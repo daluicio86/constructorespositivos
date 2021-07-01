@@ -200,7 +200,6 @@ export default {
         // console.error(error);
       }
     },
-
     getLatLongMap() {
       var map = this.$refs.gMap.map;
       var pos = this.$refs.gMap.map.getCenter();

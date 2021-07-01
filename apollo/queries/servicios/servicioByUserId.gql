@@ -1,0 +1,20 @@
+query servicioByUserId($id: ID!) {
+  servicios(where: { users: { id: $id } }) {
+    id
+    nombre
+    telefono
+    resumen_descripcion
+    web
+    aprobado
+    ciudad
+    direccion
+    observacion
+    email
+    imagen_servicio {
+      id
+    }
+    category_servicio {
+      id
+    }
+  }
+}

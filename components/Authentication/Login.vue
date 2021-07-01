@@ -40,6 +40,7 @@
               type="password"
               v-model="password"
               required
+              autocomplete="on"
             ></b-form-input>
             <b-form-invalid-feedback :state="valid">
               <span v-for="(error, index) in errors" :key="index">{{
@@ -119,19 +120,28 @@
 
 <script>
 //  import { Component, Vue } from 'vue-property-decorator'
+
 import { extend, setInteractionMode, ValidationProvider } from "vee-validate";
 import { required, max, email } from "vee-validate/dist/rules";
-import axios from "axios";
+//  import axios from "axios";
 import { mapMutations } from "vuex";
+
+// Graphql Imports
+import getUser from "~/apollo/queries/authentication/getUser";
+import login from "~/apollo/mutations/authentication/login";
+
 setInteractionMode("eager");
+
 extend("required", {
   ...required,
-  message: "{_field_} no puede estar en vacio"
+  message: "{field} no puede estar en vacio"
 });
+
 extend("email", {
   ...email,
-  message: "{_field_} debe ser un correo electrónico válido"
+  message: "{field} debe ser un correo electrónico válido"
 });
+
 export default {
   name: "login",
   components: {
@@ -191,135 +201,191 @@ export default {
     async validateCredentials() {
       // Validando credenciales
       try {
-        var strapiToken = "Bearer " + process.env.strapiJwt;
-        var result = await axios({
-          method: "POST",
-          url: `${process.env.strapiBaseUri}`,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authentication: `${strapiToken}`
-          },
-          data: {
-            query: `mutation($identifier: String!, $password: String!) {
-                          login(input: {identifier: $identifier, password: $password, provider: "local"}) {
-                              jwt,
-                              user{
-                                username
-                                email
-                                id
-                                role{
-                                  name
-                                  description
-                                }
-                              }
-                          }
-                      }`,
+        //          var strapiToken='Bearer ' + process.env.strapiJwt;
+        //          var result = await axios({
+        //            method: "POST",
+        //            url: `${process.env.strapiBaseUri}`,
+        //            headers: {
+        //              "Access-Control-Allow-Origin": "*",
+        //              "Accept": "application/json",
+        //              "Content-Type": "application/json",
+        //              "Authentication": `${strapiToken}`,
+        //            },
+        //            data: {
+        //              query: `mutation($identifier: String!, $password: String!) {
+        //                          login(input: {identifier: $identifier, password: $password, provider: "local"}) {
+        //                              jwt,
+        //                              user{
+        //                                username
+        //                                email
+        //                                id
+        //                                role{
+        //                                  name
+        //                                  description
+        //                                }
+        //                              }
+        //                          }
+        //                      }`,
+        //              variables: {
+        //                identifier: this.email,
+        //                password: this.password,
+        //              }
+        //            }
+        //          });
+        //          // Verifico si hay errores
+        //          this.axiosError= await this.$hasAxiosErrors(result.data);
+        //          if (Object.keys(this.axiosError).length != 0) {
+        //            this.dismissCountDownAxios = this.dismissSecs;
+        //            return;
+        //          }
+        try {
+          var result = await this.$apollo.mutate({
+            mutation: login,
             variables: {
               identifier: this.email,
               password: this.password
             }
+          });
+          console.log(`result-->${JSON.stringify(result)}`);
+
+          // Verifico si hay errores
+          if (result.data.graphQLErrors) {
+            if (result.data.networkError) {
+              this.axiosError[id] =
+                result.data.networkError.resul.errors[0].extensions.code;
+              this.axiosError[id] =
+                result.data.networkError.resul.errors[0].message;
+            } else {
+              this.axiosError[id] = "0";
+              this.axiosError[id] = "Unknown Error.";
+            }
+            this.dismissCountDownAxios = this.dismissSecs;
+            return;
           }
-        });
-        // Verifico si hay errores
-        this.axiosError = await this.$hasAxiosErrors(result.data);
-        if (Object.keys(this.axiosError).length != 0) {
-          this.dismissCountDownAxios = this.dismissSecs;
-          return;
-        }
-        // Extract data into user object
-        try {
-          this.user["token"] = result.data.data.login.jwt;
-          this.user["username"] = result.data.data.login.user.username;
-          this.user["id"] = result.data.data.login.user.id;
-          this.user["role"] = result.data.data.login.user.role.name;
-          this.user["email"] = result.data.data.login.user.email;
+
+          // SI NO HIZO LOGIN
+          if (!result.data.login.user.id) {
+            this.dismissCountDownAxios = this.dismissSecs;
+            return;
+          }
+
+          // Extract data into user object
+          this.user["token"] = result.data.login.jwt;
+          this.user["username"] = result.data.login.user.username;
+          this.user["id"] = result.data.login.user.id;
+          this.user["role"] = result.data.login.user.role.name;
+          this.user["email"] = result.data.login.user.email;
           this.loading = false;
+
           // Obtengo datos del usuario
           if (!(await this.getUser())) return;
+
           // Guardo en el almacen global
           if (process.browser) {
             await this.$store.commit("auth/USER_LOGIN", this.user);
             localStorage.setItem("user", JSON.stringify(this.user));
           }
+
           //redirect
           // this.$router.push('/servicios');
           window.location.replace("/");
         } catch (err) {
-          console.log(`Post Axios Error: ${JSON.stringify(err)}`);
-        }
-      } catch (err) {
-        this.axiosError = await this.$hasAxiosErrors(result.data);
-        if (Object.keys(this.axiosError).length != 0) {
-          this.dismissCountDownAxios = this.dismissSecs;
-        }
-        //          console.error(`Axios Error: ${JSON.stringify(err.message)}`);
-      }
-    },
-    async getUser() {
-      // ObteniendoUsuario
-      // var Token='Bearer ' + this.user.token;
-      var strapiToken = "Bearer " + process.env.strapiJwt;
-      try {
-        var result = await axios({
-          method: "POST",
-          url: `${process.env.strapiBaseUri}`,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": true,
-            "Access-Control-Allow-Headers":
-              "Origin,Authorization,Credentials,Content-Type,Accept",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `${strapiToken}`
-          },
-          data: {
-            query: `query($id: ID!) {
-                          user(id: $id) {
-                                firstname
-                                lastname
-                                provider
-                                confirmed
-                                blocked
-                                role{
-                                  id
-                                  name
-                                }
-                          }
-                      }`,
-            variables: {
-              id: this.user.id
-            }
-          }
-        });
-        // Verifico si hay errores
-        this.axiosError = await this.$hasAxiosErrors(result.data);
-        if (Object.keys(this.axiosError).length != 0) {
-          this.dismissCountDownAxios = this.dismissSecs;
-          return false;
-        }
-        try {
-          this.user["firstname"] = result.data.data.user.firstname;
-          this.user["lastname"] = result.data.data.user.lastname;
-          this.user["blocked"] = result.data.data.user.blocked;
-          this.user["confirmed"] = result.data.data.user.confirmed;
-          this.user["provider"] = result.data.data.user.provider;
-          this.loading = false;
-          return true;
-        } catch (err) {
-          console.log(`Post axios error: ${JSON.stringify(err)}`);
+          console.log(`Post Axios Error: ${err.message}`);
         }
       } catch (err) {
         this.axiosError = await this.$hasAxiosErrors(err);
         if (Object.keys(this.axiosError).length != 0) {
           this.dismissCountDownAxios = this.dismissSecs;
         }
-        //          console.error(`Axios Error: ${JSON.stringify(err)}`);
+      }
+    },
+    async getUser() {
+      // ObteniendoUsuario
+      // var Token='Bearer ' + this.user.token;
+
+      try {
+        //          var strapiToken='Bearer ' + process.env.strapiJwt;
+        //          var result = await axios({
+        //            method: "POST",
+        //            url: `${process.env.strapiBaseUri}`,
+        //            headers: {
+        //              "Access-Control-Allow-Origin": "*",
+        //              "Access-Control-Allow-Credentials": true,
+        //              "Access-Control-Allow-Headers": "Origin,Authorization,Credentials,Content-Type,Accept",
+        //              "Accept": "application/json",
+        //              "Content-Type": "application/json",
+        //              "Authorization": `${strapiToken}`,
+        //            },
+        //            data: {
+        //              query: `query($id: ID!) {
+        //                          user(id: $id) {
+        //                                firstname
+        //                                lastname
+        //                                provider
+        //                                confirmed
+        //                                blocked
+        //                                role{
+        //                                  id
+        //                                  name
+        //                                }
+        //                          }
+        //                      }`,
+        //              variables: {
+        //                id: this.user.id,
+        //              }
+        //            }
+        //          });
+        //          // Verifico si hay errores
+        //          this.axiosError= await this.$hasAxiosErrors(result.data);
+        //          if (Object.keys(this.axiosError).length != 0) {
+        //            this.dismissCountDownAxios = this.dismissSecs;
+        //            return false;
+        //          }
+
+        this.$apollo.queries.getUser.skip = false;
+        const result = await this.$apollo.queries.getUser.refetch();
+        console.log(`result-->${JSON.stringify(result)}`);
+
+        // SI NO OBTUVO USER
+        if (!result.data.user.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+          return;
+        }
+
+        //OK
+        this.user["firstname"] = result.data.user.firstname;
+        this.user["lastname"] = result.data.user.lastname;
+        this.user["blocked"] = result.data.user.blocked;
+        this.user["confirmed"] = result.data.user.confirmed;
+        this.user["provider"] = result.data.user.provider;
+        this.loading = false;
+        return true;
+      } catch (err) {
+        console.log(err.message);
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (Object.keys(this.axiosError).length != 0) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
       }
     }
   },
-  apollo: {}
+  apollo: {
+    getUser: {
+      prefetch: false,
+      query: getUser,
+      variables() {
+        return { id: parseInt(this.user.id) };
+      }
+      //      result({ data, loading, networkStatus }) {
+      //        const dataIsReady = data && networkStatus === 7;
+      //        if (dataIsReady) {
+      //          console.log(`data-->${JSON.stringify(data)}`);
+      //          this.oldService =data
+      //          //  this.loading = false;
+      //        }
+      //      }
+    }
+  }
 };
 </script>
 
@@ -337,8 +403,8 @@ export default {
 }
 .smallcontainer {
   margin: 10px;
-  /*min-height: 5vh;*/
-  display: flex;
+  /min-height: 5vh;
+  /display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -363,8 +429,8 @@ export default {
   border: 1px solid #707070;
   padding: 0 0 0 10px;
   border-radius: 15px;
-  /*margin-top: 10px;*/
-  display: flex;
+  /margin-top: 10px;
+  /display: flex;
   flex: 0 0 50%;
   flex-wrap: wrap;
   width: 400px;
@@ -401,6 +467,7 @@ export default {
   color: #35495e;
   letter-spacing: 1px;
 }
+
 .subtitle {
   font-weight: 300;
   font-size: 38px;
@@ -408,6 +475,7 @@ export default {
   word-spacing: 5px;
   padding-bottom: 10px;
 }
+
 .links {
   padding-top: 15px;
 }
@@ -485,15 +553,16 @@ button:hover {
 .nav-item a {
   text-decoration: none;
   color: #aa381a;
-  /*border: 1px solid #aa381a;*/
-  padding: 2px 10px;
-  /*border-radius: 8px;*/
-  font-size: 13px;
+  /border: 1px solid #aa381a;
+  /padding: 2px 10px;
+  /border-radius: 8px;
+  /font-size: 13px;
 }
 .nav-item a:hover,
 .nav-item a:active {
   color: #3789d3;
 }
+
 #ubicar button {
   background: rgb(247, 99, 46);
   background: radial-gradient(
@@ -518,6 +587,7 @@ button:hover {
   font-weight: 300;
   padding-left: 10px;
 }
+
 #ubicar h2 {
   color: #5e5e5e;
   text-align: center;

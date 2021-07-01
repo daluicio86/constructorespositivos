@@ -1,0 +1,14 @@
+query getUser($id: ID!) {
+  user(id: $id) {
+    id
+    firstname
+    lastname
+    provider
+    confirmed
+    blocked
+    role {
+      id
+      name
+    }
+  }
+}

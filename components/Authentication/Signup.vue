@@ -341,7 +341,11 @@ export default {
           console.log(err);
         }
       } catch (error) {
-        console.error(error);
+        this.axiosError = await this.$hasAxiosErrors(error);
+        if (Object.keys(this.axiosError).length != 0) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
+        //        console.error(error);
       }
     },
     async doSignup() {
@@ -391,6 +395,11 @@ export default {
             }
           }
         });
+        this.axiosError = await this.$hasAxiosErrors(result.data);
+        if (Object.keys(this.axiosError).length != 0) {
+          this.dismissCountDownAxios = this.dismissSecs;
+          return;
+        }
         try {
           this.userId = result.data.data.createUser.user.id;
           this.loading = false;
@@ -398,7 +407,11 @@ export default {
           console.log(err);
         }
       } catch (error) {
-        console.error(error);
+        this.axiosError = await this.$hasAxiosErrors(error);
+        if (Object.keys(this.axiosError).length != 0) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
+        //        console.error(error);
       }
     },
     countDownChanged(dismissCountDown) {

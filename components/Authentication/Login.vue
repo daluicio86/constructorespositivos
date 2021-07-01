@@ -287,8 +287,8 @@ export default {
           }
 
           //redirect
-          // this.$router.push('/servicios');
-          window.location.replace("/");
+          this.$router.push("/servicio/registro");
+          // window.location.replace("/");
         } catch (err) {
           console.log(`Post Axios Error: ${err.message}`);
         }

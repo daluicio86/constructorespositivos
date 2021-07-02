@@ -1,9 +1,9 @@
 mutation(
-  $refId: ID!,
-  $ref: String!,
-  $field: String!,
-  $source: String!,
-  $info: FileInfoInput!,
+  $refId: ID,
+  $ref: String,
+  $field: String,
+  $source: String,
+  $info: FileInfoInput,
   $file: Upload!
 )
 {

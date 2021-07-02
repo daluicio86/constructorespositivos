@@ -161,7 +161,7 @@
               @dismissed="dismissCountDownSignup = 0"
               @dismiss-count-down="countDownChangedSignup"
             >
-              <p>Se ha registrado correctamente...</p>
+              <p>Se ha registrado correctamente,<br>se le envi&oacute; un correo electr&oacute;nico para su validaci&oacute;n.</p>
               <b-progress
                 variant="success"
                 :max="dismissSecs"
@@ -230,9 +230,16 @@
 <script>
 import { extend, setInteractionMode, ValidationProvider } from "vee-validate";
 import { required, max, email } from "vee-validate/dist/rules";
-import axios from "axios";
+//import axios from "axios";
 import { mapMutations } from "vuex";
+
+import isEmpty from 'lodash';
+
+// Graphql Imports
+import register from "~/apollo/mutations/authentication/register";
+
 setInteractionMode("eager");
+
 extend("required", {
   ...required,
   message: "{_field_} no puede estar en vacio"
@@ -295,125 +302,104 @@ export default {
     },
     async registerUser() {
       // creando usuario
-      var strapiToken = "Bearer " + process.env.strapiJwt;
       try {
-        var result = await axios({
-          method: "POST",
-          url: `${process.env.strapiBaseUri}`,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `${strapiToken}`
-          },
-          data: {
-            query: `mutation($username: String!, $email: String!, $password: String!) {
-                          register(input: {username: $username, email: $email, password: $password,}) {
-                              jwt,
-                              user{
-                                username
-                                email
-                                id
-                              }
-                          }
-                      }`,
-            variables: {
-              username: this.username,
-              email: this.email,
-              password: this.password
-            }
+
+        const input = {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        };
+
+
+        var result = await this.$apollo.mutate({
+          mutation: register,
+          variables: {
+            input: input
           }
         });
-        // Verifico si hay errores
-        this.axiosError = await this.$hasAxiosErrors(result.data);
-        if (Object.keys(this.axiosError).length != 0) {
+
+        // SI NO CREO EL USER
+        if (!result.data.register.user.id) {
           this.dismissCountDownAxios = this.dismissSecs;
           return;
         }
-        try {
-          this.userId = result.data.data.register.user.id;
-          this.loading = false;
-          //redirect
-          //this.$router.push('/');
-          // mensaje Success
-          this.dismissCountDownSignup = 3;
-        } catch (err) {
-          console.log(err);
-        }
-      } catch (error) {
-        this.axiosError = await this.$hasAxiosErrors(error);
-        if (Object.keys(this.axiosError).length != 0) {
+
+        this.dismissCountDownSignup = this.dismissSecs;
+
+      } catch (err) {
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
           this.dismissCountDownAxios = this.dismissSecs;
         }
-        //        console.error(error);
       }
+
     },
-    async doSignup() {
-      if (
-        this.email.length == 0 ||
-        this.password.length == 0 ||
-        this.password2.length == 0 ||
-        !this.captcha ||
-        this.firstName.length == 0 ||
-        this.lastName.length == 0
-      ) {
-        this.dismissCountDown = this.dismissSecs;
-        return;
-      }
-      if (this.password != this.password2) {
-        this.dismissCountDownPassword = this.dismissSecs;
-        return;
-      }
-      this.createUser();
-    },
-    async createUser() {
-      // creando usuario
-      console.log(`Creando usuario en : ${process.env.strapiBaseUri}`);
-      try {
-        var result = await axios({
-          method: "POST",
-          url: `${process.env.strapiBaseUri}`,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-          data: {
-            query: `mutation($username: String!, $email: String!, $firstname: String!, $lastname: String!, $password: String!) {
-                          createUser(input: {data:{username: $username, email: $email,firstname: $firstname, lastname:$lastname, password: $password, provider: "local",}}) {
-                              user{
-                                id
-                              }
-                          }
-                      }`,
-            variables: {
-              username: this.email.split("@")[0],
-              email: this.email,
-              password: this.password,
-              firstname: this.firstName,
-              lastname: this.lastName
-            }
-          }
-        });
-        this.axiosError = await this.$hasAxiosErrors(result.data);
-        if (Object.keys(this.axiosError).length != 0) {
-          this.dismissCountDownAxios = this.dismissSecs;
-          return;
-        }
-        try {
-          this.userId = result.data.data.createUser.user.id;
-          this.loading = false;
-        } catch (err) {
-          console.log(err);
-        }
-      } catch (error) {
-        this.axiosError = await this.$hasAxiosErrors(error);
-        if (Object.keys(this.axiosError).length != 0) {
-          this.dismissCountDownAxios = this.dismissSecs;
-        }
-        //        console.error(error);
-      }
-    },
+//    async doSignup() {
+//      if (
+//        this.email.length == 0 ||
+//        this.password.length == 0 ||
+//        this.password2.length == 0 ||
+//        !this.captcha ||
+//        this.firstName.length == 0 ||
+//        this.lastName.length == 0
+//      ) {
+//        this.dismissCountDown = this.dismissSecs;
+//        return;
+//      }
+//      if (this.password != this.password2) {
+//        this.dismissCountDownPassword = this.dismissSecs;
+//        return;
+//      }
+//      this.createUser();
+//    },
+//    async createUser() {
+//      // creando usuario
+//      console.log(`Creando usuario en : ${process.env.strapiBaseUri}`);
+//      try {
+//        var result = await axios({
+//          method: "POST",
+//          url: `${process.env.strapiBaseUri}`,
+//          headers: {
+//            "Access-Control-Allow-Origin": "*",
+//            Accept: "application/json",
+//            "Content-Type": "application/json"
+//          },
+//          data: {
+//            query: `mutation($username: String!, $email: String!, $firstname: String!, $lastname: String!, $password: String!) {
+//                          createUser(input: {data:{username: $username, email: $email,firstname: $firstname, lastname:$lastname, password: $password, provider: "local",}}) {
+//                              user{
+//                                id
+//                              }
+//                          }
+//                      }`,
+//            variables: {
+//              username: this.email.split("@")[0],
+//              email: this.email,
+//              password: this.password,
+//              firstname: this.firstName,
+//              lastname: this.lastName
+//            }
+//          }
+//        });
+//        this.axiosError = await this.$hasAxiosErrors(result.data);
+//        if (Object.keys(this.axiosError).length != 0) {
+//          this.dismissCountDownAxios = this.dismissSecs;
+//          return;
+//        }
+//        try {
+//          this.userId = result.data.data.createUser.user.id;
+//          this.loading = false;
+//        } catch (err) {
+//          console.log(err);
+//        }
+//      } catch (error) {
+//        this.axiosError = await this.$hasAxiosErrors(error);
+//        if (Object.keys(this.axiosError).length != 0) {
+//          this.dismissCountDownAxios = this.dismissSecs;
+//        }
+//        //        console.error(error);
+//      }
+//    },
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
     },
@@ -425,7 +411,7 @@ export default {
     },
     countDownChangedSignup(dismissCountDown) {
       this.dismissCountDownSignup = dismissCountDown;
-      if (dismissCountDown == 0) this.$router.push("/");
+      if (dismissCountDown == 0) this.$router.push("/authentication/login");
     },
     showAlert(message) {
       this.message = message;

@@ -1,12 +1,13 @@
 query servicios($id: ID!) {
   categoryServicios(where: { id: $id }) {
     categoria
-    servicios(sort: "nombre:asc") {
+    servicios(sort: "nombre:asc", where: { aprobado: true }) {
       id
       nombre
       web
       telefono
       ciudad
+      aprobado
       imagen_servicio {
         url
       }

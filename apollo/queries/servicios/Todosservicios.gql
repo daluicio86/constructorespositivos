@@ -1,5 +1,5 @@
 query servicios {
-  servicios(sort: "nombre:asc") {
+  servicios(sort: "nombre:asc", where: { aprobado: true }) {
     id
     nombre
     category_servicio {

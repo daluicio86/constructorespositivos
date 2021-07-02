@@ -1,7 +1,7 @@
 <template>
   <section class="cont">
     <div class="banner">
-      <img src="../../assets/images/banner_insumos.jpg" />
+      <img src="../../assets/images/banner_servicios.jpg" />
     </div>
     <div id="header">
       <h1>REGISTRO DE SERVICIOS</h1>
@@ -77,14 +77,25 @@
                     rules="required"
                   >
                     <b-form-group>
-                      <b-form-input
+                      <!-- b-form-input
                         class="element"
                         id="descripcion-input"
                         placeholder="* Descripción del servicio que presta"
                         v-model="descripcion"
                         type="text"
                         required
-                      ></b-form-input>
+                      ></b-form-input -->
+
+                      <b-form-textarea
+                        id="descripcion-input"
+                        class="element"
+                        v-model="descripcion"
+                        placeholder="* Descripción del servicio que presta"
+                        rows="6"
+                        max-rows="6"
+                        required
+                      ></b-form-textarea>
+
                       <b-form-invalid-feedback :state="valid">
                         <span v-for="(error, index) in errors" :key="index">{{
                           error
@@ -441,7 +452,6 @@ export default {
     try {
       var preData = await this.$apollo.queries.servicioByUserId.refetch();
       this.oldService = preData.data.servicios[0];
-      console.log(`this.oldService-->${JSON.stringify(this.oldService)}`);
       this.hasPreviousData =
         Object.keys(this.oldService).length != 0 ? true : false;
 
@@ -478,6 +488,10 @@ export default {
       // console.log(`this.imageUrl-->${this.imageUrl}`);
     } catch (err) {
       console.log(`err-->${JSON.stringify(err)}`);
+      this.axiosError = await this.$hasAxiosErrors(err);
+      if (this.axiosError.id) {
+        this.dismissCountDownAxios = this.dismissSecs;
+      }
     }
   },
   apollo: {
@@ -564,21 +578,6 @@ export default {
           }
         });
 
-        // Verifico si hay errores
-        if (result.data.graphQLErrors) {
-          if (result.data.networkError) {
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].extensions.code;
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].message;
-          } else {
-            this.axiosError[id] = "0";
-            this.axiosError[id] = "Unknown Error.";
-          }
-          this.dismissCountDownAxios = this.dismissSecs;
-          return;
-        }
-
         // SI NO CREO EL SERVICIO
         if (!result.data.createServicio.servicio.id) {
           this.servicioId = 0;
@@ -591,8 +590,11 @@ export default {
         if (await this.uploadFile()) {
           this.dismissCountDownSignup = this.dismissSecs;
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
       }
     },
     async doUpdate() {
@@ -636,21 +638,6 @@ export default {
           }
         });
 
-        // Verifico si hay errores
-        if (result.data.graphQLErrors) {
-          if (result.data.networkError) {
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].extensions.code;
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].message;
-          } else {
-            this.axiosError[id] = "0";
-            this.axiosError[id] = "Unknown Error.";
-          }
-          this.dismissCountDownAxios = this.dismissSecs;
-          return;
-        }
-
         // SI NO ACTUALIZO EL SERVICIO
         if (!result.data.updateServicio.servicio.id) {
           this.dismissCountDownAxios = this.dismissSecs;
@@ -667,8 +654,11 @@ export default {
         }
 
         this.dismissCountDownSignup = this.dismissSecs;
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
       }
     },
     async uploadFile() {
@@ -688,21 +678,6 @@ export default {
           }
         });
 
-        // Verifico si hay errores
-        if (result.data.graphQLErrors) {
-          if (result.data.networkError) {
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].extensions.code;
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].message;
-          } else {
-            this.axiosError[id] = "0";
-            this.axiosError[id] = "Unknown Error.";
-          }
-          this.dismissCountDownAxios = this.dismissSecs;
-          return false;
-        }
-
         // Si no subio nada
         if (!result.data.upload.id) {
           this.uploadId = 0;
@@ -718,7 +693,10 @@ export default {
         }
         return true;
       } catch (error) {
-        console.error(error);
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
       }
     },
     async upateServiceImage() {
@@ -740,21 +718,6 @@ export default {
           }
         });
 
-        // Verifico si hay errores
-        if (result.data.graphQLErrors) {
-          if (result.data.networkError) {
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].extensions.code;
-            this.axiosError[id] =
-              result.data.networkError.resul.errors[0].message;
-          } else {
-            this.axiosError[id] = "0";
-            this.axiosError[id] = "Unknown Error.";
-          }
-          this.dismissCountDownAxios = this.dismissSecs;
-          return;
-        }
-
         // SI NO ACTUALIZO EL SERVICIO
         if (!result.data.updateServicio.servicio.id) {
           this.dismissCountDownAxios = this.dismissSecs;
@@ -762,8 +725,11 @@ export default {
         }
 
         return true;
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
       }
     },
     validData() {
@@ -828,16 +794,23 @@ export default {
     },
     countDownChangedSignup(dismissCountDown) {
       this.dismissCountDownSignup = dismissCountDown;
-      if (dismissCountDown == 0) window.location.replace("/"); //this.$router.push("/");
+      if (dismissCountDown == 0) this.$router.push("/servicios");
     },
     showAlert(message) {
       this.message = message;
       this.dismissCountDown = this.dismissSecs;
     },
     async handleFileUpload() {
-      if (this.$refs.file.files[0] === null) return;
-      this.file = this.$refs.file.files[0];
-      this.imageUrl = URL.createObjectURL(this.file);
+      try {
+        if (this.$refs.file.files[0] === null) return;
+        this.file = this.$refs.file.files[0];
+        this.imageUrl = URL.createObjectURL(this.file);
+      } catch (err) {
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+        }
+      }
     },
     clearImage() {
       this.file = null;

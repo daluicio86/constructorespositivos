@@ -1,7 +1,7 @@
 <template>
   <section class="cont">
     <div class="banner">
-      <img src="../../assets/images/banner1.jpg" />
+      <img src="../../assets/images/banner_servicios.jpg" />
     </div>
     <div class="container pasos">
       <signup-page />

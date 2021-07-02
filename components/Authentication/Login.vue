@@ -201,157 +201,56 @@ export default {
     async validateCredentials() {
       // Validando credenciales
       try {
-        //          var strapiToken='Bearer ' + process.env.strapiJwt;
-        //          var result = await axios({
-        //            method: "POST",
-        //            url: `${process.env.strapiBaseUri}`,
-        //            headers: {
-        //              "Access-Control-Allow-Origin": "*",
-        //              "Accept": "application/json",
-        //              "Content-Type": "application/json",
-        //              "Authentication": `${strapiToken}`,
-        //            },
-        //            data: {
-        //              query: `mutation($identifier: String!, $password: String!) {
-        //                          login(input: {identifier: $identifier, password: $password, provider: "local"}) {
-        //                              jwt,
-        //                              user{
-        //                                username
-        //                                email
-        //                                id
-        //                                role{
-        //                                  name
-        //                                  description
-        //                                }
-        //                              }
-        //                          }
-        //                      }`,
-        //              variables: {
-        //                identifier: this.email,
-        //                password: this.password,
-        //              }
-        //            }
-        //          });
-        //          // Verifico si hay errores
-        //          this.axiosError= await this.$hasAxiosErrors(result.data);
-        //          if (Object.keys(this.axiosError).length != 0) {
-        //            this.dismissCountDownAxios = this.dismissSecs;
-        //            return;
-        //          }
-        try {
-          var result = await this.$apollo.mutate({
-            mutation: login,
-            variables: {
-              identifier: this.email,
-              password: this.password
-            }
-          });
-          console.log(`result-->${JSON.stringify(result)}`);
-
-          // Verifico si hay errores
-          if (result.data.graphQLErrors) {
-            if (result.data.networkError) {
-              this.axiosError[id] =
-                result.data.networkError.resul.errors[0].extensions.code;
-              this.axiosError[id] =
-                result.data.networkError.resul.errors[0].message;
-            } else {
-              this.axiosError[id] = "0";
-              this.axiosError[id] = "Unknown Error.";
-            }
-            this.dismissCountDownAxios = this.dismissSecs;
-            return;
+        var result = await this.$apollo.mutate({
+          mutation: login,
+          variables: {
+            identifier: this.email,
+            password: this.password
           }
-
-          // SI NO HIZO LOGIN
-          if (!result.data.login.user.id) {
-            this.dismissCountDownAxios = this.dismissSecs;
-            return;
-          }
-
-          // Extract data into user object
-          this.user["token"] = result.data.login.jwt;
-          this.user["username"] = result.data.login.user.username;
-          this.user["id"] = result.data.login.user.id;
-          this.user["role"] = result.data.login.user.role.name;
-          this.user["email"] = result.data.login.user.email;
-          this.loading = false;
-
-          // Obtengo datos del usuario
-          if (!(await this.getUser())) return;
-
-          // Guardo en el almacen global
-          if (process.browser) {
-            await this.$store.commit("auth/USER_LOGIN", this.user);
-            localStorage.setItem("user", JSON.stringify(this.user));
-          }
-
-          //redirect
-          this.$router.push("/servicio/registro");
-          // window.location.replace("/");
-        } catch (err) {
-          console.log(`Post Axios Error: ${err.message}`);
+        });
+        // SI NO HIZO LOGIN
+        if (!result.data.login.user.id) {
+          this.dismissCountDownAxios = this.dismissSecs;
+          return;
         }
+        // Extract data into user object
+        this.user["token"] = result.data.login.jwt;
+        this.user["username"] = result.data.login.user.username;
+        this.user["id"] = result.data.login.user.id;
+        this.user["role"] = result.data.login.user.role.name;
+        this.user["email"] = result.data.login.user.email;
+        this.loading = false;
+
+        // Obtengo datos del usuario
+        if (!(await this.getUser())) return;
+
+        // Guardo en el almacen global
+        if (process.browser) {
+          await this.$store.commit("auth/USER_LOGIN", this.user);
+          localStorage.setItem("user", JSON.stringify(this.user));
+        }
+
+        //redirect
+        this.$router.push("/servicio/registro");
+        // window.location.replace("/");
       } catch (err) {
         this.axiosError = await this.$hasAxiosErrors(err);
-        if (Object.keys(this.axiosError).length != 0) {
+        if (this.axiosError.id) {
           this.dismissCountDownAxios = this.dismissSecs;
         }
       }
+
     },
     async getUser() {
       // ObteniendoUsuario
-      // var Token='Bearer ' + this.user.token;
-
       try {
-        //          var strapiToken='Bearer ' + process.env.strapiJwt;
-        //          var result = await axios({
-        //            method: "POST",
-        //            url: `${process.env.strapiBaseUri}`,
-        //            headers: {
-        //              "Access-Control-Allow-Origin": "*",
-        //              "Access-Control-Allow-Credentials": true,
-        //              "Access-Control-Allow-Headers": "Origin,Authorization,Credentials,Content-Type,Accept",
-        //              "Accept": "application/json",
-        //              "Content-Type": "application/json",
-        //              "Authorization": `${strapiToken}`,
-        //            },
-        //            data: {
-        //              query: `query($id: ID!) {
-        //                          user(id: $id) {
-        //                                firstname
-        //                                lastname
-        //                                provider
-        //                                confirmed
-        //                                blocked
-        //                                role{
-        //                                  id
-        //                                  name
-        //                                }
-        //                          }
-        //                      }`,
-        //              variables: {
-        //                id: this.user.id,
-        //              }
-        //            }
-        //          });
-        //          // Verifico si hay errores
-        //          this.axiosError= await this.$hasAxiosErrors(result.data);
-        //          if (Object.keys(this.axiosError).length != 0) {
-        //            this.dismissCountDownAxios = this.dismissSecs;
-        //            return false;
-        //          }
-
         this.$apollo.queries.getUser.skip = false;
         const result = await this.$apollo.queries.getUser.refetch();
-        console.log(`result-->${JSON.stringify(result)}`);
-
         // SI NO OBTUVO USER
         if (!result.data.user.id) {
           this.dismissCountDownAxios = this.dismissSecs;
           return;
         }
-
         //OK
         this.user["firstname"] = result.data.user.firstname;
         this.user["lastname"] = result.data.user.lastname;
@@ -361,9 +260,8 @@ export default {
         this.loading = false;
         return true;
       } catch (err) {
-        console.log(err.message);
         this.axiosError = await this.$hasAxiosErrors(err);
-        if (Object.keys(this.axiosError).length != 0) {
+        if (this.axiosError .id) {
           this.dismissCountDownAxios = this.dismissSecs;
         }
       }
@@ -375,7 +273,10 @@ export default {
       query: getUser,
       variables() {
         return { id: parseInt(this.user.id) };
-      }
+      },
+      skip () {
+        return this.skipQuery
+      },
       //      result({ data, loading, networkStatus }) {
       //        const dataIsReady = data && networkStatus === 7;
       //        if (dataIsReady) {

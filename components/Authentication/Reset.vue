@@ -90,6 +90,28 @@
               ></b-progress>
             </b-alert>
 
+
+            <!-- Alerta Success -->
+            <b-alert
+              :show="dismissCountDownSuccess"
+              dismissible
+              variant="light"
+              @dismissed="dismissCountDownSuccess = 0"
+              @dismiss-count-down="countDownChangedSuccess"
+            >
+              <p>
+                SU CLAVE SE REINICIO CORRECTAMENTE!
+              </p>
+              <b-progress
+                variant="success"
+                :max="dismissSecs"
+                :value="dismissCountDownSuccess"
+                height="4px"
+              ></b-progress>
+            </b-alert>
+
+
+
             <!-- Alerta Datos -->
             <b-alert
               :show="dismissCountDown"
@@ -116,8 +138,12 @@
 <script>
 import { extend, setInteractionMode, ValidationProvider } from "vee-validate";
 import { required, max, email } from "vee-validate/dist/rules";
-import axios from "axios";
+//import axios from "axios";
 import { mapMutations } from "vuex";
+
+// Graphql Imports
+import resetPassword from "~/apollo/mutations/authentication/resetPassword";
+
 setInteractionMode("eager");
 extend("required", {
   ...required,
@@ -145,6 +171,7 @@ export default {
       dismissSecs: 10,
       dismissCountDown: 0,
       dismissCountDownAxios: 0,
+      dismissCountDownSuccess: 0,
       showDismissibleAlert: false
     };
   },
@@ -164,58 +191,33 @@ export default {
         this.dismissCountDown = this.dismissSecs;
         return;
       }
-      // Proceso forgot
-      var strapiToken = "Bearer " + process.env.strapiJwt;
+
+      // Proceso reset
       try {
-        var result = await axios({
-          method: "POST",
-          url: `${process.env.strapiBaseUri}`,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `${strapiToken}`
-          },
-          data: {
-            query: `mutation($password: String!, $passwordConfirmation: String!, $code: String!) {
-                          resetPassword(password: $password, passwordConfirmation: $passwordConfirmation, code: $code) {
-                            jwt
-                            user{
-                              id
-                              confirmed
-                            }
-                          }
-                      }`,
-            variables: {
-              password: this.password,
-              passwordConfirmation: this.password2,
-              code: this.$route.query.code
-            }
+
+        var result = await this.$apollo.mutate({
+          mutation: resetPassword,
+          variables: {
+            password: this.password,
+            passwordConfirmation: this.password2,
+            code: this.$route.query.code
           }
         });
-        // Verifico si hay errores
-        this.axiosError = await this.$hasAxiosErrors(result.data);
-        if (Object.keys(this.axiosError).length != 0) {
+
+        // SI NO RESETEO LA CLAVE
+        if (!result.data.resetPassword.user.id) {
           this.dismissCountDownAxios = this.dismissSecs;
           return;
         }
-        try {
-          this.loading = false;
-          if (result.data.data.resetPassword.jwt) {
-            //redirect
-            this.$router.push("/authentication/reseted");
-            return;
-          }
-          this.dismissCountDown = this.dismissSecs;
-        } catch (err) {
-          console.log(err);
-        }
-      } catch (error) {
-        this.axiosError = await this.$hasAxiosErrors(error);
-        if (Object.keys(this.axiosError).length != 0) {
+
+        this.dismissCountDownSuccess = this.dismissSecs;
+
+      } catch (err) {
+        console.log(`err-->${JSON.stringify(err)}`);
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
           this.dismissCountDownAxios = this.dismissSecs;
         }
-        //          console.error(error);
       }
     },
     countDownChanged(dismissCountDown) {
@@ -223,6 +225,10 @@ export default {
     },
     countDownChangedAxios(dismissCountDown) {
       this.dismissCountDownAxios = dismissCountDown;
+    },
+    countDownChangedSuccess(dismissCountDown) {
+      this.dismissCountDownSuccess = dismissCountDown;
+      if (dismissCountDown == 0) this.$router.push("/authentication/login");
     },
     showAlert() {
       this.dismissCountDown = this.dismissSecs;

@@ -103,7 +103,13 @@ module.exports = {
     injected: true
   },
   css: ['@/assets/scss/custom.scss'],
-  plugins: [{ src: "~/plugins/vue2-google-maps", ssr: true }, { src: "~/plugins/vue-browser-geolocation", ssr: true }, { src: "~/plugins/maps.client" }, { src: "~/plugins/hotjar", ssr: false }],
+  plugins: [
+    { src: "~/plugins/vue2-google-maps", ssr: true },
+    { src: "~/plugins/vue-browser-geolocation", ssr: true },
+    { src: "~/plugins/maps.client" },
+    { src: "~/plugins/hotjar", ssr: false },
+    { src: "~/plugins/axios-errors", ssr: false },
+    ],
   fontawesome: {
     imports: [
 

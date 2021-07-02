@@ -1,7 +1,7 @@
 <template>
   <section class="cont">
     <div class="banner">
-      <img src="../assets/images/banner_insumos.jpg" />
+      <img src="../assets/images/banner_servicios.jpg" />
     </div>
     <div id="header">
       <h1>PROVEEDORES DE SERVICIOS</h1>
@@ -150,7 +150,7 @@ export default {
       prefetch: false,
       query: servicios,
       variables() {
-        return { id: this.categoria.id };
+        return { id: this.categoria.id, aprobado: true };
       },
       skip() {
         return this.skipQuery;

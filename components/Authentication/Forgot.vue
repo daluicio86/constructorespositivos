@@ -74,8 +74,7 @@
               @dismiss-count-down="countDownChangedSuccess"
             >
               <p>
-                SE LE ENVIO UN CORREO ELECTR&Oacute;NICO CON UN ENLACE PARA
-                REINICIAR SU CONTRASE&Ntilde;A
+                SE LE ENVIO UN CORREO ELECTR&Oacute;NICO <br> CON UN ENLACE PARA REINICIAR SU CONTRASE&Ntilde;A
               </p>
               <b-progress
                 variant="success"
@@ -111,9 +110,14 @@
 <script>
 import { extend, setInteractionMode, ValidationProvider } from "vee-validate";
 import { required, max, email } from "vee-validate/dist/rules";
-import axios from "axios";
+//import axios from "axios";
 import { mapMutations } from "vuex";
+
+// Graphql Imports
+import forgotPassword from "~/apollo/mutations/authentication/forgotPassword";
+
 setInteractionMode("eager");
+
 extend("required", {
   ...required,
   message: "{_field_} no puede estar en vacio"
@@ -152,50 +156,29 @@ export default {
         return;
       }
       // Proceso forgot
-      var strapiToken = "Bearer " + process.env.strapiJwt;
       try {
-        var result = await axios({
-          method: "POST",
-          url: `${process.env.strapiBaseUri}`,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `${strapiToken}`
-          },
-          data: {
-            query: `mutation($email: String!) {
-                          forgotPassword(email: $email) {
-                              ok
-                          }
-                      }`,
-            variables: {
-              email: this.email
-            }
+        var result = await this.$apollo.mutate({
+          mutation: forgotPassword,
+          variables: {
+            email: this.email
           }
         });
-        // Verifico si hay errores
-        this.axiosError = await this.$hasAxiosErrors(result.data);
-        if (Object.keys(this.axiosError).length != 0) {
+
+
+        // SI NO CREO CORREO DE RECUPEEACION
+        if (!result.data.forgotPassword.ok) {
           this.dismissCountDownAxios = this.dismissSecs;
           return;
         }
-        try {
-          this.loading = false;
-          if (result.data.data.forgotPassword.ok) {
-            this.dismissCountDownSuccess = this.dismissSecs;
-            return;
-          }
-          this.dismissCountDown = this.dismissSecs;
-        } catch (err) {
-          console.log(err);
-        }
-      } catch (error) {
-        this.axiosError = await this.$hasAxiosErrors(error);
-        if (Object.keys(this.axiosError).length != 0) {
+
+        this.dismissCountDownSuccess = this.dismissSecs;
+
+
+      } catch (err) {
+        this.axiosError = await this.$hasAxiosErrors(err);
+        if (this.axiosError.id) {
           this.dismissCountDownAxios = this.dismissSecs;
         }
-        //          console.error(error);
       }
     },
     countDownChanged(dismissCountDown) {
@@ -206,7 +189,7 @@ export default {
     },
     countDownChangedSuccess(dismissCountDown) {
       this.dismissCountDownSuccess = dismissCountDown;
-      if (dismissCountDown == 0) this.$router.push("/");
+      if (dismissCountDown == 0) this.$router.push("/authentication/login");
     },
     showAlert() {
       this.dismissCountDown = this.dismissSecs;

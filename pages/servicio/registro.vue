@@ -1,10 +1,8 @@
 <template>
   <section class="cont">
-
     <div class="banner">
       <img src="../../assets/images/banner_servicios.jpg" />
     </div>
-
 
     <div class="container">
       <div class="text-center">
@@ -15,7 +13,7 @@
         <b-container class="bv-example-row">
           <form ref="form" @submit.stop.prevent="doRegister">
             <b-row>
-              <b-col class="w-50 p-3 mb-1">
+              <b-col class="col-sm-12 col-md-6 p-3 mb-1">
                 <!-- Tipo Servicio -->
                 <validation-provider
                   v-slot="{ errors, valid }"
@@ -33,9 +31,9 @@
                     ></v-select>
 
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
@@ -56,9 +54,9 @@
                       required
                     ></b-form-input>
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
@@ -90,9 +88,9 @@
                     ></b-form-textarea>
 
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
@@ -113,9 +111,9 @@
                       required
                     ></b-form-input>
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
@@ -136,9 +134,9 @@
                       required
                     ></b-form-input>
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
@@ -159,9 +157,9 @@
                       required
                     ></b-form-input>
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
@@ -182,9 +180,9 @@
                       required
                     ></b-form-input>
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
@@ -205,121 +203,30 @@
                       required
                     ></b-form-input>
                     <b-form-invalid-feedback :state="valid">
-                          <span v-for="(error, index) in errors" :key="index">{{
-                            error
-                            }}</span>
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
                     </b-form-invalid-feedback>
                   </b-form-group>
                 </validation-provider>
-
-                <!-- CAPTCHA -->
-                <b-form-group>
-                  <b-form-checkbox
-                    id="checkbox-captcha"
-                    v-model="captcha"
-                    name="captcha-1"
-                    value="true"
-                    unchecked-value="false"
-                    switch
-                  >
-                    <p>No soy un robot</p>
-                  </b-form-checkbox>
-                </b-form-group>
-
-                <!---------------------------------------------------------- Button SUBMIT -->
-                <div>
-                  <b-button v-if="!hasPreviousData" @click="doRegister"
-                  > GUARDAR </b-button
-                  ><br />
-                  <b-button v-if="hasPreviousData" @click="doUpdate"
-                  > ACTUALIZAR </b-button
-                  ><br />
-
-                  <!-- Alerta Signup Success -->
-                  <b-alert
-                    :show="dismissCountDownSignup"
-                    dismissible
-                    variant="light"
-                    @dismissed="dismissCountDownSignup = 0"
-                    @dismiss-count-down="countDownSignupChanged"
-                  >
-                    <p>Se ha {{!hasPreviousData? 'Registrado' : 'Actualizado'}} correctamente...</p>
-                    <b-progress
-                      variant="success"
-                      :max="dismissSecs"
-                      :value="dismissCountDownSignup"
-                      height="4px"
-                    ></b-progress>
-                  </b-alert>
-
-                  <!-- Alerta Datos -->
-                  <b-alert
-                    :show="dismissCountDown"
-                    dismissible
-                    variant="light"
-                    @dismissed="dismissCountDown = 0"
-                    @dismiss-count-down="countDownChanged"
-                  >
-                    <p>
-                      Los datos no estan completos o no resolvio el captcha...
-                    </p>
-                    <b-progress
-                      variant="danger"
-                      :max="dismissSecs"
-                      :value="dismissCountDown"
-                      height="4px"
-                    ></b-progress>
-                  </b-alert>
-
-                  <!-- Alerta Imagen -->
-                  <b-alert
-                    :show="dismissCountDownImage"
-                    dismissible
-                    variant="light"
-                    @dismissed="dismissCountDownImage = 0"
-                    @dismiss-count-down="countDownImageChanged"
-                  >
-                    <p>
-                      La imagen debe ser de: {{this.WIDTH_ALLOWED}}x{{this.HEIGHT_ALLOWED}} pixeles y pesar menos de  {{this.SIZE_ALLOWED}}Kb.
-                    </p>
-                    <b-progress
-                      variant="danger"
-                      :max="dismissSecs"
-                      :value="dismissCountDownImage"
-                      height="4px"
-                    ></b-progress>
-                  </b-alert>
-
-                  <!-- Alerta Axios -->
-                  <b-alert
-                    :show="dismissCountDownAxios"
-                    dismissible
-                    variant="light"
-                    @dismissed="dismissCountDownAxios = 0"
-                    @dismiss-count-down="countDownAxiosChanged"
-                  >
-                    <b-progress
-                      variant="danger"
-                      :max="dismissSecs"
-                      :value="dismissCountDownAxios"
-                      height="4px"
-                    ></b-progress>
-                  </b-alert>
-                </div>
               </b-col>
               <b-col class="w-50 p-3 mb-1">
-
                 <!-- FILES --->
                 <div>
                   <b-container>
-                    <b-row class="w-100">
-                      <div id="preview">
+                    <b-row class="w-100 justify-content-center">
+                      <div
+                        :class="{ no_preview: !haveImagePreview }"
+                        id="preview"
+                      >
                         <img width="100%" v-if="imageUrl" :src="imageUrl" />
-                        <p v-if="!hasPreviousData || imageUrl==null">Cargar imagen de máximo 1Mb (658x323 pixels)</p>
+                        <p v-if="!hasPreviousData || imageUrl == null">
+                          Cargar imagen de máximo 1Mb (658x323 pixels)
+                        </p>
                       </div>
                     </b-row>
                     <b-row class="w-100">
-                      <b-col>
+                      <b-col class="col-sm-6">
                         <label class="buttonFile">
                           <!-- input
                             type="file"
@@ -337,16 +244,17 @@
                             :state="Boolean(file)"
                             @input="handleFileUpload()"
                           ></b-form-file>
-                          <i class="fa fa-cloud-upload"></i> Cargar Imagen </label
-                        >
+                          <i class="fa fa-cloud-upload"></i> Cargar Imagen
+                        </label>
                       </b-col>
-                      <b-col>&nbsp;&nbsp;</b-col>
-                      <b-col>
-                        <button v-on:click="clearImage()"> Eliminar Imagen </button>
+
+                      <b-col class="col-sm-6">
+                        <button v-on:click="clearImage()">
+                          Eliminar Imagen
+                        </button>
                       </b-col>
                     </b-row>
                   </b-container>
-
                 </div>
 
                 <div>
@@ -367,9 +275,9 @@
                         :disabled="true"
                       ></b-form-textarea>
                       <b-form-invalid-feedback :state="valid">
-                            <span v-for="(error, index) in errors" :key="index">{{
-                              error
-                              }}</span>
+                        <span v-for="(error, index) in errors" :key="index">{{
+                          error
+                        }}</span>
                       </b-form-invalid-feedback>
                     </b-form-group>
                   </validation-provider>
@@ -386,11 +294,118 @@
                       size="lg"
                       :disabled="true"
                     >
-                      <p>Estado: {{ aprobado ? "Aprobado" : "Pendiente de aprobación" }}</p>
+                      <p>
+                        Estado:
+                        {{ aprobado ? "Aprobado" : "Pendiente de aprobación" }}
+                      </p>
                     </b-form-checkbox>
                   </b-form-group>
                 </div>
+              </b-col>
+            </b-row>
+            <b-row class="w-100">
+              <b-col class="col-sm-12">
+                <!-- CAPTCHA -->
+                <b-form-group>
+                  <b-form-checkbox
+                    id="checkbox-captcha"
+                    v-model="captcha"
+                    name="captcha-1"
+                    value="true"
+                    unchecked-value="false"
+                    switch
+                  >
+                    <p>No soy un robot</p>
+                  </b-form-checkbox>
+                </b-form-group>
+              </b-col>
+              <b-col class="col-sm-12">
+                <!---------------------------------------------------------- Button SUBMIT -->
 
+                <b-button v-if="!hasPreviousData" @click="doRegister">
+                  GUARDAR </b-button
+                ><br />
+                <b-button v-if="hasPreviousData" @click="doUpdate">
+                  ACTUALIZAR </b-button
+                ><br />
+
+                <!-- Alerta Signup Success -->
+                <b-alert
+                  :show="dismissCountDownSignup"
+                  dismissible
+                  variant="light"
+                  @dismissed="dismissCountDownSignup = 0"
+                  @dismiss-count-down="countDownSignupChanged"
+                >
+                  <p>
+                    Se ha
+                    {{ !hasPreviousData ? "Registrado" : "Actualizado" }}
+                    correctamente...
+                  </p>
+                  <b-progress
+                    variant="success"
+                    :max="dismissSecs"
+                    :value="dismissCountDownSignup"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
+
+                <!-- Alerta Datos -->
+                <b-alert
+                  :show="dismissCountDown"
+                  dismissible
+                  variant="light"
+                  @dismissed="dismissCountDown = 0"
+                  @dismiss-count-down="countDownChanged"
+                >
+                  <p>
+                    Los datos no estan completos o no resolvio el captcha...
+                  </p>
+                  <b-progress
+                    variant="danger"
+                    :max="dismissSecs"
+                    :value="dismissCountDown"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
+
+                <!-- Alerta Imagen -->
+                <b-alert
+                  :show="dismissCountDownImage"
+                  dismissible
+                  variant="light"
+                  @dismissed="dismissCountDownImage = 0"
+                  @dismiss-count-down="countDownImageChanged"
+                >
+                  <p>
+                    La imagen debe ser de: {{ this.WIDTH_ALLOWED }}x{{
+                      this.HEIGHT_ALLOWED
+                    }}
+                    pixeles y pesar menos de {{ this.SIZE_ALLOWED }}Kb.
+                  </p>
+                  <b-progress
+                    variant="danger"
+                    :max="dismissSecs"
+                    :value="dismissCountDownImage"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
+
+                <!-- Alerta Axios -->
+                <b-alert
+                  :show="dismissCountDownAxios"
+                  dismissible
+                  variant="light"
+                  @dismissed="dismissCountDownAxios = 0"
+                  @dismiss-count-down="countDownAxiosChanged"
+                >
+                  <b-progress
+                    variant="danger"
+                    :max="dismissSecs"
+                    :value="dismissCountDownAxios"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
               </b-col>
             </b-row>
           </form>
@@ -436,11 +451,11 @@ export default {
   },
   data() {
     return {
-      imageData:{
-        size:'',
-        height:'',
-        width:'',
-        type:''
+      imageData: {
+        size: "",
+        height: "",
+        width: "",
+        type: ""
       },
       imageLoaded: false,
       WIDTH_ALLOWED: 658,
@@ -844,24 +859,27 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     async handleFileUpload() {
-      var isAllowedImage= false;
-      var imageSize= await JSON.parse(localStorage.getItem("imageSize"));
+      var isAllowedImage = false;
+      var imageSize = await JSON.parse(localStorage.getItem("imageSize"));
       try {
-        if (this.file===null) return;
+        if (this.file === null) return;
         this.imageUrl = await URL.createObjectURL(this.file);
         await this.readImageFile(this.file);
 
-        let imgSize=this.file.size/1024;
+        let imgSize = this.file.size / 1024;
 
-        if (imageSize.height< this.HEIGHT_ALLOWED && imageSize.width< this.WIDTH_ALLOWED && imgSize < this.SIZE_ALLOWED) isAllowedImage=true;
+        if (
+          imageSize.height < this.HEIGHT_ALLOWED &&
+          imageSize.width < this.WIDTH_ALLOWED &&
+          imgSize < this.SIZE_ALLOWED
+        )
+          isAllowedImage = true;
 
-        if (!isAllowedImage){
+        if (!isAllowedImage) {
           await this.clearImage();
-          this.dismissCountDownImage=this.dismissSecs;
+          this.dismissCountDownImage = this.dismissSecs;
           return;
         }
-
-
       } catch (err) {
         this.axiosError = await this.$hasAxiosErrors(err);
         if (this.axiosError.id) {
@@ -874,16 +892,19 @@ export default {
       var reader = new FileReader();
       //Read the contents of Image File.
       reader.readAsDataURL(file);
-      reader.onload = function (e) {
+      reader.onload = function(e) {
         //Initiate the JavaScript Image object.
         var image = new Image();
         //Set the Base64 string return from FileReader as source.
         image.src = e.target.result;
         //Validate the File Height and Width.
-        image.onload = function () {
+        image.onload = function() {
           var height = this.height;
           var width = this.width;
-          localStorage.setItem("imageSize", JSON.stringify({height: height, width: width}));
+          localStorage.setItem(
+            "imageSize",
+            JSON.stringify({ height: height, width: width })
+          );
         };
       };
     },
@@ -908,269 +929,281 @@ export default {
     },
     loggedUser() {
       return JSON.parse(this.isLogged ? localStorage.getItem("user") : "{}");
+    },
+    haveImagePreview() {
+      if (this.imageUrl != null) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   watch: {
     file(newFile) {
-      if(newFile && !newFile.type.startsWith("image/")) {
+      if (newFile && !newFile.type.startsWith("image/")) {
         this.$nextTick(() => {
           this.file = null;
-        })
+        });
       }
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
-  .element {
-    background: #f7f7f7;
-    border: 1px solid #707070;
-    padding: 0 0 0 10px;
-    border-radius: 15px;
-    margin-top: 10px;
-    display: flex;
-    flex: 0 0 50%;
-    flex-wrap: wrap;
-    width: 100%;
-  }
-  button {
-    background: rgb(247, 99, 46);
-    background: radial-gradient(
-      circle,
-      rgba(247, 99, 46, 1) 0%,
-      rgba(181, 34, 34, 1) 100%
-    );
-    color: white;
-    border: none;
-    outline: none;
-    height: 38px;
-    border-radius: 20px;
-    padding: 6px 8px;
-    margin: 10px;
-  /display: block;
-  /width: 150px;
-    font-weight: bold;
-  }
-  button:hover {
-    background: #3789d3;
-  }
-  .nav-item {
-    margin: 0 0;
-  }
-  .buttonFile {
-    background: rgb(247, 99, 46);
-    background: radial-gradient(
-      circle,
-      rgba(247, 99, 46, 1) 0%,
-      rgba(181, 34, 34, 1) 100%
-    );
-    color: white;
-    border: none;
-    outline: none;
-    height: 38px;
-    border-radius: 20px;
-    padding: 6px 8px;
-    margin: 10px;
-    display: block;
-    width: 100%;
-    font-weight: bold;
-    text-align: center;
-  }
-  .buttonFile:hover {
-    background: #3789d3;
-  }
-  input[type="file"] {
-    display: none;
-  }
-  .nav-item a {
-    text-decoration: none;
-    color: #aa381a;
+.element {
+  background: #f7f7f7;
+  border: 1px solid #707070;
+  padding: 0 0 0 10px;
+  border-radius: 15px;
+  margin-top: 10px;
+  display: flex;
+  flex: 0 0 50%;
+  flex-wrap: wrap;
+  width: 100%;
+}
+button {
+  background: rgb(247, 99, 46);
+  background: radial-gradient(
+    circle,
+    rgba(247, 99, 46, 1) 0%,
+    rgba(181, 34, 34, 1) 100%
+  );
+  color: white;
+  border: none;
+  outline: none;
+  height: 38px;
+  border-radius: 20px;
+  padding: 6px 8px;
+  margin: 10px;
+  width: 150px;
+  font-weight: bold;
+}
+button:hover {
+  background: #3789d3;
+}
+.nav-item {
+  margin: 0 0;
+}
+.buttonFile {
+  background: rgb(247, 99, 46);
+  background: radial-gradient(
+    circle,
+    rgba(247, 99, 46, 1) 0%,
+    rgba(181, 34, 34, 1) 100%
+  );
+  color: white;
+  border: none;
+  outline: none;
+  height: 38px;
+  border-radius: 20px;
+  padding: 6px 8px;
+  margin: 10px;
+  display: block;
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+}
+.buttonFile:hover {
+  background: #3789d3;
+}
+input[type="file"] {
+  display: none;
+}
+.nav-item a {
+  text-decoration: none;
+  color: #aa381a;
   /border: 1px solid #aa381a;
   /padding: 2px 10px;
   /border-radius: 8px;
   /font-size: 13px;
-  }
-  .nav-item a:hover,
-  .nav-item a:active {
-    color: #3789d3;
-  }
-  #preview {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    color: #aa381a;
-    border: 1px solid #aa381a;
-    padding: 2px 10px;
-    max-width: 100%;
-    /*min-height: 323px;*/
-    max-height: 323px;
-  }
-  #preview img {
-    max-width: 100%;
-    /*min-height: 323px;*/
-    max-height: 323px;
-  }
-  .banner {
-    width: 100%;
-  }
-  .banner img {
-    width: 100%;
-  }
-  .title {
-    font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+}
+.nav-item a:hover,
+.nav-item a:active {
+  color: #3789d3;
+}
+#preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #aa381a;
+  padding: 2px 10px;
+  max-width: 100%;
+  /*min-height: 323px;*/
+  max-height: 323px;
+}
+#preview img {
+  max-width: 100%;
+  /*min-height: 323px;*/
+  max-height: 323px;
+}
+.banner {
+  width: 100%;
+}
+.banner img {
+  width: 100%;
+}
+.title {
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-    display: block;
-    font-weight: 300;
-    font-size: 100px;
-    color: #35495e;
-    letter-spacing: 1px;
-  }
+  display: block;
+  font-weight: 300;
+  font-size: 100px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
 
-  .subtitle {
-    font-weight: 300;
-    font-size: 42px;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-  }
+.subtitle {
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
 
-  .links {
-    padding-top: 15px;
-  }
+.links {
+  padding-top: 15px;
+}
+.card_home {
+  margin: 0 20px;
+  position: relative;
+}
+.card_home img {
+  width: 100%;
+}
+#pasos {
+  margin: 40px 0 80px 0;
+}
+#pasos h1 {
+  color: #5e5e5e;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+.foot_card {
+  color: white;
+  background: rgb(247, 99, 46);
+  background: radial-gradient(
+    circle,
+    rgba(247, 99, 46, 1) 0%,
+    rgba(181, 34, 34, 1) 100%
+  );
+  text-align: center;
+  padding: 10px 10px;
+}
+figure {
+  margin: 0;
+}
+.foot_card h3 {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.foot_card h4 {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+#ubicar {
+  text-align: center;
+  margin: 25px 0 40px 0;
+}
+#ubicar button {
+  background: rgb(247, 99, 46);
+  background: radial-gradient(
+    circle,
+    rgba(247, 99, 46, 1) 0%,
+    rgba(181, 34, 34, 1) 100%
+  );
+  color: white;
+  border: none;
+  outline: none;
+  height: 38px;
+  border-radius: 10px;
+  padding: 6px 8px;
+  margin-top: 25px;
+}
+#ubicar input {
+  width: 100%;
+  margin-top: 5px;
+}
+#ubicar input::placeholder {
+  font-style: italic;
+  font-weight: 300;
+  padding-left: 10px;
+}
+
+#ubicar h2 {
+  color: #5e5e5e;
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+.input-data {
+  margin-top: -7px;
+}
+#map {
+  margin-top: 20px;
+}
+#map button {
+  background: #f26424;
+  border-radius: 0px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+#map button span {
+  font-weight: bold;
+}
+#resultados {
+  padding: 0 0 50px 0;
+}
+#video {
+  margin-bottom: 40px;
+}
+.ubicacion-instructions,
+.buscar-instructions {
+  font-style: italic;
+  margin-top: 20px;
+  display: block;
+  font-weight: 500;
+}
+.titulo-buscar {
+  text-align: left;
+  font-weight: bold;
+}
+.distancia {
+  /* margin-top: 5px; */
+}
+.no_preview {
+  border: 1px solid #aa381a;
+  min-height: 300px;
+}
+.form-group {
+  margin-bottom: 0px !important;
+}
+@media only screen and (max-width: 641px) {
   .card_home {
-    margin: 0 20px;
-    position: relative;
+    margin-bottom: 30px;
   }
-  .card_home img {
-    width: 100%;
+  .ubicacion_actual {
+    margin-top: 20px;
   }
-  #pasos {
-    margin: 40px 0 80px 0;
+  .arrow::after {
+    display: none;
   }
   #pasos h1 {
-    color: #5e5e5e;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 30px;
-    font-weight: bold;
+    font-size: 22px;
   }
-  .foot_card {
-    color: white;
-    background: rgb(247, 99, 46);
-    background: radial-gradient(
-      circle,
-      rgba(247, 99, 46, 1) 0%,
-      rgba(181, 34, 34, 1) 100%
-    );
-    text-align: center;
-    padding: 10px 10px;
-  }
-  figure {
-    margin: 0;
-  }
-  .foot_card h3 {
-    font-size: 15px;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-  }
-  .foot_card h4 {
-    font-size: 14px;
-    margin: 0;
-    padding: 0;
-    font-weight: 300;
-  }
-  #ubicar {
-    text-align: center;
-    margin: 25px 0 40px 0;
-  }
-  #ubicar button {
-    background: rgb(247, 99, 46);
-    background: radial-gradient(
-      circle,
-      rgba(247, 99, 46, 1) 0%,
-      rgba(181, 34, 34, 1) 100%
-    );
-    color: white;
-    border: none;
-    outline: none;
-    height: 38px;
-    border-radius: 10px;
-    padding: 6px 8px;
-    margin-top: 25px;
-  }
-  #ubicar input {
-    width: 100%;
-    margin-top: 5px;
-  }
-  #ubicar input::placeholder {
-    font-style: italic;
-    font-weight: 300;
-    padding-left: 10px;
-  }
-
   #ubicar h2 {
-    color: #5e5e5e;
-    text-align: center;
-    font-size: 26px;
-    margin-bottom: 30px;
-    font-weight: bold;
+    font-size: 20px;
   }
   .input-data {
-    margin-top: -7px;
+    margin-top: 10px;
   }
-  #map {
-    margin-top: 20px;
-  }
-  #map button {
-    background: #f26424;
-    border-radius: 0px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-  }
-  #map button span {
-    font-weight: bold;
-  }
-  #resultados {
-    padding: 0 0 50px 0;
-  }
-  #video {
-    margin-bottom: 40px;
-  }
-  .ubicacion-instructions,
-  .buscar-instructions {
-    font-style: italic;
-    margin-top: 20px;
-    display: block;
-    font-weight: 500;
-  }
-  .titulo-buscar {
-    text-align: left;
-    font-weight: bold;
-  }
-  .distancia {
-    /* margin-top: 5px; */
-  }
-  @media only screen and (max-width: 641px) {
-    .card_home {
-      margin-bottom: 30px;
-    }
-    .ubicacion_actual {
-      margin-top: 20px;
-    }
-    .arrow::after {
-      display: none;
-    }
-    #pasos h1 {
-      font-size: 22px;
-    }
-    #ubicar h2 {
-      font-size: 20px;
-    }
-    .input-data {
-      margin-top: 10px;
-    }
-  }
+}
 </style>

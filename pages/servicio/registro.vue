@@ -153,7 +153,7 @@
                     <b-form-input
                       class="element"
                       id="web-input"
-                      placeholder="* Página web del proveedor"
+                      placeholder="* Página WEB del proveedor O enlace de FACEBOOK"
                       v-model="web"
                       type="text"
                       required
@@ -229,10 +229,10 @@
                 <!---------------------------------------------------------- Button SUBMIT -->
                 <div>
                   <b-button v-if="!hasPreviousData" @click="doRegister"
-                  >CREAR</b-button
+                  > GUARDAR </b-button
                   ><br />
                   <b-button v-if="hasPreviousData" @click="doUpdate"
-                  >ACTUALIZAR</b-button
+                  > ACTUALIZAR </b-button
                   ><br />
 
                   <!-- Alerta Signup Success -->
@@ -241,9 +241,9 @@
                     dismissible
                     variant="light"
                     @dismissed="dismissCountDownSignup = 0"
-                    @dismiss-count-down="countDownChangedSignup"
+                    @dismiss-count-down="countDownSignupChanged"
                   >
-                    <p>Se ha registrado correctamente...</p>
+                    <p>Se ha {{!hasPreviousData? 'Registrado' : 'Actualizado'}} correctamente...</p>
                     <b-progress
                       variant="success"
                       :max="dismissSecs"
@@ -271,6 +271,25 @@
                     ></b-progress>
                   </b-alert>
 
+                  <!-- Alerta Imagen -->
+                  <b-alert
+                    :show="dismissCountDownImage"
+                    dismissible
+                    variant="light"
+                    @dismissed="dismissCountDownImage = 0"
+                    @dismiss-count-down="countDownImageChanged"
+                  >
+                    <p>
+                      La imagen debe ser de: {{this.WIDTH_ALLOWED}}x{{this.HEIGHT_ALLOWED}} pixeles y pesar menos de  {{this.SIZE_ALLOWED}}Kb.
+                    </p>
+                    <b-progress
+                      variant="danger"
+                      :max="dismissSecs"
+                      :value="dismissCountDownImage"
+                      height="4px"
+                    ></b-progress>
+                  </b-alert>
+
                   <!-- Alerta Axios -->
                   <b-alert
                     :show="dismissCountDownAxios"
@@ -289,6 +308,47 @@
                 </div>
               </b-col>
               <b-col class="w-50 p-3 mb-1">
+
+                <!-- FILES --->
+                <div>
+                  <b-container>
+                    <b-row class="w-100">
+                      <div id="preview">
+                        <img width="100%" v-if="imageUrl" :src="imageUrl" />
+                        <p v-if="!hasPreviousData || imageUrl==null">Cargar imagen de máximo 1Mb (658x323 pixels)</p>
+                      </div>
+                    </b-row>
+                    <b-row class="w-100">
+                      <b-col>
+                        <label class="buttonFile">
+                          <!-- input
+                            type="file"
+                            id="my-files"
+                            ref="my-files"
+                            v-on:change="handleFileUpload()"
+                            accept="image/*"
+                          /-->
+                          <b-form-file
+                            v-model="file"
+                            ref="file-input"
+                            class="mt-3"
+                            plain
+                            accept="image/*"
+                            :state="Boolean(file)"
+                            @input="handleFileUpload()"
+                          ></b-form-file>
+                          <i class="fa fa-cloud-upload"></i> Cargar Imagen </label
+                        >
+                      </b-col>
+                      <b-col>&nbsp;&nbsp;</b-col>
+                      <b-col>
+                        <button v-on:click="clearImage()"> Eliminar Imagen </button>
+                      </b-col>
+                    </b-row>
+                  </b-container>
+
+                </div>
+
                 <div>
                   <!-- Observaciones -->
                   <validation-provider
@@ -326,48 +386,11 @@
                       size="lg"
                       :disabled="true"
                     >
-                      <p>Estado: {{ aprobado ? "ABROBADO" : "NEGADO" }}</p>
+                      <p>Estado: {{ aprobado ? "Aprobado" : "Pendiente de aprobación" }}</p>
                     </b-form-checkbox>
                   </b-form-group>
                 </div>
-                <div>
-                  <!-- FILES --->
-                  <div>
-                    <b-container>
-                      <b-row class="w-100">
-                        <div id="preview">
-                          <img width="100%" v-if="imageUrl" :src="imageUrl" />
-                        </div>
-                      </b-row>
-                      <b-row class="w-100">
-                        <b-column>
-                          <label class="buttonFile">
-                            <input
-                              type="file"
-                              id="file"
-                              ref="file"
-                              v-on:change="handleFileUpload()"
-                              accept="image/png, image/jpeg"
-                            />
-                            <i class="fa fa-cloud-upload"></i> AGREGAR </label
-                          >
-                        </b-column>
-                        <b-column>&nbsp;&nbsp;</b-column>
-                        <b-column>
-                          <button v-on:click="clearImage()">ELIMINAR</button>
-                        </b-column>
-                      </b-row>
-                    </b-container>
 
-                    <table>
-                      <tr
-                        style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;"
-                      >
-
-                      </tr>
-                    </table>
-                  </div>
-                </div>
               </b-col>
             </b-row>
           </form>
@@ -413,6 +436,16 @@ export default {
   },
   data() {
     return {
+      imageData:{
+        size:'',
+        height:'',
+        width:'',
+        type:''
+      },
+      imageLoaded: false,
+      WIDTH_ALLOWED: 658,
+      HEIGHT_ALLOWED: 323,
+      SIZE_ALLOWED: 1024,
       axiosError: {
         id: "",
         message: ""
@@ -443,6 +476,7 @@ export default {
       dismissCountDown: 0,
       dismissCountDownSignup: 0,
       dismissCountDownAxios: 0,
+      dismissCountDownImage: 0,
       showDismissibleAlert: false,
       file: null,
       imageUrl: null,
@@ -798,25 +832,60 @@ export default {
     countDownAxiosChanged(dismissCountDownAxios) {
       this.dismissCountDownAxios = dismissCountDownAxios;
     },
-    countDownChangedSignup(dismissCountDown) {
-      this.dismissCountDownSignup = dismissCountDown;
+    countDownSignupChanged(dismissCountDownSignup) {
+      this.dismissCountDownSignup = dismissCountDownSignup;
       if (dismissCountDown == 0) this.$router.push("/servicios");
+    },
+    countDownImageChanged(dismissCountDownImage) {
+      this.dismissCountDownImage = dismissCountDownImage;
     },
     showAlert(message) {
       this.message = message;
       this.dismissCountDown = this.dismissSecs;
     },
     async handleFileUpload() {
+      var isAllowedImage= false;
+      var imageSize= await JSON.parse(localStorage.getItem("imageSize"));
       try {
-        if (this.$refs.file.files[0] === null) return;
-        this.file = this.$refs.file.files[0];
-        this.imageUrl = URL.createObjectURL(this.file);
+        if (this.file===null) return;
+        this.imageUrl = await URL.createObjectURL(this.file);
+        await this.readImageFile(this.file);
+
+        let imgSize=this.file.size/1024;
+
+        if (imageSize.height< this.HEIGHT_ALLOWED && imageSize.width< this.WIDTH_ALLOWED && imgSize < this.SIZE_ALLOWED) isAllowedImage=true;
+
+        if (!isAllowedImage){
+          await this.clearImage();
+          this.dismissCountDownImage=this.dismissSecs;
+          return;
+        }
+
+
       } catch (err) {
         this.axiosError = await this.$hasAxiosErrors(err);
         if (this.axiosError.id) {
           this.dismissCountDownAxios = this.dismissSecs;
         }
       }
+    },
+    readImageFile(file) {
+      //Initiate the FileReader object.
+      var reader = new FileReader();
+      //Read the contents of Image File.
+      reader.readAsDataURL(file);
+      reader.onload = function (e) {
+        //Initiate the JavaScript Image object.
+        var image = new Image();
+        //Set the Base64 string return from FileReader as source.
+        image.src = e.target.result;
+        //Validate the File Height and Width.
+        image.onload = function () {
+          var height = this.height;
+          var width = this.width;
+          localStorage.setItem("imageSize", JSON.stringify({height: height, width: width}));
+        };
+      };
     },
     clearImage() {
       this.file = null;
@@ -840,7 +909,16 @@ export default {
     loggedUser() {
       return JSON.parse(this.isLogged ? localStorage.getItem("user") : "{}");
     }
-  }
+  },
+  watch: {
+    file(newFile) {
+      if(newFile && !newFile.type.startsWith("image/")) {
+        this.$nextTick(() => {
+          this.file = null;
+        })
+      }
+    }
+  },
 };
 </script>
 
@@ -916,6 +994,23 @@ export default {
   .nav-item a:hover,
   .nav-item a:active {
     color: #3789d3;
+  }
+  #preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #aa381a;
+    border: 1px solid #aa381a;
+    padding: 2px 10px;
+    max-width: 100%;
+    /*min-height: 323px;*/
+    max-height: 323px;
+  }
+  #preview img {
+    max-width: 100%;
+    /*min-height: 323px;*/
+    max-height: 323px;
   }
   .banner {
     width: 100%;

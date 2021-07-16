@@ -26,6 +26,7 @@
 </template>
 <script>
 export default {
+  name: "Proveedorservicio",
   props: {
     image: {
       type: !String,
@@ -83,6 +84,7 @@ figure img {
   font-size: 14px;
   text-decoration: underline;
   cursor: pointer;
+  user-select: none;
 }
 .ciudad {
   font-weight: bold;

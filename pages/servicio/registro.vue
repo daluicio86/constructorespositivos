@@ -105,7 +105,7 @@
                     <b-form-input
                       class="element"
                       id="telefono-input"
-                      placeholder="* Teléfono del proveedor"
+                      placeholder="* Su número telefónico"
                       v-model="telefono"
                       type="text"
                       required
@@ -128,7 +128,7 @@
                     <b-form-input
                       class="element"
                       id="email-input"
-                      placeholder="* Correo electrónico del proveedor"
+                      placeholder="* Ingrese su Correo electrónico"
                       v-model="email"
                       type="email"
                       required
@@ -151,7 +151,7 @@
                     <b-form-input
                       class="element"
                       id="web-input"
-                      placeholder="* Página WEB del proveedor O enlace de FACEBOOK"
+                      placeholder="* Ingrese su página web O su página de Facebook"
                       v-model="web"
                       type="text"
                       required
@@ -174,7 +174,7 @@
                     <b-form-input
                       class="element"
                       id="ciudad-input"
-                      placeholder="* Ciudad del proveedor"
+                      placeholder="* Ingrese su ciudad"
                       v-model="ciudad"
                       type="text"
                       required
@@ -197,7 +197,7 @@
                     <b-form-input
                       class="element"
                       id="direccion-input"
-                      placeholder="* Dirección del proveedor"
+                      placeholder="* Ingrse su dirección"
                       v-model="direccion"
                       type="text"
                       required
@@ -221,11 +221,12 @@
                       >
                         <img width="100%" v-if="imageUrl" :src="imageUrl" />
                         <p v-if="!hasPreviousData || imageUrl == null">
-                          Cargar imagen de máximo 1Mb (658x323 pixels)
+                          Cargar imagen de máximo 1Mb (512 x 512 pixels)
                         </p>
                       </div>
                     </b-row>
                     <b-row class="w-100">
+                      <p>Ingresa tu fotografía o logotipo de tu empresa</p>
                       <b-col class="col-sm-6">
                         <label class="buttonFile">
                           <!-- input
@@ -269,7 +270,7 @@
                       <b-form-textarea
                         id="textarea"
                         v-model="observacion"
-                        placeholder="Enter something..."
+                        placeholder="Observaciones de su solicitud"
                         rows="3"
                         max-rows="6"
                         :disabled="true"

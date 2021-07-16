@@ -79,16 +79,11 @@
                 <span v-if="verproveedores" class="proveedor-categoria">{{
                   proveedor.category_servicio.categoria
                 }}</span>
-                <span class="proveedor-ciudad">{{
-                  proveedor.ciudadcategoria
-                }}</span>
+                <span class="proveedor-ciudad">{{ proveedor.ciudad }}</span>
                 <span class="proveedor-sitio"
                   ><a
                     @click="
-                      openLinkAllProovedores(
-                        proveedor.website,
-                        proveedor.nombre
-                      )
+                      openLinkAllProovedores(proveedor.web, proveedor.nombre)
                     "
                     >{{ proveedor.web }}</a
                   ></span
@@ -355,8 +350,10 @@ export default {
   width: 25%;
 }
 .proveedor img {
-  width: 100%;
-  height: auto;
+  /* width: 100%;
+  height: auto; */
+  width: 258px;
+  height: 258px;
   display: block;
 }
 .proveedor-nombre {
@@ -366,6 +363,7 @@ export default {
 }
 .proveedor-sitio {
   display: block;
+  cursor: pointer;
 }
 .proveedor-tel {
   display: block;
@@ -380,6 +378,11 @@ export default {
   display: block;
   margin: 0 auto;
   background: #5e5e5e !important;
+}
+.proveedor-ciudad {
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
 }
 @media (max-width: 767px) {
   #header h1 {

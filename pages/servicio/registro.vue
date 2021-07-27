@@ -459,8 +459,8 @@ export default {
         type: ""
       },
       imageLoaded: false,
-      WIDTH_ALLOWED: 658,
-      HEIGHT_ALLOWED: 323,
+      WIDTH_ALLOWED: 512,
+      HEIGHT_ALLOWED: 512,
       SIZE_ALLOWED: 1024,
       axiosError: {
         id: "",

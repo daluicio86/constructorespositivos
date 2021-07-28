@@ -220,7 +220,7 @@
                         id="preview"
                       >
                         <img width="100%" v-if="imageUrl" :src="imageUrl" />
-                        <p v-if="!hasPreviousData || imageUrl == null">
+                        <p v-if="imageUrl == null">
                           Cargar imagen de máximo 1Mb (512 x 512 pixels)
                         </p>
                       </div>
@@ -1030,9 +1030,9 @@ input[type="file"] {
   text-decoration: none;
   color: #aa381a;
   padding: 2px 10px;
-  max-width: 100%;
+  max-width: 360px;
+
   /*min-height: 323px;*/
-  max-height: 323px;
 }
 #preview img {
   max-width: 100%;

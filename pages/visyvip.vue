@@ -124,7 +124,7 @@
               class="link"
             >
               <h3>VIP</h3>
-              <h4>VIvienda de Interés Público</h4>
+              <h4>Vivienda de Interés Público</h4>
             </div>
             <p>De $71.065 a $91.368<br /><br /></p>
 

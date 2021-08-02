@@ -197,7 +197,7 @@
                     <b-form-input
                       class="element"
                       id="direccion-input"
-                      placeholder="* Ingrse su dirección"
+                      placeholder="* Ingrese su dirección"
                       v-model="direccion"
                       type="text"
                       required

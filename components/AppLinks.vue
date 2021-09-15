@@ -2,22 +2,20 @@
   <div>
     <ul class="nav-list">
       <li class="nav-item">
-        <nuxt-link to="/">ENCUENTRA LA CASA DE TUS SUEÑOS</nuxt-link>
+        <nuxt-link to="/">LA CASA DE TUS SUEÑOS</nuxt-link>
       </li>
       <li class="nav-item">
         <nuxt-link to="/visyvip">PROYECTOS VIS Y VIP</nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/calculadorafinanciera"
-          >CALCULADORA DE CRÉDITO</nuxt-link
-        >
+        <nuxt-link to="/calculadorafinanciera">CALCULADORA</nuxt-link>
       </li>
       <li class="nav-item">
-        <nuxt-link to="/insumos">MATERIALES PARA LA REMODELACIÓN</nuxt-link>
+        <nuxt-link to="/insumos">PROVEEDOR MATERIALES</nuxt-link>
       </li>
-      <!-- <li class="nav-item">
-        <nuxt-link to="/servicios">SERVICIOS</nuxt-link>
-      </li> -->
+      <li class="nav-item">
+        <nuxt-link to="/servicios">ESPECIALISTAS</nuxt-link>
+      </li>
       <li class="nav-item">
         <nuxt-link to="/quienes_somos">QUIENES SOMOS</nuxt-link>
       </li>

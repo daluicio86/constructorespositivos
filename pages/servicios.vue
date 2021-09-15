@@ -17,7 +17,7 @@
         ></b-embed>
       </div> -->
       <section id="insumos">
-        <h2>¡ENCUENTRA LO QUE NECESITAS!</h2>
+        <h2>¡ENCUENTRA TU ESPECIALISTA!</h2>
         <h3>Busca por categorías de servicios</h3>
         <div class="row">
           <div class="col-sm-3"></div>
@@ -60,10 +60,10 @@
         </div>
         <div id="map">
           <button @click="mostrarResultados">
-            <span>VER</span> PROVEEDORES
+            <span>VER</span> ESPECIALISTAS
           </button>
           <div v-if="verproveedores" class="proveedores-todos">
-            <h3>TODOS LOS PROVEEDORES</h3>
+            <h3>TODOS LOS ESPECIALISTAS</h3>
             <div class="proveedores-container">
               <div
                 class="proveedor"
@@ -100,6 +100,10 @@
         <button @click="openLoginServicios" class="registra_servicios">
           REGISTRA Y PUBLICA TUS SERVICIOS
         </button>
+        <div class="advertencia">
+          * Constructores Positivos no se responsabiliza por los servicios
+          brindados por los especialistas publicados en esta página.
+        </div>
       </section>
     </div>
     <section>
@@ -288,7 +292,11 @@ export default {
   border-radius: 5px;
   padding: 6px 20px;
 }
-
+.advertencia {
+  margin-top: 15px;
+  font-size: 13px;
+  text-align: center;
+}
 #insumos >>> .vs__selected-options {
   /* position: absolute;
   margin-left: -20px; */

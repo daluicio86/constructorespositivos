@@ -22,7 +22,7 @@
               allowfullscreen
             ></b-embed>
           </div>
-          <div id="texto" v-html="quieneSomo.contenido"></div>
+          <div v-if="!loading" id="texto" v-html="quienesSomos[0].contenido"></div>
         </div>
       </section>
     </div>
@@ -38,7 +38,7 @@
 
 <script>
 import footerPage from "~/components/footer";
-import quieneSomo from "~/apollo/queries/quieneSomo";
+import quienesSomos from "~/apollo/queries/quieneSomo";
 
 export default {
   components: {
@@ -46,19 +46,27 @@ export default {
   },
   data() {
     return {
-      quieneSomo: { banner: { url: "" } }
+      loading:true,
+      quienesSomos: []
     };
   },
   computed: {
-    banner() {
-      return process.env.baseURL + this.quieneSomo.banner.url;
-    }
+    // banner() {
+    //   //return process.env.baseURL + this.quieneSomo.banner.url;
+    // }
   },
 
   apollo: {
-    quieneSomo: {
+    quienesSomos: {
       prefetch: false,
-      query: quieneSomo,
+      query: quienesSomos,
+       result({ data, loading, networkStatus }) {
+        const dataIsReady = data && networkStatus === 7;
+        if (dataIsReady) {
+          this.loading = false;         
+        // this.gallery = data.galleries.items;
+        }
+      },
       variables() {}
     }
   }

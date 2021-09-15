@@ -1,8 +1,7 @@
-query {
-  quieneSomo {
+query{
+  quienesSomos{
+    id    
     contenido
-    banner {
-      url
-    }
+
   }
 }

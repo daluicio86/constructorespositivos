@@ -41,7 +41,7 @@
   /* border: 1px solid #aa381a; */
   padding: 2px 5px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .nav-item a:hover,
 .nav-item a:active {

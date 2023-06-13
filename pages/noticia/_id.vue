@@ -8,13 +8,13 @@
       <h2>LO QUE NOS INTERESA</h2>
     </div>
     <div class="container">
-      <section id="blog">
+      <section id="noticia">
         <div class="row">
           <articuloNoticia
-            :descargable="blog.descargable"
-            :image="blog.foto.url"
-            :title="blog.titulo"
-            :description="blog.contenido"
+            :image="noticia.foto.url"
+            :title="noticia.titulo"
+            :link="noticia.link"
+            :description="noticia.contenido"
           ></articuloNoticia>
           <router-link to="/noticias"
             ><span class="back-arrow">
@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      blog: { foto: { url: "none" }, descargable: { url: "none" } },
+      noticia: { foto: { url: "" }},
       api_url: process.env.strapiBaseUri,
       id: "1"
     };
@@ -52,35 +52,34 @@ export default {
       try {
         var result = await axios({
           method: "POST",
-          url: "https://strapiconstructores.fmwlab.com/graphql",
+          url: process.env.strapiBaseUri,
           data: {
             query: `{
-                noticiasRegulacione(id: ${this.id}) {
+              noticiasRegulacione(id: 1) {
                   id
                   titulo
                   contenido
+                  link
                   resumen
                   foto {
                     url
                   }
-                  descargable{
-                    url
-                  }
                 }
-                    }    `
+            }`
           }
         });
         try {
           let data = result.data.data.noticiasRegulacione;
-          console.log(data);
-          this.blog = data;
+          //console.log(data);
+          this.noticia = data;
           //revisar si el descargable es null cambiarlo por ""
-          if (this.blog.descargable == null) {
-            console.log("cambiando descargable");
-            this.blog.descargable = "";
-            this.blog.descargable.url = "";
-          }
-          console.log(this.blog);
+         // if (this.blog.descargable == null) {  
+           // console.log("cambiando descargable");
+            //this.blog.descargable = "";
+            //this.blog.descargable.url = "";
+          //}
+          //console.log(this.noticia);
+          console.log(this.noticia);
         } catch (err) {
           console.log(err);
         }
@@ -125,7 +124,7 @@ export default {
   font-size: 18px;
   font-weight: normal;
 }
-#blog {
+#noticia {
   margin: 20px 0;
 }
 .back-arrow {

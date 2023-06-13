@@ -5,6 +5,9 @@ query insumos($id: ID!) {
       id
       nombre_empresa
       website
+      descripcion
+      latitud
+      longitud
       telefono
       logo {
         url

@@ -7,6 +7,9 @@ query servicios($id: ID!) {
       web
       telefono
       ciudad
+      direccion
+      web_catalogo
+      resumen_descripcion
       aprobado
       imagen_servicio {
         url

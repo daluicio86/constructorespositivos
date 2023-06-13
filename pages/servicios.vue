@@ -52,6 +52,7 @@
               :telefono="proveedor.telefono"
               :nombre_empresa="proveedor.nombre"
               :ciudad="proveedor.ciudad"
+              :direccion="proveedor.direccion"
             ></proveedoresServicios>
           </div>
         </div>
@@ -80,19 +81,37 @@
                   proveedor.category_servicio.categoria
                 }}</span>
                 <span class="proveedor-ciudad">{{ proveedor.ciudad }}</span>
+
+                <span class="proveedor-direccion"><b>Dirección: </b>{{ proveedor.direccion }}</span>
+
                 <span class="proveedor-sitio"
-                  ><a
+                  ><b>Web: </b><a
                     @click="
                       openLinkAllProovedores(proveedor.web, proveedor.nombre)
                     "
                     >{{ proveedor.web }}</a
                   ></span
                 >
-                <span class="proveedor-tel"
-                  ><a :href="`tel:${proveedor.telefono}`"
-                    >Tel: {{ proveedor.telefono }}</a
+
+                <span v-if="proveedor.web_catalogo" class="proveedor-sitio"
+                  ><b>Cátalogo: </b><a
+                    @click="
+                      openLinkAllProovedores(proveedor.web_catalogo, proveedor.nombre)
+                    ">{{ proveedor.web_catalogo }}</a
                   ></span
                 >
+                <span v-if="proveedor.telefono.startsWith('09')" class="proveedor-tel"                
+                  ><a :href="`https://wa.me//+${proveedor.telefono.replace('0','593')}`"                  
+                    ><font-awesome-icon :icon="['fab', 'whatsapp']" />
+                    <b>Tel: </b>{{ proveedor.telefono }}</a
+                  >
+                </span>
+                <span v-else class="proveedor-tel"                
+                  ><a :href="`https://wa.me//+${proveedor.telefono.replace('0','593')}`"                  
+                    ><b>Tel: </b>{{ proveedor.telefono }}</a
+                  >
+                </span>
+                <span class="proveedor-descripcion">{{ proveedor.resumen_descripcion }}</span>                
               </div>
             </div>
           </div>
@@ -355,13 +374,11 @@ export default {
 }
 .proveedor {
   margin: 20px 30px;
-  width: 25%;
+  width: 35%;
 }
 .proveedor img {
-  /* width: 100%;
-  height: auto; */
-  width: 258px;
-  height: 258px;
+  width: 100%;
+  height: auto;
   display: block;
 }
 .proveedor-nombre {

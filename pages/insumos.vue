@@ -78,21 +78,37 @@
                   proveedor.nombre_empresa
                 }}</span>
                 <span class="proveedor-sitio"
-                  ><a
+                  >
+                  <div v-for="(item, index) in proveedor.website.split('_')"  v-bind:key="index">
+                    <a
                     @click="
                       openLinkAllProovedores(
-                        proveedor.website,
+                        item,
                         proveedor.nombre_empresa
                       )
-                    "
-                    >{{ proveedor.website }}</a
+                    ">{{ item }}</a>
+                  </div>
+                  </span>
+                <span v-if="proveedor.telefono.startsWith('09')" class="proveedor-tel"
+                  ><a :href="`https://wa.me//+${proveedor.telefono.replace('0','593')}`"
+                    ><font-awesome-icon :icon="['fab', 'whatsapp']" />Tel: {{ proveedor.telefono }}</a
                   ></span
                 >
-                <span class="proveedor-tel"
-                  ><a :href="`tel:${proveedor.website}`"
-                    >Tel: {{ proveedor.telefono }}</a
+                <span v-else class="proveedor-tel"
+                  ><a :href="`https://wa.me//+${proveedor.telefono.replace('0','593')}`"
+                    ><font-awesome-icon :icon="['fab', 'whatsapp']" />Tel: {{ proveedor.telefono }}</a
                   ></span
                 >
+
+                <span class="proveedor-descripcion">{{
+                  proveedor.descripcion
+                }}</span>
+
+                <div class="item">        
+                  <a :href="maps_path + proveedor.latitud + ',' + proveedor.longitud" target="_blank"
+                    ><font-awesome-icon :icon="['fas', 'directions']"
+                  /></a>     
+              </div>                   
               </div>
             </div>
           </div>
@@ -126,7 +142,8 @@ export default {
       insumos_todos: "",
       noresults: false,
       verproveedores: false,
-      loading: false
+      loading: false,
+      maps_path: "https://www.google.com/maps/search/?api=1&query="
     };
   },
   apollo: {
@@ -158,9 +175,11 @@ export default {
   },
   methods: {
     async mostrarResultados() {
-      // console.log("mostrar resultados");
+       //console.log("mostrar resultados");
       this.$apollo.queries.todosInsumos.skip = false;
       const result = await this.$apollo.queries.todosInsumos.refetch();
+      //console.log(result);
+      console.log(this.maps_path);
       this.insumos_todos = await result.data.insumos;
       this.verproveedores = true;
       this.proovedores_resultado = false;

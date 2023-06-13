@@ -9,7 +9,11 @@ query servicios {
       url
     }
     web
+    direccion
+    web_catalogo
+    resumen_descripcion    
     telefono
     ciudad
+
   }
 }

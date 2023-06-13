@@ -22,6 +22,9 @@
       <li class="nav-item">
         <nuxt-link to="/blog">BLOG</nuxt-link>
       </li>
+      <li class="nav-item">
+        <nuxt-link to="/noticia">NOTICIAS</nuxt-link>
+      </li>
     </ul>
   </div>
 </template>

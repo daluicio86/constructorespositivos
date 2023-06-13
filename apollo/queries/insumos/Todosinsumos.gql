@@ -9,6 +9,9 @@ query insumos {
       url
     }
     website
+    descripcion
+    latitud
+    longitud
     telefono
   }
 }

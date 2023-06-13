@@ -4,17 +4,19 @@
       <img :src="image_path" />
     </figure>
     <div class="foot_proyectos">
-      <div class="title">{{ title }}</div>
+      <div class="title">
+        <a :href="`${link}`">{{ title }}</a>
+      </div>
       <div class="row">
         <div class="col-sm">
           <div class="datos_proyecto" v-html="$md.render(description)"></div>
         </div>
       </div>
-      <div class="col-sm right">
-        <a v-if="hayDescargable" :href="descargable_path" target="_blank"
+      <!--<div class="col-sm right">
+        <a href="descargable_path" target="_blank"
           >DESCARGA PDF <font-awesome-icon :icon="['fas', 'download']"
         /></a>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -22,8 +24,8 @@
 export default {
   props: {
     image: !String,
-    descargable: !Object,
     title: !String,
+    link:!String,
     description: {
       type: String,
       default: ""
@@ -35,28 +37,14 @@ export default {
       descargable_path: ""
     };
   },
-  computed: {
-    hayDescargable() {
-      if (this.descargable != "") {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  },
   mounted() {
+    console.log("00"+process.env.baseURL + this.image);
     this.image_path = process.env.baseURL + this.image;
-    this.descargable_path = process.env.baseURL + this.descargable.url;
   },
   watch: {
     image: function(newVal, oldVal) {
       // watch it
       this.image_path = process.env.baseURL + newVal;
-    },
-    descargable: function(newVal, oldVal) {
-      // watch it
-
-      this.descargable_path = process.env.baseURL + newVal.url;
     }
   }
 };

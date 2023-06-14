@@ -15,24 +15,23 @@
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@nuxtjs/apollo": "^4.0.1-rc.5",
-    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/apollo": "^4.0.1-rc.3",
+    "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/markdownit": "^1.2.10",
-    "apollo-boost": "^0.4.9",
     "axios": "^0.20.0",
     "bootstrap-vue": "^2.17.3",
-    "graphql": "^15.8.0",
+    "graphql": "^15.3.0",
+    "node-sass": "^4.14.1",
     "nuxt": "^2.0.0",
     "nuxt-gmaps": "^1.2.10",
     "nuxt-google-maps-module": "^1.6.0",
     "nuxt-vue-select": "^0.1.4",
     "sass-loader": "^10.0.2",
     "vee-validate": "^3.4.10",
-    "vue-apollo": "^3.1.0",
     "vue-browser-geolocation": "^1.8.0",
     "vue-burger-menu": "^2.0.5",
     "vue-range-slider": "^0.6.0",
@@ -40,12 +39,10 @@
     "vue2-google-maps": "^0.10.7"
   },
   "devDependencies": {
-    "@types/node": "^20.3.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^4.0.0",
-    "sass": "^1.63.4"
+    "eslint-plugin-vue": "^4.0.0"
   }
 }

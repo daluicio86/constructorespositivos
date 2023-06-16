@@ -13,7 +13,7 @@
           <span v-if="this.telefono.startsWith('09')" class="datos_proyecto">
             <a :href="`https://wa.me//+${this.telefono.replace('0','593')}`"><font-awesome-icon :icon="['fab', 'whatsapp']" />Tel: {{ telefono }}</a>
           </span>
-          <span v-else class="proveedor-tel">Tel: {{ telefono }}</span>
+          <span v-else class="proveedor-tel">Tel: {{ telefono }}</span><br/>
           <span class="proveedor-descripcion">{{descripcion}}</span>
           <div class="item">        
             <a :href="maps_path + latitud + ',' + longitud" target="_blank"
@@ -76,6 +76,11 @@ figure img {
 .datos_proyecto >>> p {
   padding: 0 !important;
   margin: 0 !important;
+}
+.proveedor {
+  margin: 20px 30px;
+  width: 25%;
+  text-align: center;
 }
 .proveedor-item {
   margin: 5px 20px;

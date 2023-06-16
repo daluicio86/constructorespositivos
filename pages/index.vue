@@ -757,9 +757,6 @@ figure {
   text-align: left;
   font-weight: bold;
 }
-.distancia {
-  /* margin-top: 5px; */
-}
 @media only screen and (max-width: 641px) {
   .card_home {
     margin-bottom: 30px;

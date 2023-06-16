@@ -72,13 +72,6 @@ export default {
           let data = result.data.data.noticiasRegulacione;
           //console.log(data);
           this.noticia = data;
-          //revisar si el descargable es null cambiarlo por ""
-         // if (this.blog.descargable == null) {  
-           // console.log("cambiando descargable");
-            //this.blog.descargable = "";
-            //this.blog.descargable.url = "";
-          //}
-          //console.log(this.noticia);
           console.log(this.noticia);
         } catch (err) {
           console.log(err);

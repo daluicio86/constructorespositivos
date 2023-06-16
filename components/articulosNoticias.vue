@@ -30,8 +30,7 @@ export default {
     image: !String,
     title: !String,
     description: !String,
-    link: !String,
-    descargable: !String
+    link: !String
   },
   data() {
     return {

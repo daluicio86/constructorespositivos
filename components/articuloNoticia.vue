@@ -76,8 +76,7 @@ a {
   font-weight: bold;
   text-decoration: underline;
 }
-p {
-}
+
 @media only screen and (max-width: 641px) {
   figure img {
     width: 90%;

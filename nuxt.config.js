@@ -36,6 +36,9 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+    babel: {
+      compact: true
+    },
     transpile: ['vee-validate', /^vue2-google-maps($|\/)/],
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {

@@ -6,11 +6,9 @@ query {
     titulo
     resumen
     slug
+    link
     contenido
     foto {
-      url
-    }
-    descargable {
       url
     }
   }

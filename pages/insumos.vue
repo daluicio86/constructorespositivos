@@ -178,8 +178,9 @@ export default {
        //console.log("mostrar resultados");
       this.$apollo.queries.todosInsumos.skip = false;
       const result = await this.$apollo.queries.todosInsumos.refetch();
-      //console.log(result);
-      console.log(this.maps_path);
+      console.log("llega");
+      console.log(result);
+
       this.insumos_todos = await result.data.insumos;
       this.verproveedores = true;
       this.proovedores_resultado = false;

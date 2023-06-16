@@ -11,7 +11,7 @@
       <div id="noticia">
         <div class="row">
           <articuloNoticia
-            v-for="(articulo, index) in noticias"
+            v-for="(articulo, index) in noticiasRegulaciones"
             :key="index"
             :image="articulo.foto.url"
             :title="articulo.titulo"
@@ -38,12 +38,12 @@ export default {
   },
   data() {
     return {
-      noticias: []
+      noticiasRegulaciones: []
     };
   },
   methods: {},
   apollo: {
-    noticias: {
+    noticiasRegulaciones: {
       prefetch: false,
       query: notiQuery,
       variables() {

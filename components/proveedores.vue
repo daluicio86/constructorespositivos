@@ -1,25 +1,25 @@
 <template>
-  <div class="col-sm col-md-3 proveedor-item">
+  <div class="proveedor">
     <figure>
       <img :src="image_path" />
     </figure>
     <div class="foot_proyectos">
       <div class="nombre_empresa">{{ nombre_empresa }}</div>
-      <div class="row">
-        <div class="col-sm">
-          <div class="datos_proyecto">
-            <a
-              class="website"
-              @click="openLinkBuscadorProveedores(website, nombre_empresa)"
-              >{{ website }}</a
-            >
-          </div>
-          <div class="datos_proyecto">
-            Tel:
-            <a class="phone" :href="`tel:${this.telefono}`">{{ telefono }}</a>
-          </div>
+      <span class="proveedor-sitio ">
+        <div v-for="(item, index) in website.split('_')"  v-bind:key="index">
+          <a @click="openLinkBuscadorProveedores(website,nombre_empresa)">{{ item }}</a>
         </div>
-      </div>
+      </span>    
+          <span v-if="this.telefono.startsWith('09')" class="datos_proyecto">
+            <a :href="`https://wa.me//+${this.telefono.replace('0','593')}`"><font-awesome-icon :icon="['fab', 'whatsapp']" />Tel: {{ telefono }}</a>
+          </span>
+          <span v-else class="proveedor-tel">Tel: {{ telefono }}</span>
+          <span class="proveedor-descripcion">{{descripcion}}</span>
+          <div class="item">        
+            <a :href="maps_path + latitud + ',' + longitud" target="_blank"
+              ><font-awesome-icon :icon="['fas', 'directions']"
+            /></a>     
+          </div>  
     </div>
   </div>
 </template>
@@ -32,11 +32,15 @@ export default {
     },
     nombre_empresa: !String,
     website: !String,
-    telefono: !String
+    telefono: !String,
+    descripcion: !String,
+    latitud: !String,
+    longitud: !String,
   },
   data() {
     return {
-      image_path: ""
+      image_path: "",
+      maps_path: "https://www.google.com/maps/search/?api=1&query="
     };
   },
   methods: {
@@ -51,6 +55,8 @@ export default {
   },
   computed: {},
   mounted() {
+    console.log("lleeeeeeeee");
+    console.log(this);
     this.image_path = process.env.baseURL + this.image;
   },
   watch: {
@@ -66,9 +72,7 @@ figure img {
   width: 100%;
   /* max-width: 450px; */
 }
-.foot_proyectos {
-  text-align: center;
-}
+
 .datos_proyecto >>> p {
   padding: 0 !important;
   margin: 0 !important;
@@ -81,5 +85,17 @@ figure img {
   font-size: 14px;
   text-decoration: underline;
   cursor: pointer;
+}
+.proveedor-sitio {
+  display: block;
+}
+.proveedor-sitio a {
+  color: #b65e48;
+}
+.proveedor-tel {
+  display: block;
+}
+.proveedor-tel a {
+  color: #5e5e5e;
 }
 </style>

@@ -1,24 +1,34 @@
 <template>
-  <div class="col-sm col-md-3 proveedor-item">
+  <div class="proveedor">
     <figure>
       <img :src="image_path" />
     </figure>
     <div class="foot_proyectos">
       <div class="nombre_empresa">{{ nombre_empresa }}</div>
+      <span class="proveedor-categoria">{{ categoria }}</span>
       <div class="ciudad">{{ ciudad }}</div>
+      <span class="proveedor-direccion"><b>Dirección: </b>{{ direccion }}</span>
       <div class="row">
         <div class="col-sm">
           <div class="datos_proyecto">
-            <a
+            <b>Web: </b><a
               class="website"
               @click="openLinkBuscadorProveedores(website, nombre_empresa)"
               >{{ website }}</a
             >
           </div>
-          <div class="datos_proyecto">
-            Tel:
-            <a class="phone" :href="`tel:${this.telefono}`">{{ telefono }}</a>
-          </div>
+          <span v-if="this.telefono.startsWith('09')" class="proveedor-tel"                
+                  ><a :href="`https://wa.me//+${this.telefono.replace('0','593')}`"                  
+                    ><font-awesome-icon :icon="['fab', 'whatsapp']" />
+                    <b>Tel: </b>{{ telefono }}</a
+                  >
+                </span>
+                <span v-else class="proveedor-tel"                
+                  ><a :href="`https://wa.me//+${this.telefono.replace('0','593')}`"                  
+                    ><b>Tel: </b>{{ telefono }}</a
+                  >
+                </span>
+                <span class="proveedor-descripcion">{{ descripcion }}</span>              
         </div>
       </div>
     </div>
@@ -34,8 +44,11 @@ export default {
     },
     nombre_empresa: !String,
     ciudad: !String,
+    direccion: !String,
     website: !String,
-    telefono: !String
+    telefono: !String,
+    categoria: !String,
+    descripcion: !String
   },
   data() {
     return {
@@ -45,7 +58,7 @@ export default {
   methods: {
     openLinkBuscadorProveedores(link, label) {
       this.$ga.event({
-        eventCategory: "insumos",
+        eventCategory: "servicios",
         eventAction: "abrir",
         eventLabel: label
       });
@@ -54,6 +67,7 @@ export default {
   },
   computed: {},
   mounted() {
+    console.log(this.descripcion);
     this.image_path = process.env.baseURL + this.image;
   },
   watch: {
@@ -69,6 +83,11 @@ figure img {
   width: 100%;
   /* max-width: 450px; */
 }
+.nombre_empresa {
+  margin-top: 8px;
+  display: block;
+  font-weight: bold;
+}
 .foot_proyectos {
   text-align: center;
 }
@@ -78,6 +97,9 @@ figure img {
 }
 .proveedor-item {
   margin: 5px 20px;
+}
+.proveedor-tel {
+  display: block;
 }
 .website {
   color: #c12e24;

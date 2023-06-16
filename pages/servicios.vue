@@ -1,5 +1,5 @@
 <template>
-  <section class="cont">
+  <section>
     <div class="banner">
       <img src="../assets/images/banner_servicios.jpg" />
     </div>
@@ -41,18 +41,20 @@
             <span class="sr-only">Loading...</span>
           </div>
         </div>
-        <div v-if="proovedores_resultado" class="proveedores_container">
-          <h4>{{ categoria.categoria }}</h4>
-          <div id="proveedores_resultado">
+        <div v-if="proovedores_resultado" class="proveedores-todos">
+          <h3 class="no-result">{{ categoria.categoria.toUpperCase() }}</h3>
+          <div id="proveedores-container">
             <proveedoresServicios
               v-for="(proveedor, index) in servicios_obj"
               :key="index"
               :image="proveedor.imagen_servicio.url"
+              :categoria="proveedor.category_servicio.categoria"
               :website="proveedor.web"
               :telefono="proveedor.telefono"
               :nombre_empresa="proveedor.nombre"
               :ciudad="proveedor.ciudad"
               :direccion="proveedor.direccion"
+              :descripcion="proveedor.resumen_descripcion"
             ></proveedoresServicios>
           </div>
         </div>
@@ -188,6 +190,7 @@ export default {
       // console.log("mostrar resultados");
       this.$apollo.queries.todosServicios.skip = false;
       const result = await this.$apollo.queries.todosServicios.refetch();
+
       this.servicios_todos = await result.data.servicios;
       this.verproveedores = true;
       this.proovedores_resultado = false;
@@ -203,6 +206,7 @@ export default {
         this.$apollo.queries.servicios.skip = false;
         const result = await this.$apollo.queries.servicios.refetch();
         this.servicios_obj = await result.data.categoryServicios[0].servicios;
+
         if (this.servicios_obj.length > 0) {
           this.proovedores_resultado = true;
           this.noresults = false;
@@ -229,13 +233,6 @@ export default {
 </script>
 
 <style scoped>
-.cont {
-  /* min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center; */
-}
 .banner {
   width: 100%;
 }

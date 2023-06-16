@@ -41,7 +41,7 @@
             <span class="sr-only">Loading...</span>
           </div>
         </div>
-        <div v-if="proovedores_resultado" class="proveedores_container">
+        <div v-if="proovedores_resultado" class="proveedores_todos">
           <h4>{{ categoria.categoryname }}</h4>
           <div id="proveedores_resultado">
             <proveedores
@@ -51,6 +51,9 @@
               :website="proveedor.website"
               :telefono="proveedor.telefono"
               :nombre_empresa="proveedor.nombre_empresa"
+              :descripcion="proveedor.descripcion"
+              :latitud="proveedor.latitud"
+              :longitud="proveedor.longitud"
             ></proveedores>
           </div>
         </div>
@@ -64,8 +67,7 @@
           <div v-if="verproveedores" class="proveedores-todos">
             <h3>TODOS LOS PROVEEDORES</h3>
             <div class="proveedores-container">
-              <div
-                class="proveedor"
+              <div                 class="proveedor"
                 v-for="(proveedor, index) in insumos_todos"
                 :key="index"
               >
@@ -89,26 +91,17 @@
                     ">{{ item }}</a>
                   </div>
                   </span>
-                <span v-if="proveedor.telefono.startsWith('09')" class="proveedor-tel"
-                  ><a :href="`https://wa.me//+${proveedor.telefono.replace('0','593')}`"
-                    ><font-awesome-icon :icon="['fab', 'whatsapp']" />Tel: {{ proveedor.telefono }}</a
-                  ></span
-                >
-                <span v-else class="proveedor-tel"
-                  ><a :href="`https://wa.me//+${proveedor.telefono.replace('0','593')}`"
-                    ><font-awesome-icon :icon="['fab', 'whatsapp']" />Tel: {{ proveedor.telefono }}</a
-                  ></span
-                >
-
-                <span class="proveedor-descripcion">{{
-                  proveedor.descripcion
-                }}</span>
+                <span v-if="proveedor.telefono.startsWith('09')" class="proveedor-tel">
+                  Tel: {{ proveedor.telefono }}
+                </span>
+                <span v-else class="proveedor-tel">Tel: {{ proveedor.telefono }}</span>
+                <span class="proveedor-descripcion">{{ proveedor.descripcion}}</span>
 
                 <div class="item">        
                   <a :href="maps_path + proveedor.latitud + ',' + proveedor.longitud" target="_blank"
                     ><font-awesome-icon :icon="['fas', 'directions']"
                   /></a>     
-              </div>                   
+                </div>                   
               </div>
             </div>
           </div>
@@ -178,8 +171,6 @@ export default {
        //console.log("mostrar resultados");
       this.$apollo.queries.todosInsumos.skip = false;
       const result = await this.$apollo.queries.todosInsumos.refetch();
-      console.log("llega");
-      console.log(result);
 
       this.insumos_todos = await result.data.insumos;
       this.verproveedores = true;
@@ -193,10 +184,11 @@ export default {
       if (this.categoria != null) {
         this.loading = true;
         this.verproveedores = false;
-        // console.log("get proveedores");
+         console.log("get proveedores");
         this.$apollo.queries.insumos.skip = false;
         const result = await this.$apollo.queries.insumos.refetch();
         this.insumos_obj = await result.data.categoryInsumos[0].insumos;
+        console.log( this.insumos_obj );
 
         if (this.insumos_obj.length > 0) {
           this.proovedores_resultado = true;

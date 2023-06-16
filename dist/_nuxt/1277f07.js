@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[36],{673:function(n,o){n.exports={apps:[{name:"ConstructoresPositivos",exec_mode:"cluster",instances:"max",script:"./node_modules/nuxt/bin/nuxt.js",args:"start"}]}}}]);

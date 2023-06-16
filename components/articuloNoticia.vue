@@ -39,7 +39,6 @@ export default {
     };
   },
   mounted() {
-    console.log("00"+process.env.baseURL + this.image);
     this.image_path = process.env.baseURL + this.image;
   },
   watch: {

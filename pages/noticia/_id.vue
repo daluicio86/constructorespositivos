@@ -1,22 +1,20 @@
 <template>
   <section class="cont">
     <div class="banner">
-      <img src="../../assets/images/banner_quienes.jpg" />
+      <img src="../../assets/images/14.png" />
     </div>
     <div id="header">
-      <h1>REGULACIONES Y NOTICIAS</h1>
-      <h2>LO QUE NOS INTERESA</h2>
+      <h1>NOTICIAS DESTACADAS/COMUNICADOS OFICIALES</h1>
     </div>
     <div class="container">
       <section id="noticia">
         <div class="row">
           <articuloNoticia
-            :image="noticia.foto.url"
-            :title="noticia.titulo"
-            :link="noticia.link"
-            :description="noticia.contenido"
+            :foto="noticiasRegulacione.foto.url"
+            :title="noticiasRegulacione.titulo"
+            :description="noticiasRegulacione.contenido"
           ></articuloNoticia>
-          <router-link to="/noticias"
+          <router-link to="/noticia"
             ><span class="back-arrow">
               <font-awesome-icon :icon="['fas', 'chevron-left']"/></span
             >Regresar</router-link
@@ -32,7 +30,6 @@
 
 <script>
 import articuloNoticia from "~/components/articuloNoticia";
-
 import footerPage from "~/components/footer";
 import axios from "axios";
 export default {
@@ -42,7 +39,7 @@ export default {
   },
   data() {
     return {
-      noticia: { foto: { url: "" }},
+      noticiasRegulacione: { foto: { url: "" } },
       api_url: process.env.strapiBaseUri,
       id: "1"
     };
@@ -55,24 +52,22 @@ export default {
           url: process.env.strapiBaseUri,
           data: {
             query: `{
-              noticiasRegulacione(id: 1) {
+              noticiasRegulacione(id: ${this.id}) {
                   id
                   titulo
                   contenido
-                  link
                   resumen
+                  slug
                   foto {
                     url
                   }
                 }
-            }`
+              }`
           }
         });
         try {
           let data = result.data.data.noticiasRegulacione;
-          //console.log(data);
-          this.noticia = data;
-          console.log(this.noticia);
+          this.noticiasRegulacione = data;
         } catch (err) {
           console.log(err);
         }

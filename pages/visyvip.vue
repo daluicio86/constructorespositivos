@@ -162,7 +162,7 @@
         <button
           @click="
             gotoUrl(
-              'https://www.miduvi.net/calculadora',
+              'https://constructorespositivos.com/calculadorafinanciera',
               'calculadora',
               'clic',
               'calculadora'

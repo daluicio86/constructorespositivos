@@ -1,13 +1,11 @@
 query {
-  noticiasRegulaciones {
+  noticiasRegulaciones(sort: "created_at")  {
     id
-    created_at
-    updated_at
     titulo
+    contenido
     resumen
     slug
-    link
-    contenido
+    link    
     foto {
       url
     }

@@ -245,6 +245,22 @@
         </div>
       </section>
       <!-- end resultados -->
+
+      <section id="calc">
+        <button
+          @click="
+            gotoUrl(
+              'https://constructorespositivos.com/calculadorafinanciera',
+              'calculadora',
+              'clic',
+              'calculadora'
+            )
+          "
+          class="calculadora-btn"
+        >
+          CALCULADORA: CALCULA TU CRÉDITO HIPOTECARIO
+        </button>
+      </section>
     </div>
     <section>
       <footerPage />
@@ -298,6 +314,14 @@ export default {
     };
   },
   methods: {
+    gotoUrl(site, label, category, action) {
+      this.$ga.event({
+        eventCategory: category,
+        eventAction: action,
+        eventLabel: label
+      });
+      window.open(site, "_blank");
+    },
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity();
       this.nameState = valid;
@@ -776,5 +800,25 @@ figure {
   .input-data {
     margin-top: 10px;
   }
+}
+
+#calc {
+  text-align: center;
+  margin: 25px 0 40px 0;
+}
+#calc button {
+  background: rgb(247, 99, 46);
+  background: radial-gradient(
+    circle,
+    rgba(247, 99, 46, 1) 0%,
+    rgba(181, 34, 34, 1) 100%
+  );
+  color: white;
+  border: none;
+  outline: none;
+  height: 38px;
+  border-radius: 10px;
+  padding: 6px 8px;
+  margin-top: 25px;
 }
 </style>

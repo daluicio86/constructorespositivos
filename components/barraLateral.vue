@@ -1,71 +1,73 @@
 <template>
-  <div class="col-sm col-md-12">
-    <figure>
-      <img :src="image_path" />
-    </figure>
+       <li>
+         <img :src="image_path" />
+         <p class="datos_proyecto"><b>{{ nombre }}<br/>{{ cargo }}</b></p>
+        </li>   
+</template>
+
+<!--<template>
+  <div class="col-sm col-md-6 noti_card">
+
     <div class="foot_proyectos">
-      <div class="title" v-html="title"></div>
       <div class="row">
         <div class="col-sm">
-          <div class="datos_proyecto" v-html="$md.render(description)"></div>
+          <div class="datos_proyecto">{{ nombre }}</div>
         </div>
       </div>
     </div>
   </div>
-</template>
+</template>-->
+
 <script>
 export default {
   props: {
-    foto: !String,
-    title: !String,
-    description: {
-      type: String,
-      default: ""
-    }
+    id: !String,
+    nombre: !String,
+    cargo: !String,
+    foto: !String
   },
   data() {
     return {
       image_path: ""
     };
   },
+  methods: {
+  },  
   computed: {},
-  mounted() {
+  created() {
     this.image_path = process.env.baseURL + this.foto;
-  },
-  watch: {
-    foto: function(newVal, oldVal) {
-      console.log("foto: "+newVal);
-      // watch it
-      this.image_path = process.env.baseURL + newVal;
-    }
   }
 };
 </script>
-<style scoped>
-figure img {
-  width: 60%;
-  /* max-width: 450px; */
-}
 
+<style scoped>
+img {
+   width: 150px; 
+   height:150px;
+}
+.noti_card{
+   padding-top: 5px;
+}
 .title {
-  font-size: 24px;
+  font-size: 20px;
   color: #c65656;
   margin-bottom: 15px;
   margin-top: 15px;
 }
 .datos_proyecto {
-  color: black;
-  font-size: 16px;
+   color: black;
+  font-size: 10px;
 }
 .card_blog {
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }
 a {
   color: #c65656;
   font-weight: bold;
   text-decoration: underline;
 }
-p {
+.title {
+  text-align: center;
 }
 .foot_proyectos >>> h2 {
   font-size: 23px;
@@ -79,10 +81,11 @@ p {
   font-size: 25px;
   text-transform: uppercase;
 }
-@media only screen and (max-width: 641px) {
-  figure img {
-    width: 90%;
-    /* max-width: 450px; */
-  }
+.website {
+  color: #c12e24;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  user-select: none;
 }
 </style>

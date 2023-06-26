@@ -31,7 +31,6 @@
 
 <script>
 import articuloBlog from "~/components/articuloBlog";
-
 import footerPage from "~/components/footer";
 import axios from "axios";
 export default {

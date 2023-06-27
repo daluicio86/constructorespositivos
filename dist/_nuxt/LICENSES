@@ -1,15 +1,4 @@
 /*!
- * vue-range-slider v0.6.0
- * https://github.com/ktsn/vue-range-slider
- *
- * @license
- * Copyright (c) 2016-2018 katashin
- * Released under the MIT license
- * https://github.com/ktsn/vue-range-slider/blob/master/LICENSE
- */
-
-
-/*!
   * vue-scrollto v2.20.0
   * (c) 2019 Randjelovic Igor
   * @license MIT
@@ -132,17 +121,6 @@ PERFORMANCE OF THIS SOFTWARE.
  * vuex v3.6.2
  * (c) 2021 Evan You
  * @license MIT
- */
-
-
-/*!
- * vue-range-slider v0.6.0
- * https://github.com/ktsn/vue-range-slider
- *
- * @license
- * Copyright (c) 2016-2018 katashin
- * Released under the MIT license
- * https://github.com/ktsn/vue-range-slider/blob/master/LICENSE
  */
 
 

@@ -122,7 +122,7 @@ margin-left: 35px;
     margin:0px;
     position:absolute;
     right:0px;
-    top:520px;
+    top:540px;
     width:320px;
     z-index: 1100;
 }

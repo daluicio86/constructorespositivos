@@ -42,8 +42,8 @@ export default {
 
 <style scoped>
 img {
-   width: 150px; 
-   height:150px;
+   width: 100px; 
+   height:100px;
 }
 .noti_card{
    padding-top: 5px;

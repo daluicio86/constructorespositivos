@@ -47,7 +47,8 @@ export default {
 </script>
 <style scoped>
 figure img {
-  width: 100%;
+width: 500px;
+height: 400px;
   /* max-width: 450px; */
 }
 

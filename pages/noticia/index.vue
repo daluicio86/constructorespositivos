@@ -124,7 +124,6 @@ margin-left: 35px;
     right:0px;
     top:460px;
     width:320px;
-    z-index: 1100;
 }
 .sticky li{
     list-style-type:none;
@@ -132,15 +131,9 @@ margin-left: 35px;
     background-color: white;
     padding:0px;
     margin:0px 0px 1px 0px;
-    -webkit-transition:all 0.25s ease-in-out;
-    -moz-transition:all 0.25s ease-in-out;
-    -o-transition:all 0.25s ease-in-out;
-    transition:all 0.25s ease-in-out;
     cursor:pointer;
 }
-.sticky li:hover{
-    margin-left:-115px;
-}
+
 .sticky li img{
     float:left;
     margin:5px 4px;

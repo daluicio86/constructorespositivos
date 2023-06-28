@@ -91,11 +91,4 @@ a {
   cursor: pointer;
   user-select: none;
 }
-@media (max-width: 767px) {
-  figure img {
-  width: 100%;
-  /* max-width: 450px; */
-}
-
-}
 </style>

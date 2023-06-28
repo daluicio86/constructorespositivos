@@ -115,7 +115,6 @@ export default {
 .datos_proyecto {
    color: black;
   font-size: 10px;
-margin-left: 35px;
 }
 .sticky-container{
     padding:0px;
@@ -123,7 +122,8 @@ margin-left: 35px;
     position:absolute;
     right:0px;
     top:460px;
-    width:320px;
+    width:150px;
+    z-index: 1100;
 }
 .sticky li{
     list-style-type:none;
@@ -133,7 +133,6 @@ margin-left: 35px;
     margin:0px 0px 1px 0px;
     cursor:pointer;
 }
-
 .sticky li img{
     float:left;
     margin:5px 4px;

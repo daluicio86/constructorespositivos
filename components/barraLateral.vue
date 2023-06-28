@@ -42,8 +42,8 @@ export default {
 
 <style scoped>
 img {
-   width: 100px; 
-   height:100px;
+   width: 50px; 
+   height:50px;
 }
 .noti_card{
    padding-top: 5px;
@@ -55,7 +55,7 @@ img {
   margin-top: 15px;
 }
 .datos_proyecto {
-   color: black;
+  color: black;
   font-size: 10px;
 }
 .card_blog {

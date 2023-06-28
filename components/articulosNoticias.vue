@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm col-md-6 card_blog">
+  <div class="col-sm col-md-6 noti_card">
     <figure>
       <img :src="image_path" />
     </figure>
@@ -61,7 +61,7 @@ figure img {
   color: black;
   font-size: 14px;
 }
-.card_blog {
+.noti_card {
   margin-bottom: 50px;
 }
 a {
@@ -90,5 +90,12 @@ a {
   text-decoration: underline;
   cursor: pointer;
   user-select: none;
+}
+@media (max-width: 767px) {
+  figure img {
+  width: 100%;
+  /* max-width: 450px; */
+}
+
 }
 </style>

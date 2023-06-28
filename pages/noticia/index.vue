@@ -129,6 +129,7 @@ margin-left: 35px;
 .sticky li{
     list-style-type:none;
     color:black;
+    background-color: white;
     padding:0px;
     margin:0px 0px 1px 0px;
     -webkit-transition:all 0.25s ease-in-out;
@@ -157,5 +158,10 @@ margin-left: 35px;
 }
 .sticky li p a:hover{
     text-decoration:underline;
+}
+@media (max-width: 767px) {
+  .sticky-container{
+    display: none;
+  }
 }
 </style>

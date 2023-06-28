@@ -13,13 +13,14 @@
           <b-dropdown-item href="/">LA CASA DE TUS SUEÑOS</b-dropdown-item>
           <b-dropdown-item href="/visyvip">PROYECTOS VIS Y VIP</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item-dropdown text="PROVEEDOR MATERIALES">
+        <!--<b-nav-item-dropdown text="PROVEEDOR MATERIALES">
           <b-dropdown-item href="/insumos">PROVEEDOR MATERIALES</b-dropdown-item>
-          <b-dropdown-item href="/calculadorafinanciera">CALCULADORA</b-dropdown-item>
-        </b-nav-item-dropdown>
+          <b-dropdown-item href="/calculadora">CALCULADORA</b-dropdown-item>
+        </b-nav-item-dropdown>-->
       </b-navbar-nav>
 
       <b-navbar-nav>
+        <b-nav-item href="/insumos">PROVEEDORES DE MATERIALES</b-nav-item>
         <b-nav-item href="/servicios">ESPECIALISTAS</b-nav-item>
         <b-nav-item href="/noticia">PRENSA</b-nav-item>
       </b-navbar-nav>      

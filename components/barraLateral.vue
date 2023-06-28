@@ -88,4 +88,9 @@ a {
   cursor: pointer;
   user-select: none;
 }
+.datos_proyecto {
+   color: black;
+  font-size: 8px;
+}
+
 </style>

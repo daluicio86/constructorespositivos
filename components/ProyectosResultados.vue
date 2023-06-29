@@ -85,7 +85,6 @@ export default {
   },
   methods: {
     openLinkProyecto(link, label) {
-      console.log("openLink proyecto:" + link + "," + label);
       this.$ga.event({
         eventCategory: "proyectos",
         eventAction: "abrir",

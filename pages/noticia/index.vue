@@ -1,3 +1,5 @@
+
+
 <template>
   <section class="cont">
     <div class="banner">
@@ -7,34 +9,47 @@
 
       <h1>NOTICIAS DESTACADAS/COMUNICADOS OFICIALES</h1>
     </div>
+    <!--
+<div class="item">
+        <a :href="direction_path" target="_blank"><font-awesome-icon :icon="['fas', 'microphone']"/></a>
+    </div>   
+    -->
+    <div class="sticky-container1">
+      <a @click="showRegistro()"><img src="../../assets/images/micro.jpg" class="img-btn" title="Principales voceros"/></a>
+    </div>
     <div class="sticky-container">
-      <h4>Principales voceros</h4>
-      <ul class="sticky">
-          <barraLat         
-              v-for="(articulo, index) in barraPrincipals"
-              :key="index"
-              :nombre="articulo.Nombre"
-              :cargo="articulo.Cargo"
-              :foto="articulo.Image.url">
-          </barraLat>
-      </ul>
-      <p class="datos_proyecto"><b>Contacto para prensa: </b><br/>comunicacion@constructorespositivos.com<br/>administracion@constructorespositivos.com</p>
+      <b-modal v-model="registroShow" hide-footer>
+        <form ref="form" @submit.stop.prevent="handleSubmit">        
+            <h2 class="margin-lft">Principales voceros</h2>
+            <div class="sticky">
+                <barraLat          
+                    v-for="(articulo, index) in barraPrincipals"
+                    :key="index"
+                    :nombre="articulo.Nombre"
+                    :cargo="articulo.Cargo"
+                    :foto="articulo.Image.url"
+                    @showRegistro="showRegistro">
+                </barraLat>
+              </div>
+            <p class="datos_proyecto"><b>Contacto para prensa: </b><br/>comunicacion@constructorespositivos.com<br/>administracion@constructorespositivos.com</p>        
+        </form>
+      </b-modal>
     </div>
     <div class="container">
-      <div id="noticia">
-        <div class="row">
-          <articulosNoticia
-            v-for="(articulo, index) in noticiasRegulaciones"
-            :key="index"
-            :title="articulo.titulo"
-            :foto="articulo.foto.url"
-            :description="articulo.resumen"
-            :id="articulo.id"
-            :lnk="articulo.link"
-            :slug="articulo.slug"
-          ></articulosNoticia>
+        <div id="noticia">
+          <div class="row">
+            <articulosNoticia
+              v-for="(articulo, index) in noticiasRegulaciones"
+              :key="index"
+              :title="articulo.titulo"
+              :foto="articulo.foto.url"
+              :description="articulo.resumen"
+              :id="articulo.id"
+              :lnk="articulo.link"
+              :slug="articulo.slug"
+            ></articulosNoticia>
+          </div>
         </div>
-      </div>
     </div>
     <section>
       <footerPage />
@@ -55,11 +70,27 @@ export default {
   },
   data() {
     return {
+      registroShow: false,
+      direction_path: "",
       noticiasRegulaciones: [],
       barraPrincipals: []
     };
   },
-  methods: {},
+  methods: {
+    handleSubmit() {
+      console.log("submit");
+      // Hide the modal manually
+      this.$nextTick(() => {
+        this.$bvModal.hide("modal-prevent-closing");
+        this.registroShow = true;
+      });
+    },
+    showRegistro(payload) {
+      console.log("show registro" + payload);
+      this.website = payload;
+      this.registroShow = true;
+    },    
+  },
   apollo: {
     noticiasRegulaciones: {
       prefetch: false,
@@ -83,8 +114,24 @@ export default {
 .banner {
   width: 100%;
 }
+.margin-lft{
+ text-align: center;
+}
 .banner img {
   width: 100%;
+}
+.img-btn{
+  width: 100px;
+  margin-left: 30px;
+  margin-top: 15px;
+}
+.item {
+  display: inline-block;
+  color: white;
+  font-size: 25px;
+  border-radius: 50%;
+  border: 1px solid white;
+  padding: 2px 8px;
 }
 #header {
   background: rgb(247, 99, 46);
@@ -114,16 +161,25 @@ export default {
 }
 .datos_proyecto {
    color: black;
-  font-size: 10px;
+  font-size: 13px;
+  margin-left: 25px;
 }
 .sticky-container{
+  background-color: white;
     padding:0px;
     margin:0px;
     position:absolute;
     right:0px;
     top:460px;
-    width:150px;
+    width:350px;
     z-index: 1100;
+}
+.sticky-container1{
+  background-color: white;
+    position:absolute;
+    right:350px;
+    top:560px;
+    display: block;
 }
 .sticky li{
     list-style-type:none;
@@ -132,6 +188,7 @@ export default {
     padding:0px;
     margin:0px 0px 1px 0px;
     cursor:pointer;
+    text-align: center;
 }
 .sticky li img{
     float:left;
@@ -142,7 +199,7 @@ export default {
     padding-top:5px;
     margin:0px;
     line-height:16px;
-    font-size:11px;
+    font-size:12px;
 }
 .sticky li p a{
     text-decoration:none;

@@ -12,40 +12,7 @@
             <h5>Utiliza la calculadora del Ministerio de Económica para calcular las cuotas mensuales de créditos hipotecarios</h5>
         </div>
         <br/>      
-        <div class="calcular">
-            <h1 class="title">CALCULADORA – CASA PARA TODOS</h1>
-            <form action class="form" @submit.prevent="contact">  
-                <div class="row">
-                    <div class="col-sm-4 vrigth">
-                        <label class="form-label" for="#name"><b>Valor Vivienda: </b></label>
-                        <input
-                            v-model="name"
-                            class="form-input"
-                            type="number"
-                            id="name"
-                            required
-                            placeholder=""
-                        />
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-sm-4 vrigth">
-                        <label class="form-label" for="#email"><b>Plazo: </b></label>
-                        <select v-model="selected" id="tiempo" class="form-input select-h" placeholder="Seleccionar...">
-                            <option value="240">20 años</option>
-                            <option value="300">25 años</option>
-                        </select>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-sm-4 vrigth">                
-                        <input class="form-submit" type="submit" value="Calcular" />
-                    </div>
-                </div>                
-            </form>
-        </div>
+        <calculadora/>
       </div>
   
       <div id="header-1">
@@ -170,11 +137,13 @@
   </template>
   
   <script>
+  import calculadora from "~/components/calculadora";
   import footerPage from "~/components/footer";
   import calculadoras from "~/apollo/queries/calculadora/calculadoras";
   export default {
     components: {
-      footerPage
+      footerPage,
+      calculadora
     },
     data() {
       return {

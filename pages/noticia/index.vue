@@ -122,8 +122,6 @@ export default {
 }
 .img-btn{
   width: 100px;
-  margin-left: 30px;
-  margin-top: 15px;
 }
 .item {
   display: inline-block;
@@ -177,8 +175,8 @@ export default {
 .sticky-container1{
   background-color: white;
     position:absolute;
-    right:350px;
-    top:560px;
+    right:40px;
+    top:480px;
     display: block;
     z-index: 1000;
 }

@@ -9,7 +9,7 @@
       </div>
       <div v-if="!loading" class="container calculadoras">
         <div class="row">
-            <h5>Utiliza la calculadora del Ministerio de Económica para calcular las cuotas mensuales de créditos hipotecarios</h5>
+            <h5>Utiliza la calculadora del Ministerio de Económia para calcular las cuotas mensuales de créditos hipotecarios</h5>
         </div>
         <br/>      
         <calculadora/>

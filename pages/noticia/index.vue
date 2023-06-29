@@ -119,6 +119,7 @@ export default {
 }
 .banner img {
   width: 100%;
+  display: block;;
 }
 .img-btn{
   width: 100px;
@@ -211,5 +212,17 @@ export default {
   .sticky-container{
     display: none;
   }
+  .img-btn{
+    display: block;
+    width: 50px;
+  }
+  .sticky-container1{
+  background-color: white;
+    position:absolute;
+    top: 75px;
+    right: 20px;
+    display: block;
+    z-index: 1000;
+}  
 }
 </style>

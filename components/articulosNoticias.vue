@@ -61,6 +61,7 @@ height: 400px;
 .datos_proyecto {
   color: black;
   font-size: 14px;
+  text-align: justify;
 }
 .noti_card {
   margin-bottom: 50px;
@@ -91,5 +92,11 @@ a {
   text-decoration: underline;
   cursor: pointer;
   user-select: none;
+}
+
+@media (max-width: 767px) {
+  figure img {
+    width: 100%;
+  }
 }
 </style>

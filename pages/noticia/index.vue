@@ -180,6 +180,7 @@ export default {
     right:350px;
     top:560px;
     display: block;
+    z-index: 1000;
 }
 .sticky li{
     list-style-type:none;

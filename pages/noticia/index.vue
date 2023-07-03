@@ -6,36 +6,35 @@
       <img src="../../assets/images/14.png" />
     </div>
     <div id="header">
-
-      <h1>NOTICIAS DESTACADAS/COMUNICADOS OFICIALES</h1>
+      <h1>NOTICIAS DESTACADAS/ COMUNICADOS OFICIALES</h1>
     </div>
     <!--
 <div class="item">
         <a :href="direction_path" target="_blank"><font-awesome-icon :icon="['fas', 'microphone']"/></a>
     </div>   
     -->
-    <div class="sticky-container1">
-      <a @click="showRegistro()"><img src="../../assets/images/micro.jpg" class="img-btn" title="Principales voceros"/></a>
-    </div>
-    <div class="sticky-container">
-      <b-modal v-model="registroShow" hide-footer>
-        <form ref="form" @submit.stop.prevent="handleSubmit">        
-            <h2 class="margin-lft">Principales voceros</h2>
-            <div class="sticky">
-                <barraLat          
-                    v-for="(articulo, index) in barraPrincipals"
-                    :key="index"
-                    :nombre="articulo.Nombre"
-                    :cargo="articulo.Cargo"
-                    :foto="articulo.Image.url"
-                    @showRegistro="showRegistro">
-                </barraLat>
-              </div>
-            <p class="datos_proyecto"><b>Contacto para prensa: </b><br/>comunicacion@constructorespositivos.com<br/>administracion@constructorespositivos.com</p>        
-        </form>
-      </b-modal>
-    </div>
     <div class="container">
+      <div class="sticky-container1">
+          <a @click="showRegistro()"><img src="../../assets/images/micro.jpg" class="img-btn" title="Principales voceros"/></a>
+      </div>
+      <div class="sticky-container">
+        <b-modal v-model="registroShow" hide-footer>
+          <form ref="form" @submit.stop.prevent="handleSubmit">        
+              <h2 class="margin-lft">Principales voceros</h2>
+              <div class="sticky">
+                  <barraLat          
+                      v-for="(articulo, index) in barraPrincipals"
+                      :key="index"
+                      :nombre="articulo.Nombre"
+                      :cargo="articulo.Cargo"
+                      :foto="articulo.Image.url"
+                      @showRegistro="showRegistro">
+                  </barraLat>
+                </div>
+              <p class="datos_proyecto"><b>Contacto para prensa: </b><br/>comunicacion@constructorespositivos.com<br/>administracion@constructorespositivos.com</p>        
+          </form>
+        </b-modal>
+      </div>      
         <div id="noticia">
           <div class="row">
             <articulosNoticia
@@ -56,6 +55,7 @@
     </section>
   </section>
 </template>
+
 <script>
 import barraLat from "~/components/barraLateral";
 import articulosNoticia from "~/components/articulosNoticias";
@@ -122,7 +122,7 @@ export default {
   display: block;;
 }
 .img-btn{
-  width: 100px;
+  width: 50px;
 }
 .item {
   display: inline-block;
@@ -169,17 +169,18 @@ export default {
     margin:0px;
     position:absolute;
     right:0px;
-    top:460px;
     width:350px;
     z-index: 1100;
 }
 .sticky-container1{
   background-color: white;
-    position:absolute;
+    position:fixed;
     right:40px;
     top:480px;
     display: block;
     z-index: 1000;
+    border-radius: 50px;
+    word-wrap: break-word;
 }
 .sticky li{
     list-style-type:none;
@@ -208,21 +209,23 @@ export default {
 .sticky li p a:hover{
     text-decoration:underline;
 }
-@media (max-width: 767px) {
+@media (max-width: 896px) {
   .sticky-container{
     display: none;
   }
   .img-btn{
-    display: block;
     width: 50px;
+    cursor: pointer;
   }
+
   .sticky-container1{
-  background-color: white;
-    position:absolute;
+    background-color: white;
     top: 75px;
-    right: 20px;
-    display: block;
+    right: 50px;
     z-index: 1000;
-}  
+    border-radius: 50px;
+    position: fixed;
+    word-wrap: break-word;
+  }  
 }
 </style>

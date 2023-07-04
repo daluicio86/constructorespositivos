@@ -86,7 +86,7 @@ a {
 }
 .datos_proyecto {
    color: black;
-  font-size: 14px;
+   font-size: 14px;
 }
 
 </style>

@@ -227,5 +227,11 @@ export default {
     position: fixed;
     word-wrap: break-word;
   }  
+
+  .datos_proyecto {
+   color: black;
+  font-size: 13px;
+  margin-left: 5px;
+}  
 }
 </style>

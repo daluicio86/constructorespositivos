@@ -4,20 +4,28 @@
             <h1 class="title">CALCULADORA</h1>
             <form action class="form" @submit.prevent="contact">  
                 <div class="row vrigth">
-                    <div class="col-sm-5">
-                        <label class="form-label" for="#name"><b>Valor Vivienda: </b></label>
+                    <!--<div class="col-sm-4">
+                        <label class="form-label" for="#tipo"><b>Sistema de amortización: </b></label>
+                        <select v-model="tipo" id="tipo" class="form-input select-h" placeholder="Seleccionar...">
+                            <option value="f" selected>Francés</option>
+                            <option value="a">Alemán</option>
+                        </select>
+                    </div>-->             
+                    <div class="col-sm-4">
+                        <label class="form-label" for="#vInicial"><b>Valor Vivienda: </b></label>
                         <input
-                            v-model="name"
+                            v-model="vInicial"
                             class="form-input vrigth"
                             type="number"
-                            id="name"
+                            id="vInicial"
                             required
                             placeholder="0"
+                            @change="calculaEntrada"
                         />
                     </div>
                     <div class="col-sm-2">
-                        <label class="form-label" for="#email"><b>Plazo: </b></label>
-                        <select v-model="selected" id="tiempo" class="form-input select-h" placeholder="Seleccionar...">
+                        <label class="form-label" for="#tiempo"><b>Plazo: </b></label>
+                        <select v-model="tiempo" id="tiempo" class="form-input select-h" placeholder="Seleccionar...">
                             <option value="240" selected>20 años</option>
                             <option value="300">25 años</option>
                         </select>
@@ -39,126 +47,148 @@
                         <br/>
                         <label class="form-label" for="#min5Entrada"><b>Entrada mínima del 5%: </b></label>
                         <input
-                            v-model="name"
+                            v-model="min5Entrada"
                             class="form-input vrigth"
                             type="number"
-                            id="min5Entrada"
-                            required
+                            id="min5Entrada"                            
                             placeholder="0"
+                            readonly
                         />
                         <br/>
-                        <label class="form-label" for="#vVivienda"><b>Valor de la vivienda: </b></label>
+                        <label class="form-label" for="#vVivienda5"><b>Valor de la vivienda: </b></label>
                         <input
-                            v-model="name"
+                            v-model="vVivienda5"
                             class="form-input vrigth"
                             type="number"
-                            id="vVivienda"
-                            required
+                            id="vVivienda5"                            
                             placeholder="0"
+                            readonly
                         />
                         <br/>
                         <label class="form-label" for="#entrada5"><b>Entrada 5%: </b></label>
                         <input
-                            v-model="name"
+                            v-model="entrada5"
                             class="form-input vrigth"
                             type="number"
                             id="entrada5"
-                            required
+                            readonly
                             placeholder="0"
                         />
                         <br/>
-                        <label class="form-label" for="#mCredito"><b>Monto del crédito: </b></label>
+                        <label class="form-label" for="#mCredito5"><b>Monto del crédito: </b></label>
                         <input
-                            v-model="name"
+                            v-model="mCredito5"
                             class="form-input vrigth"
                             type="number"
-                            id="mCredito"
-                            required
+                            id="mCredito5"
+                            readonly
                             placeholder="0"
                         />
                         <br/>
-                        <label class="form-label" for="#pMeses"><b>Plazo en meses: </b></label>
+                        <label class="form-label" for="#pMeses5"><b>Plazo en meses: </b></label>
                         <input
-                            v-model="name"
+                            v-model="pMeses5"
                             class="form-input vrigth"
                             type="number"
-                            id="pMeses"
-                            required
+                            id="pMeses5"                            
+                            placeholder="0"
+                            readonly
+                        />
+                        <br/>
+                        <label class="form-label" for="#tInteres5"><b>Tasa de interés efectiva: </b></label>
+                        <input
+                            v-model="tInteres5"
+                            class="form-input vrigth"
+                            type="text"
+                            id="tInteres5"
+                            readonly
                             placeholder="0"
                         />
                         <br/>
-                        <label class="form-label" for="#tInteres"><b>Tasa de interés efectiva: </b></label>
-                        <input
-                            v-model="name"
-                            class="form-input vrigth"
-                            type="number"
-                            id="tInteres"
-                            required
-                            placeholder="0"
-                        />
+                        <label class="form-label" for="#cuota5"><b>Cuota mensual: </b></label>
+                            <input
+                                v-model="cuota5"
+                                class="form-input vrigth"
+                                type="number"
+                                id="cuota5"                                
+                                placeholder="0"
+                                readonly
+                            />
+                            <br/>                           
                     </div>                        
                     <div class="col-sm-6 vrigth">
                             <h5 class="title">CRÉDITO PROMEDIO DEL MERCADO ACTUAL</h5>
                             <br/>
-                            <label class="form-label" for="#min25-entrada"><b>Entrada mínima del 25%: </b></label>
+                            <label class="form-label" for="#min25Entrada"><b>Entrada mínima del 25%: </b></label>
                             <input
-                                v-model="name"
+                                v-model="min25Entrada"
                                 class="form-input vrigth"
                                 type="number"
-                                id="min25-entrada"
-                                required
+                                id="min25Entrada"
+                                readonly
                                 placeholder="0"
                             />
                             <br/>
-                            <label class="form-label" for="#min25-entrada"><b>Valor de la vivienda: </b></label>
+                            <label class="form-label" for="#vVivienda25"><b>Valor de la vivienda: </b></label>
                             <input
-                                v-model="name"
+                                v-model="vVivienda25"
                                 class="form-input vrigth"
                                 type="number"
-                                id="min25-entrada"
-                                required
+                                id="vVivienda25"
+                                readonly
                                 placeholder="0"
                             />
                             <br/>
-                            <label class="form-label" for="#min25-entrada"><b>Entrada 25%: </b></label>
+                            <label class="form-label" for="#entrada25"><b>Entrada 25%: </b></label>
                             <input
-                                v-model="name"
+                                v-model="entrada25"
                                 class="form-input vrigth"
                                 type="number"
-                                id="min25-entrada"
-                                required
+                                id="entrada25"
+                                readonly
                                 placeholder="0"
                             />
                             <br/>
-                            <label class="form-label" for="#min25-entrada"><b>Monto del crédito: </b></label>
+                            <label class="form-label" for="#mCredito25"><b>Monto del crédito: </b></label>
                             <input
-                                v-model="name"
+                                v-model="mCredito25"
                                 class="form-input vrigth"
                                 type="number"
-                                id="min25-entrada"
-                                required
+                                id="mCredito25"
+                                readonly
                                 placeholder="0"
                             />
                             <br/>
-                            <label class="form-label" for="#min25-entrada"><b>Plazo en meses: </b></label>
+                            <label class="form-label" for="#pMeses25"><b>Plazo en meses: </b></label>
                             <input
-                                v-model="name"
+                                v-model="pMeses25"
                                 class="form-input vrigth"
                                 type="number"
-                                id="min25-entrada"
-                                required
+                                id="pMeses25"                                
                                 placeholder="0"
+                                readonly
                             />
                             <br/>
-                            <label class="form-label" for="#min25-entrada"><b>Tasa de interés efectiva: </b></label>
+                            <label class="form-label" for="#tInteres25"><b>Tasa de interés efectiva: </b></label>
                             <input
-                                v-model="name"
+                                v-model="tInteres25"
+                                class="form-input vrigth"
+                                type="text"
+                                id="tInteres25"
+                                readonly
+                                placeholder="0"
+                            />    
+                            <br/>        
+                            <label class="form-label" for="#cuota25"><b>Cuota mensual: </b></label>
+                            <input
+                                v-model="cuota25"
                                 class="form-input vrigth"
                                 type="number"
-                                id="min25-entrada"
-                                required
+                                id="cuota25"                                
                                 placeholder="0"
-                            />                                                                                                                                            
+                                readonly
+                            />
+                            <br/>                                                                                                                                
                     </div>                        
                 </div>
                 <br/>     
@@ -219,23 +249,52 @@
 
 <script>
 export default {
-    // data(){
-    //     return  {
-    //         min5Entrada:'', 
-    //         vVivienda:'',
-    //         entrada5:'',
-    //         mCredito:'',
-    //         pMeses:'',
-    //         tInteres:'',
+    props: {
+        vInicial: !Number,
+        tiempo: !Number,
+        min5Entrada: !Number,
+        min25Entrada: !Number,
+        vVivienda5: !Number,
+        vVivienda25: !Number,
+        entrada5: !Number,
+        entrada25: !Number,
+        mCredito5: !Number,
+        mCredito25: !Number,
+        pMeses5: !Number,
+        pMeses25: !Number,
+        tInteres5:!String,
+        tInteres25:!String,
+        cuota5:!String,
+        cuota25:!String,
+  },
+    data(){
+        return  {
+    
+        }
+    },
+    methods: {
+        calculaEntrada(){
+            this.min5Entrada = this.vInicial*5/100;
+            this.min25Entrada = this.vInicial*25/100;
 
+            this.vVivienda5 = this.vInicial;
+            this.vVivienda25 = this.vInicial;
 
-    //         mes:'',
-    //         saldoCapital:'',
-    //         pagoCapital:'',
-    //         pagoInteres:'',
-    //         cuota:''
-    //     }
-    // }
+            this.entrada5 = this.vInicial*5/100;
+            this.entrada25 = this.vInicial*25/100;
+
+            this.mCredito5 = this.vInicial-this.entrada5;
+            this.mCredito25 = this.vInicial-this.entrada25;   
+
+            this.tInteres5 = '4.99 %';
+            this.tInteres25 = '10.14 % Fuente:Banco Central del Ecuador';
+
+            this.cuota5 = 0.62;
+            this.cuota25 = 0.71;
+            
+
+        }
+    }
 };
 </script>
 

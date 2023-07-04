@@ -229,9 +229,9 @@ export default {
   }  
 
   .datos_proyecto {
-   color: black;
-  font-size: 13px;
-  margin-left: 5px;
-}  
+    color: black;
+    font-size: 13px;
+    margin-left: 0px;
+  }  
 }
 </style>

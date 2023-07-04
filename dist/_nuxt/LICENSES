@@ -116,17 +116,6 @@ PERFORMANCE OF THIS SOFTWARE.
 
 
 /*!
- * vue-range-slider v0.6.0
- * https://github.com/ktsn/vue-range-slider
- *
- * @license
- * Copyright (c) 2016-2018 katashin
- * Released under the MIT license
- * https://github.com/ktsn/vue-range-slider/blob/master/LICENSE
- */
-
-
-/*!
  * Vue.js v2.7.14
  * (c) 2014-2022 Evan You
  * Released under the MIT License.
@@ -143,4 +132,15 @@ PERFORMANCE OF THIS SOFTWARE.
  * vuex v3.6.2
  * (c) 2021 Evan You
  * @license MIT
+ */
+
+
+/*!
+ * vue-range-slider v0.6.0
+ * https://github.com/ktsn/vue-range-slider
+ *
+ * @license
+ * Copyright (c) 2016-2018 katashin
+ * Released under the MIT license
+ * https://github.com/ktsn/vue-range-slider/blob/master/LICENSE
  */

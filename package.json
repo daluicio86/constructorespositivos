@@ -36,6 +36,7 @@
     "vue-burger-menu": "^2.0.5",
     "vue-range-slider": "^0.6.0",
     "vue-scrollto": "^2.20.0",
+    "vue-ssr-carousel": "^2.3.2",
     "vue2-google-maps": "^0.10.7",
     "vue3-side-panel": "^1.2.0",
     "vuejs-title": "^1.0.16"

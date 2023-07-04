@@ -1,7 +1,13 @@
 <template>
   <section class="cont">
     <div class="banner">
-      <img src="../assets/images/banner_insumos.jpg" />
+    <ssr-carousel  show-arrows loop>
+      <div :index='1'><img src="../assets/images/banner_insumos.jpg" /></div>
+      <div :index='2'><img src="../assets/images/banner_visyvip.jpg" /></div>
+      <div :index='3'><img src="../assets/images/banner_remodelacion.jpg" /></div>
+    </ssr-carousel>
+    <!--<button @click='page--'>Atrás</button>
+    <button @click='page++'>Siguiente</button>    -->
     </div>
     <div id="header">
       <h1>TODO LO QUE NECESITAS</h1>
@@ -121,13 +127,21 @@ import insumos from "~/apollo/queries/insumos/insumos";
 import todosInsumos from "~/apollo/queries/insumos/Todosinsumos";
 import proveedores from "~/components/proveedores";
 
+import SsrCarousel from 'vue-ssr-carousel'
+import ssrCarouselCss from 'vue-ssr-carousel/index.css'
+
+
+
 export default {
+  buildModules: [ 'vue-ssr-carousel/nuxt' ],
   components: {
     footerPage,
-    proveedores
+    proveedores,
+    SsrCarousel
   },
   data() {
     return {
+      page: 1,
       selected: "first",
       proovedores_resultado: false,
       categoria: null,

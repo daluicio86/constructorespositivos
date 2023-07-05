@@ -14,7 +14,7 @@
               <nuxt-link to="/servicios">ESPECIALISTAS</nuxt-link>
             </div>
             <div class="col-sm-6">
-              <nuxt-link to="/calculadorafinanciera">CALCULADORA</nuxt-link>
+              <nuxt-link to="/calculadora">CALCULADORA</nuxt-link>
               <nuxt-link to="/quienes_somos">QUIENES SOMOS</nuxt-link>
               <nuxt-link to="/blog">BLOG</nuxt-link>
               <!-- <nuxt-link to="/">CONTÁCTANOS</nuxt-link> -->

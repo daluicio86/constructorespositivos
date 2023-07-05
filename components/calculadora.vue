@@ -2,7 +2,7 @@
     <div>
         <div class="calcular">
             <h1 class="title">CALCULADORA</h1>
-            <form action class="form" @submit.prevent="contact">  
+            <form action class="form" @submit.prevent="calculoCuotas" >  
                 <div class="row vrigth">
                     <!--<div class="col-sm-4">
                         <label class="form-label" for="#tipo"><b>Sistema de amortización: </b></label>
@@ -40,8 +40,7 @@
             </form>
 
             <br/>
-            <form action class="form" @submit.prevent="credito">  
-                <div class="row">
+            <div class="row">
                     <div class="col-sm-5 vrigth">
                         <h5>CRÉDITO CASA PARA TODOS</h5>
                         <br/>
@@ -96,14 +95,7 @@
                         />
                         <br/>
                         <label class="form-label" for="#tInteres5"><b>Tasa de interés efectiva: </b></label>
-                        <input
-                            v-model="tInteres5"
-                            class="form-input vrigth"
-                            type="text"
-                            id="tInteres5"
-                            readonly
-                            placeholder="0"
-                        />
+                        <label class="form-label">{{this.tInteres5}}</label>
                         <br/>
                         <label class="form-label" for="#cuota5"><b>Cuota mensual: </b></label>
                             <input
@@ -170,14 +162,7 @@
                             />
                             <br/>
                             <label class="form-label" for="#tInteres25"><b>Tasa de interés efectiva: </b></label>
-                            <input
-                                v-model="tInteres25"
-                                class="form-input vrigth"
-                                type="text"
-                                id="tInteres25"
-                                readonly
-                                placeholder="0"
-                            />    
+                            <label class="form-label">{{this.tInteres25}}</label>
                             <br/>        
                             <label class="form-label" for="#cuota25"><b>Cuota mensual: </b></label>
                             <input
@@ -207,12 +192,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border">
-                                    <td class="border">1</td>
-                                    <td class="border">10</td>
-                                    <td class="border">10</td>
-                                    <td class="border">15</td>
-                                    <td class="border">20</td>
+                                <tr class="border" v-for="item in lista1" :key="item.mes">
+                                    <td class="border">{{ item.mes }}</td>
+                                    <td class="border">{{ item.saldoCapital }}</td>
+                                    <td class="border">{{ item.pagoCapital }}</td>
+                                    <td class="border">{{ item.pagoInteres }}</td>
+                                    <td class="border">{{ item.Cuota }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -231,18 +216,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border">
-                                    <td class="border">1</td>
-                                    <td class="border">10</td>
-                                    <td class="border">10</td>
-                                    <td class="border">15</td>
-                                    <td class="border">20</td>
+                              <tr class="border" v-for="item in lista2" :key="item.mes">
+                                    <td class="border">{{ item.mes }}</td>
+                                    <td class="border">{{ item.saldoCapital }}</td>
+                                    <td class="border">{{ item.pagoCapital }}</td>
+                                    <td class="border">{{ item.pagoInteres }}</td>
+                                    <td class="border">{{ item.Cuota }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>      
-            </form>
+                </div>  
         </div>
     </div>
 </template>
@@ -266,10 +250,12 @@ export default {
         tInteres25:!String,
         cuota5:!String,
         cuota25:!String,
-  },
+        lista1:!Array,
+        lista2:!Array
+    },
     data(){
         return  {
-    
+
         }
     },
     methods: {
@@ -290,8 +276,21 @@ export default {
             this.tInteres25 = '10.14 % Fuente:Banco Central del Ecuador';
 
             this.cuota5 = 0.62;
-            this.cuota25 = 0.71;
-            
+            this.cuota25 = 0.71;       
+        },
+        calculoCuotas(){
+          let valorInit = this.vInicial;
+
+          let obj = {
+            mes: 0,
+            saldoCapital:0,
+            pagoCapital:0,
+            pagoInteres:0,
+            Cuota:0
+          }
+
+          lista1.push(obj);
+          lista2.push(obj);
 
         }
     }

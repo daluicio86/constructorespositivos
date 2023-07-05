@@ -162,7 +162,7 @@
         <button
           @click="
             gotoUrl(
-              'https://constructorespositivos.com/calculadorafinanciera',
+              'https://constructorespositivos.com/calculadora',
               'calculadora',
               'clic',
               'calculadora'

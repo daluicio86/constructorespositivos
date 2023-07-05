@@ -2,9 +2,9 @@
   <section class="cont">
     <div class="banner">
     <ssr-carousel  show-arrows loop>
-      <div :index='1'><img src="../assets/images/banner_insumos.jpg" /></div>
-      <div :index='2'><img src="../assets/images/banner_visyvip.jpg" /></div>
-      <div :index='3'><img src="../assets/images/banner_remodelacion.jpg" /></div>
+      <div :index='1'><img src="../assets/images/FotoKywi.jpg" /></div>
+      <!--<div :index='2'><img src="../assets/images/banner_visyvip.jpg" /></div>
+      <div :index='3'><img src="../assets/images/banner_remodelacion.jpg" /></div>-->
     </ssr-carousel>
     <!--<button @click='page--'>Atrás</button>
     <button @click='page++'>Siguiente</button>    -->

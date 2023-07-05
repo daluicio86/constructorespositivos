@@ -97,7 +97,7 @@
             </nuxt-link>
           </div>
           <div class="col-md-3 col-sm-12">
-            <nuxt-link to="/calculadorafinanciera">
+            <nuxt-link to="/calculadora">
               <div class="card_home arrow">
                 <figure>
                   <img
@@ -250,7 +250,7 @@
         <button
           @click="
             gotoUrl(
-              'https://constructorespositivos.com/calculadorafinanciera',
+              'https://constructorespositivos.com/calculadora',
               'calculadora',
               'clic',
               'calculadora'

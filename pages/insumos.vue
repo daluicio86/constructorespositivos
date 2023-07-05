@@ -2,7 +2,12 @@
   <section class="cont">
     <div class="banner">
     <ssr-carousel  show-arrows loop>
-      <div :index='1'><img src="../assets/images/FotoKywi.jpg" /></div>
+      <div :index='1'><a @click="
+                      openLinkAllProovedores(
+                        'https://kywitiendaenlinea.com/product-category/odm',
+                        'Kywi'
+                      )"
+                      ><img src="../assets/images/FotoKywi.jpg" /></a></div>
       <!--<div :index='2'><img src="../assets/images/banner_visyvip.jpg" /></div>
       <div :index='3'><img src="../assets/images/banner_remodelacion.jpg" /></div>-->
     </ssr-carousel>

@@ -173,10 +173,9 @@ export default {
     z-index: 1100;
 }
 .sticky-container1{
-  background-color: white;
     position:fixed;
     right:20px;
-    top:480px;
+    box-sizing: border-box;
     display: block;
     z-index: 1000;
     border-radius: 50px;
@@ -219,8 +218,7 @@ export default {
   }
 
   .sticky-container1{
-    background-color: white;
-    top: 75px;
+    bottom: 10px;
     right: 15px;
     z-index: 1000;
     border-radius: 50px;

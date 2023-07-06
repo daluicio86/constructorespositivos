@@ -122,7 +122,7 @@ export default {
   display: block;;
 }
 .img-btn{
-  width: 50px;
+  width: 70px;
 }
 .item {
   display: inline-block;
@@ -175,7 +175,7 @@ export default {
 .sticky-container1{
   background-color: white;
     position:fixed;
-    right:40px;
+    right:20px;
     top:480px;
     display: block;
     z-index: 1000;
@@ -214,14 +214,14 @@ export default {
     display: none;
   }
   .img-btn{
-    width: 50px;
+    width: 60px;
     cursor: pointer;
   }
 
   .sticky-container1{
     background-color: white;
     top: 75px;
-    right: 50px;
+    right: 15px;
     z-index: 1000;
     border-radius: 50px;
     position: fixed;

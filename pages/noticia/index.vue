@@ -119,11 +119,9 @@ export default {
 }
 .banner img {
   width: 100%;
-  display: block;;
+  display: block;
 }
-.img-btn{
-  width: 70px;
-}
+
 .item {
   display: inline-block;
   color: white;
@@ -163,6 +161,10 @@ export default {
   font-size: 13px;
   margin-left: 25px;
 }
+.img-btn{
+  width: 70px;
+  box-sizing: border-box;
+}
 .sticky-container{
   background-color: white;
     padding:0px;
@@ -175,8 +177,7 @@ export default {
 .sticky-container1{
     position:fixed;
     right:20px;
-    box-sizing: border-box;
-    display: block;
+    bottom: 10px;
     z-index: 1000;
     border-radius: 50px;
     word-wrap: break-word;
@@ -224,6 +225,7 @@ export default {
     border-radius: 50px;
     position: fixed;
     word-wrap: break-word;
+    box-sizing: border-box;
   }  
 
   .datos_proyecto {

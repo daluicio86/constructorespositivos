@@ -2,8 +2,7 @@
   <div>
     <b-navbar toggleable="lg" type="light">
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
+    <b-navbar-nav>
         <b-nav-item href="/quienes_somos" >QUIENES SOMOS</b-nav-item>
       </b-navbar-nav>
 
@@ -24,7 +23,6 @@
         <b-nav-item href="/servicios">ESPECIALISTAS</b-nav-item>
         <b-nav-item href="/noticia">PRENSA</b-nav-item>
       </b-navbar-nav>      
-    </b-collapse>
   </b-navbar>
 
    <!-- <ul class="nav-list">

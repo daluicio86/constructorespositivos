@@ -15,7 +15,7 @@
             <div
               @click="
                 gotoUrl(
-                  'https://www.miduvi.net/vivienda-de-inter%C3%A9s-social',
+                  'https://docs.google.com/forms/d/e/1FAIpQLSelkOuTZA1ReXsmnKJWmXNJN979T9geREo5mYl2OVkybZmeFw/viewform',
                   'vivienda',
                   'vipvis',
                   'clic'
@@ -53,7 +53,7 @@
           <button
             @click="
               gotoUrl(
-                'https://www.miduvi.net/vivienda-de-inter%C3%A9s-social',
+                'https://docs.google.com/forms/d/e/1FAIpQLSelkOuTZA1ReXsmnKJWmXNJN979T9geREo5mYl2OVkybZmeFw/viewform',
                 'vivienda',
                 'vipvis',
                 'clic'
@@ -69,7 +69,7 @@
             <div
               @click="
                 gotoUrl(
-                  'https://www.miduvi.net/vivienda-de-inter%C3%A9s-p%C3%BAblico',
+                  'https://docs.google.com/forms/d/e/1FAIpQLSelkOuTZA1ReXsmnKJWmXNJN979T9geREo5mYl2OVkybZmeFw/viewform',
                   'vivienda',
                   'vipvis',
                   'clic'
@@ -99,7 +99,7 @@
           <button
             @click="
               gotoUrl(
-                'https://www.miduvi.net/vivienda-de-inter%C3%A9s-p%C3%BAblico',
+                'https://docs.google.com/forms/d/e/1FAIpQLSelkOuTZA1ReXsmnKJWmXNJN979T9geREo5mYl2OVkybZmeFw/viewform',
                 'vivienda',
                 'vipvis',
                 'clic'
@@ -115,7 +115,7 @@
             <div
               @click="
                 gotoUrl(
-                  'https://www.miduvi.net/proyectos-de-inter%C3%A9s-social',
+                  'https://docs.google.com/forms/d/e/1FAIpQLSelkOuTZA1ReXsmnKJWmXNJN979T9geREo5mYl2OVkybZmeFw/viewform',
                   'vivienda',
                   'vipvis',
                   'clic'
@@ -146,7 +146,7 @@
           <button
             @click="
               gotoUrl(
-                'https://www.miduvi.net/proyectos-de-inter%C3%A9s-social',
+                'https://docs.google.com/forms/d/e/1FAIpQLSelkOuTZA1ReXsmnKJWmXNJN979T9geREo5mYl2OVkybZmeFw/viewform',
                 'vivienda',
                 'vipvis',
                 'clic'

@@ -153,9 +153,6 @@ export default {
         var result = await axios({
           method: "POST",
           url: "https://api.constructorespositivos.com/api-web",
-          headers: {
-            "Access-Control-Allow-Origin": "*"
-          },
           data: {
             query: `{
                 proyectosCercanos(latitude:${this.lat}, longitude: ${this.long}, distance: ${this.distancia}) {
@@ -580,9 +577,6 @@ figure {
 .titulo-buscar {
   text-align: left;
   font-weight: bold;
-}
-.distancia {
-  /* margin-top: 5px; */
 }
 @media only screen and (max-width: 641px) {
   .card_home {

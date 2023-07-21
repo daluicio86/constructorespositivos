@@ -9,7 +9,7 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown text="LA CASA DE TUS SUEÑOS" >
-          <b-dropdown-item href="/">LA CASA DE TUS SUEÑOS</b-dropdown-item>
+          <b-dropdown-item href="/">PORTAL INMOBILIARIO</b-dropdown-item>
           <b-dropdown-item href="/visyvip">PROYECTOS VIS Y VIP</b-dropdown-item>
         </b-nav-item-dropdown>
         <!--<b-nav-item-dropdown text="PROVEEDOR MATERIALES">

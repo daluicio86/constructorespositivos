@@ -2,6 +2,7 @@
   <section class="cont">
     <b-modal v-model="registroShow" title="Déjanos tus datos" @ok="handleOk">
       <form ref="form" @submit.stop.prevent="handleSubmit">
+
         <b-form-group
           label="Nombre"
           label-for="name-input"
@@ -32,7 +33,7 @@
           label="Email"
           label-for="email-input"
           invalid-feedback="El Email es requerido"
-        >
+        >      
           <b-input-group
             prepend="@"
             class="mb-2 mr-sm-2 mb-sm-0"
@@ -45,8 +46,22 @@
               type="email"
               required
             ></b-form-input>
-          </b-input-group>
+          </b-input-group>              
         </b-form-group>
+
+        <b-form-group
+          label="Teléfono"
+          label-for="last-input"
+          invalid-feedback="El teléfono es requerido"
+          :state="telefonoState"
+        >
+          <b-form-input
+            id="last-input"
+            v-model="telefono"
+            :state="telefonoState"
+            required
+          ></b-form-input>
+        </b-form-group>            
       </form>
     </b-modal>
     <div class="banner">
@@ -146,10 +161,9 @@
         <h2>
           PON TU UBICACIÓN Y ENCUENTRA LA CASA DE TUS SUEÑOS:
         </h2>
-
         <div class="row">
-          <div class="col-sm-2"></div>
-          <div class="col-sm-4">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-3">
             <input
               type="text"
               ref="ubicacionSearch"
@@ -158,7 +172,7 @@
               placeholder="Ingresa una ubicación o arrastra el mapa"
             />
           </div>
-          <div class="col-sm-4 input-data">
+          <div class="col-sm-3 input-data">
             <div class="distancia">Rango distancia: {{ distancia }} Km.</div>
             <range-slider
               class="slider"
@@ -169,7 +183,18 @@
             >
             </range-slider>
           </div>
-          <div class="col-sm-2"></div>
+          <div class="col-sm-3">
+            <v-select
+                class="categorias"
+                v-model="categoria"
+                placeholder="Servicios"
+                :options="['Todos','Hospitales', 'Parques', 'Escuelas', 'Restaurantes']"
+                label="categoria"
+            ></v-select> 
+          </div>
+
+
+          <div class="col-sm-1"></div>
         </div>
         <div class="row">
           <div class="col-sm-12">
@@ -214,6 +239,21 @@
             Una vez seleccionado la ubicación podrá buscar los proyectos cerca
             de su sector
           </span>
+
+          <br/>
+          <div class="row">
+            <div class="col-sm col-md-4"></div>
+            <div class="col-sm col-md-4">
+              <v-select
+                class="categorias"
+                v-model="categoria"
+                placeholder="Unidad de Interés"
+                :options="['Departamento', 'Casa', 'Suite', 'Terreno/Lote', 'Local Comercial']"
+                label="categoria"
+            ></v-select>              
+            </div>
+            <div class="col-sm col-md-4"></div>
+          </div>
           <button @click="mostrarResultados">
             <span>BUSCAR</span> PROYECTOS
           </button>
@@ -286,9 +326,12 @@ export default {
       nombre: "",
       apellido: "",
       email: "",
+      telefono:"",
+      categoria:"",
       nameState: null,
       lastnameState: null,
       emailState: null,
+      telefonoState: null,
       distancia: 1,
       mapCenter: { lat: -0.1984136, lng: -78.495783 },
       markers: [
@@ -310,7 +353,8 @@ export default {
       registrado: false,
       website: "",
       ubicacion: "",
-      autocomplete: null
+      autocomplete: null,
+      categoryTipoBusqueda: []
     };
   },
   methods: {
@@ -365,9 +409,6 @@ export default {
         var result = await axios({
           method: "POST",
           url: "https://api.constructorespositivos.com/api-web",
-          headers: {
-            "Access-Control-Allow-Origin": "*"
-          },
           data: {
             query: `{
                 proyectosCercanos(latitude:${this.lat}, longitude: ${this.long}, distance: ${this.distancia}) {
@@ -465,7 +506,15 @@ export default {
           title: element.nombre
         });
         this.markers.push(marker);
+
+        var request = {
+        location: location,
+        radius: 200,
+        types: ['hospital', 'health'] // this is where you set the map to get the hospitals and health related places
+      };        
         var ventanaInfo = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, callback);
         google.maps.event.addListener(marker, "click", function() {
           var imagen;
           if (element.files.length > 0) {
@@ -516,6 +565,7 @@ export default {
       formdata.append("nombre", this.nombre);
       formdata.append("apellido", this.apellido);
       formdata.append("email", this.email);
+      formdata.append("telefono", this.telefono);
       // console.log (formdata);
       var actions = "createUser";
       const auth = {
@@ -626,6 +676,11 @@ export default {
         this.registrado = true;
       }
     }
+    this.categoryTipoBusqueda.push({Id:'1',Title:'Departamento'})
+    this.categoryTipoBusqueda.push({Id:'2',Title:'Casa'})
+    this.categoryTipoBusqueda.push({Id:'3',Title:'Suite'})
+    this.categoryTipoBusqueda.push({Id:'4',Title:'Terreno/Lote'})
+    this.categoryTipoBusqueda.push({Id:'5',Title:'Local Comercial'})
   }
 };
 </script>

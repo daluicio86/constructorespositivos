@@ -14,10 +14,6 @@
               }}
             </div>
             <div class="datos_proyecto">{{ description }}</div>
-            <div class="datos_proyecto">
-              <h3 v-if="showAmenities">Incluye:</h3>
-              <p class="amenities" v-html="amenities"></p>
-            </div>
           </div>
           <div class="col-sm-4 items">
             <div class="item">
@@ -32,6 +28,14 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="datos_proyecto">
+              <h3 v-if="showAmenities">Incluye:</h3>
+              <p class="amenities" v-html="amenities"></p>
+            </div>
+          </div>
+        </div>        
       </div>
     </div>
   </div>
@@ -119,6 +123,9 @@ figure img {
 .datos_proyecto {
   color: white;
   font-size: 14px;
+  text-align: justify;
+  text-justify: inter-word;
+
 }
 .card_proyecto {
   margin-bottom: 20px;

@@ -1,5 +1,5 @@
 query {
-  barraPrincipals(sort: "created_at") {
+  barraLaterals(sort: "created_at") {
     id
     Nombre
     Cargo

@@ -23,7 +23,7 @@
               <h2 class="margin-lft">Principales voceros</h2>
               <div class="sticky">
                   <barraLat          
-                      v-for="(articulo, index) in barraPrincipals"
+                      v-for="(articulo, index) in barraLaterals"
                       :key="index"
                       :nombre="articulo.Nombre"
                       :cargo="articulo.Cargo"
@@ -73,7 +73,7 @@ export default {
       registroShow: false,
       direction_path: "",
       noticiasRegulaciones: [],
-      barraPrincipals: []
+      barraLaterals: []
     };
   },
   methods: {
@@ -99,7 +99,7 @@ export default {
         return { id: parseInt(this.$route.params.id) };
       }
     },
-    barraPrincipals: {
+    barraLaterals: {
       prefetch: false,
       query: barraQuery,
       variables() {        

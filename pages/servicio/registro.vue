@@ -1014,10 +1014,6 @@ input[type="file"] {
 .nav-item a {
   text-decoration: none;
   color: #aa381a;
-  /border: 1px solid #aa381a;
-  /padding: 2px 10px;
-  /border-radius: 8px;
-  /font-size: 13px;
 }
 .nav-item a:hover,
 .nav-item a:active {
@@ -1176,9 +1172,6 @@ figure {
 .titulo-buscar {
   text-align: left;
   font-weight: bold;
-}
-.distancia {
-  /* margin-top: 5px; */
 }
 .no_preview {
   border: 1px solid #aa381a;

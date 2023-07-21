@@ -49,7 +49,7 @@ export default {
       try {
         var result = await axios({
           method: "POST",
-          url: process.env.strapiBaseUri,
+          url: process.env.strapiBaseUri, 
           data: {
             query: `{
               noticiasRegulacione(id: ${this.id}) {

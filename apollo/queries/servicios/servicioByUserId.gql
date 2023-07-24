@@ -5,6 +5,7 @@ query servicioByUserId($id: ID!) {
     telefono
     resumen_descripcion
     web
+    web_catalogo
     aprobado
     ciudad
     direccion

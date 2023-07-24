@@ -78,7 +78,7 @@
           <div v-if="verproveedores" class="proveedores-todos">
             <h3>TODOS LOS PROVEEDORES</h3>
             <div class="proveedores-container">
-              <div                 class="proveedor"
+              <div class="proveedor"
                 v-for="(proveedor, index) in insumos_todos"
                 :key="index"
               >
@@ -103,7 +103,7 @@
                   </div>
                   </span>
                 <span v-if="proveedor.telefono.startsWith('09')" class="proveedor-tel">
-                  Tel: {{ proveedor.telefono }}
+                  <a :href="`https://wa.me//+${proveedor.telefono.replace('0','593')}`"><font-awesome-icon :icon="['fab', 'whatsapp']" />Tel: {{  proveedor.telefono }}</a>                  
                 </span>
                 <span v-else class="proveedor-tel">Tel: {{ proveedor.telefono }}</span>
                 <span class="proveedor-descripcion">{{ proveedor.descripcion}}</span>
@@ -187,11 +187,13 @@ export default {
   },
   methods: {
     async mostrarResultados() {
-       //console.log("mostrar resultados");
+       console.log("mostrar resultados");
+       //console.log(this.$apollo.queries);
       this.$apollo.queries.todosInsumos.skip = false;
       const result = await this.$apollo.queries.todosInsumos.refetch();
-
       this.insumos_todos = await result.data.insumos;
+      console.log(this.insumos_todos);
+      
       this.verproveedores = true;
       this.proovedores_resultado = false;
     },

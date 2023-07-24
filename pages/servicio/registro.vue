@@ -164,6 +164,30 @@
                   </b-form-group>
                 </validation-provider>
 
+
+                <!--CATALOGO WEB -->
+                <validation-provider
+                  v-slot="{ errors, valid }"
+                  name="Catálogo Web"
+                  rules="required"
+                >
+                  <b-form-group>
+                    <b-form-input
+                      class="element"
+                      id="catalogo-input"
+                      placeholder="* Ingrese su página de catálogo"
+                      v-model="web_catalogo"
+                      type="text"
+                      required
+                    ></b-form-input>
+                    <b-form-invalid-feedback :state="valid">
+                      <span v-for="(error, index) in errors" :key="index">{{
+                        error
+                      }}</span>
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </validation-provider>                
+
                 <!-- Ciudad -->
                 <validation-provider
                   v-slot="{ errors, valid }"
@@ -476,6 +500,7 @@ export default {
       telefono: "",
       email: "",
       web: "",
+      web_catalogo: "",
       ciudad: "",
       direccion: "",
       selected: "first",
@@ -524,6 +549,7 @@ export default {
       this.telefono = this.oldService.telefono;
       this.email = this.oldService.email;
       this.web = this.oldService.web;
+      this.web_catalogo = this.oldService.web_catalogo;
       this.ciudad = this.oldService.ciudad;
       this.direccion = this.oldService.direccion;
       this.observacion = this.oldService.observacion;
@@ -618,6 +644,7 @@ export default {
           telefono: this.telefono,
           resumen_descripcion: this.descripcion,
           web: this.web,
+          web_catalogo: this.web_catalogo,
           category_servicio: this.categoria.id,
           ciudad: this.ciudad,
           direccion: this.direccion,
@@ -664,6 +691,7 @@ export default {
         this.telefono.length == 0 ||
         this.email.length == 0 ||
         this.web.length == 0 ||
+        this.web_catalogo.length == 0 ||
         this.ciudad.length == 0 ||
         this.direccion.length == 0 ||
         !this.captcha
@@ -679,6 +707,7 @@ export default {
           telefono: this.telefono,
           resumen_descripcion: this.descripcion,
           web: this.web,
+          web_catalogo: this.web_catalogo,
           category_servicio: this.categoria.id,
           ciudad: this.ciudad,
           direccion: this.direccion,
@@ -797,6 +826,7 @@ export default {
         this.telefono.length == 0 ||
         this.email.length == 0 ||
         this.web.length == 0 ||
+        this.web_catalogo.length == 0 ||
         this.ciudad.length == 0 ||
         this.direccion.length == 0 ||
         !this.captcha

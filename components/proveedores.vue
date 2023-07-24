@@ -55,6 +55,7 @@ export default {
   },
   computed: {},
   mounted() {
+    console.log(this.telefono);
     this.image_path = process.env.baseURL + this.image;
   },
   watch: {

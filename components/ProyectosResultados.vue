@@ -1,9 +1,16 @@
 <template>
   <div class="col-sm col-md-6 card_proyecto ">
     <div class="shadow-sm card-interna">
-      <figure>
+       <!--<figure>
         <img :src="full_path" />
-      </figure>
+      </figure>-->
+
+
+
+      <ssr-carousel show-dots  :key='slides.length'>
+        <div v-for="(item, index) in slides"  v-bind:key="index"><img :src="item" /></div>
+      </ssr-carousel>
+
       <div class="foot_proyectos">
         <div class="title">{{ title }}</div>
         <div class="row">
@@ -36,12 +43,19 @@
             </div>
           </div>
         </div>        
+      
       </div>
-    </div>
+    </div> 
   </div>
 </template>
 <script>
+  import SsrCarousel from 'vue-ssr-carousel'
+  import ssrCarouselCss from 'vue-ssr-carousel/index.css'
 export default {
+  buildModules: [ 'vue-ssr-carousel/nuxt' ],
+  components: {
+    SsrCarousel
+  },    
   props: {
     title: !String,
     images: {
@@ -64,6 +78,7 @@ export default {
     return {
       path: process.env.baseURL,
       full_path: "",
+      slides: [],
       direction_path: "",
       maps_path: "https://www.google.com/maps/search/?api=1&query="
     };
@@ -82,6 +97,9 @@ export default {
     // console.log (this.images[0])
     if (this.images.length > 0) {
       this.full_path = this.path + this.images[0].uploadFile.url;
+
+
+
     } else {
       this.full_path = "https://via.placeholder.com/275x183";
     }
@@ -89,6 +107,7 @@ export default {
   },
   methods: {
     openLinkProyecto(link, label) {
+      console.log("openLink proyecto:" + link + "," + label);
       this.$ga.event({
         eventCategory: "proyectos",
         eventAction: "abrir",
@@ -99,7 +118,13 @@ export default {
     moreInfo() {
       this.$emit("showRegistro", this.website);
     }
-  }
+  },
+  beforeMount() {
+    this.images.map((pth) => {
+      this.slides.push(this.path + pth.uploadFile.url);
+      }
+    );
+  },
 };
 </script>
 <style scoped>
@@ -123,9 +148,6 @@ figure img {
 .datos_proyecto {
   color: white;
   font-size: 14px;
-  text-align: justify;
-  text-justify: inter-word;
-
 }
 .card_proyecto {
   margin-bottom: 20px;

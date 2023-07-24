@@ -2,7 +2,6 @@
   <section class="cont">
     <b-modal v-model="registroShow" title="Déjanos tus datos" @ok="handleOk">
       <form ref="form" @submit.stop.prevent="handleSubmit">
-
         <b-form-group
           label="Nombre"
           label-for="name-input"
@@ -33,7 +32,7 @@
           label="Email"
           label-for="email-input"
           invalid-feedback="El Email es requerido"
-        >      
+        >
           <b-input-group
             prepend="@"
             class="mb-2 mr-sm-2 mb-sm-0"
@@ -46,7 +45,7 @@
               type="email"
               required
             ></b-form-input>
-          </b-input-group>              
+          </b-input-group>
         </b-form-group>
 
         <b-form-group
@@ -61,7 +60,7 @@
             :state="telefonoState"
             required
           ></b-form-input>
-        </b-form-group>            
+        </b-form-group>          
       </form>
     </b-modal>
     <div class="banner">
@@ -161,6 +160,7 @@
         <h2>
           PON TU UBICACIÓN Y ENCUENTRA LA CASA DE TUS SUEÑOS:
         </h2>
+
         <div class="row">
           <div class="col-sm-1"></div>
           <div class="col-sm-3">
@@ -182,7 +182,7 @@
               v-model="distancia"
             >
             </range-slider>
-          </div>
+          </div>          
           <div class="col-sm-3">
             <v-select
                 class="categorias"
@@ -192,8 +192,6 @@
                 label="categoria"
             ></v-select> 
           </div>
-
-
           <div class="col-sm-1"></div>
         </div>
         <div class="row">
@@ -239,7 +237,6 @@
             Una vez seleccionado la ubicación podrá buscar los proyectos cerca
             de su sector
           </span>
-
           <br/>
           <div class="row">
             <div class="col-sm col-md-4"></div>
@@ -253,7 +250,7 @@
             ></v-select>              
             </div>
             <div class="col-sm col-md-4"></div>
-          </div>
+          </div>          
           <button @click="mostrarResultados">
             <span>BUSCAR</span> PROYECTOS
           </button>
@@ -353,8 +350,7 @@ export default {
       registrado: false,
       website: "",
       ubicacion: "",
-      autocomplete: null,
-      categoryTipoBusqueda: []
+      autocomplete: null
     };
   },
   methods: {
@@ -409,6 +405,9 @@ export default {
         var result = await axios({
           method: "POST",
           url: "https://api.constructorespositivos.com/api-web",
+          headers: {
+            "Access-Control-Allow-Origin": "no-cors"
+          },
           data: {
             query: `{
                 proyectosCercanos(latitude:${this.lat}, longitude: ${this.long}, distance: ${this.distancia}) {
@@ -506,15 +505,7 @@ export default {
           title: element.nombre
         });
         this.markers.push(marker);
-
-        var request = {
-        location: location,
-        radius: 200,
-        types: ['hospital', 'health'] // this is where you set the map to get the hospitals and health related places
-      };        
         var ventanaInfo = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, callback);
         google.maps.event.addListener(marker, "click", function() {
           var imagen;
           if (element.files.length > 0) {
@@ -564,8 +555,8 @@ export default {
       var formdata = new FormData();
       formdata.append("nombre", this.nombre);
       formdata.append("apellido", this.apellido);
-      formdata.append("email", this.email);
       formdata.append("telefono", this.telefono);
+      formdata.append("email", this.email);
       // console.log (formdata);
       var actions = "createUser";
       const auth = {
@@ -676,11 +667,6 @@ export default {
         this.registrado = true;
       }
     }
-    this.categoryTipoBusqueda.push({Id:'1',Title:'Departamento'})
-    this.categoryTipoBusqueda.push({Id:'2',Title:'Casa'})
-    this.categoryTipoBusqueda.push({Id:'3',Title:'Suite'})
-    this.categoryTipoBusqueda.push({Id:'4',Title:'Terreno/Lote'})
-    this.categoryTipoBusqueda.push({Id:'5',Title:'Local Comercial'})
   }
 };
 </script>

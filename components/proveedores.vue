@@ -55,8 +55,6 @@ export default {
   },
   computed: {},
   mounted() {
-    console.log("lleeeeeeeee");
-    console.log(this);
     this.image_path = process.env.baseURL + this.image;
   },
   watch: {

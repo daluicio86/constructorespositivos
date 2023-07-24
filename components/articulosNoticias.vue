@@ -4,7 +4,7 @@
       <img :src="image_path" />
     </figure>
     <div class="foot_proyectos">
-      <div class="title" v-html="title"></div>
+      <div class="title"><a :href="lnk" target="_blank">{{ title }}</a></div>
       <div class="row">
         <div class="col-sm">
           <div class="datos_proyecto">{{ description }}</div>
@@ -35,10 +35,13 @@ export default {
     };
   },
   methods: {
-    openLinkBuscadorProveedores(link) {
+    openLinkBuscador(link) {
       window.open(link, "_blank");
     }
   },  
+  mounted() {
+    console.log("link:"+this.lnk);
+  },
   computed: {},
   created() {
     this.image_path = process.env.baseURL + this.foto;
@@ -57,6 +60,7 @@ height: 400px;
   color: #c65656;
   margin-bottom: 15px;
   margin-top: 15px;
+  text-align: center;
 }
 .datos_proyecto {
   color: black;
@@ -70,9 +74,6 @@ a {
   color: #c65656;
   font-weight: bold;
   text-decoration: underline;
-}
-.title {
-  text-align: center;
 }
 .foot_proyectos >>> h2 {
   font-size: 23px;

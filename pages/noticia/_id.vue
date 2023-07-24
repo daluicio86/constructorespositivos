@@ -13,6 +13,7 @@
             :foto="noticiasRegulacione.foto.url"
             :title="noticiasRegulacione.titulo"
             :description="noticiasRegulacione.contenido"
+            :lnk="noticiasRegulacione.link"
           ></articuloNoticia>
           <router-link to="/noticia"
             ><span class="back-arrow">
@@ -58,6 +59,7 @@ export default {
                   contenido
                   resumen
                   slug
+                  link
                   foto {
                     url
                   }

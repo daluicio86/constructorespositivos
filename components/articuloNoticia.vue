@@ -4,7 +4,7 @@
       <img :src="image_path" />
     </figure>
     <div class="foot_proyectos">
-      <div class="title" v-html="title"></div>
+      <div class="title"><a :href="lnk" target="_blank">{{ title }}</a></div>
       <div class="row">
         <div class="col-sm">
           <div class="datos_proyecto" v-html="$md.render(description)"></div>
@@ -17,6 +17,7 @@
 export default {
   props: {
     foto: !String,
+    lnk: !String,
     title: !String,
     description: {
       type: String,
@@ -28,6 +29,11 @@ export default {
       image_path: ""
     };
   },
+  methods: {
+    openLinkBuscadorProveedores(link) {
+      window.open(link, "_blank");
+    }
+  },    
   computed: {},
   mounted() {
     this.image_path = process.env.baseURL + this.foto;

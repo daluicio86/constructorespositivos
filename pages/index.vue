@@ -400,6 +400,8 @@ export default {
       principalMarker.setPosition(new google.maps.LatLng(this.lat, this.long));
     },
     async getProyectosCercanos() {
+
+      console.log(this.lat+"-"+this.long+"-"+this.distancia);
       this.proyectos = "";
       try {
         var result = await axios({

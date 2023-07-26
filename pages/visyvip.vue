@@ -26,28 +26,28 @@
               <h3>VIS</h3>
               <h4>Vivienda de Interés Social</h4>
             </div>
-            <p>De $23.024 a $40.608</p>
-            <p>Con subsidio de $6.000</p>
-            <img src="../assets/images/vivienda_interes1.jpg" />
-            <span class="subtitulo"
+            <!--<p>De $23.024 a $40.608</p>
+            <p>Con subsidio de $6.000</p>-->
+            <img src="../assets/images/visimg.jpg" />
+            <!--<span class="subtitulo"
               >(Vivienda con subsidio parcial del Estado).</span
-            >
+            >-->
             <ul>
               <li>
-                Bono de USD 6.000 (Seis mil dólares); Préstamo hipotecario con
-                tasa de interés preferencial del 4,99% hasta 25 años plazo y con
-                el 5% de entrada.
+                <b>Valor de la vivienda: </b>hasta 178 Salarios Básicos Unificados <b>($ 80.100,00)</b>
               </li>
               <li>
-                Viviendas desde 50 m2: 2 dormitorios.
+                <b>Cuota de entrada: </b>Al menos el 5% del avalúo comercial del inmueble;
               </li>
-              <li>Viviendas desde 57 m2: 3 dormitorios.</li>
-              <li>Desde USD 23.024 23 hasta USD 40.608.</li>
-              <li>Ingresos máximos de 2.5 SBU ($1.000).</li>
-              <li>Primera y única vivienda.</li>
+              <li><b>Monto máximo del crédito:</b> hasta <b>($ 76.095,00) *</b></li>
+              <li><b>Plazo: </b>máximo a 25 (veinte y cinco) años;</li>
+              <li><b>Tasa máxima</b> 4,99% efectiva anual, reajustable o fija,</li>
+              <li><b>Tipo de Garantía:</b> primera hipoteca a favor de la entidad financiera originadora del crédito;</li>
               <li>
-                No haber recibido ningún bono subsidio por parte del estado.
+                <b>Período de gracia: </b>Puede existir un periodo de gracia de hasta 6 (seis) meses;
               </li>
+              <li><b>Tipo de Vivienda:</b> Vivienda Terminada;</li>
+              <li><b>Ingresos máximos consolidados de los deudores: </b>6,34 Salarios Básicos Unificados; <b>($ 2.853,00)</b></li>
             </ul>
           </div>
           <button
@@ -64,7 +64,7 @@
             MÁS INFORMACIÓN
           </button>
         </div>
-        <div class="columna">
+        <!--<div class="columna">
           <div class="type_container">
             <div
               @click="
@@ -109,7 +109,7 @@
           >
             MÁS INFORMACIÓN
           </button>
-        </div>
+        </div>-->
         <div class="columna">
           <div class="type_container">
             <div
@@ -126,21 +126,28 @@
               <h3>VIP</h3>
               <h4>Vivienda de Interés Público</h4>
             </div>
-            <p>De $71.065 a $91.368<br /><br /></p>
+            <!--<p>De $71.065 a $91.368<br /><br /></p>-->
 
-            <img src="../assets/images/vivienda_interes3.jpg" />
-            <span class="subtitulo"
+            <img src="../assets/images/vipimg.jpg" />
+            <!--<span class="subtitulo"
               >Adquiera su vivienda en proyectos de Interés Público
               desarrollados por Promotores Inmobiliarios Privados Casas y/o
               departamentos.</span
-            >
+            >-->
             <ul>
               <li>
-                Con tasa de interés preferencial del 4,99%.
+                <b>Valor de la vivienda:</b> Desde 178,01 hasta 229 Salarios Básicos Unificados; <b>($ 80.104,50 – $103.050,00).</b>
               </li>
               <li>
-                Ingresos máximos de 6.34 SBU ($2.536).
+                <b>Cuota de entrada: </b>Al menos el 5% del avalúo comercial del inmueble;
               </li>
+              <li><b>Monto máximo del crédito:</b> hasta <b>($ 97.897,50) *</b></li>
+              <li><b>Plazo</b> máximo a 25 (veinte y cinco) años;</li>
+              <li><b>Tasa máxima </b>4,99% efectiva anual, reajustable o fija;</li>
+              <li><b>Tipo de Garantía:</b> primera hipoteca a favor de la entidad financiera originadora del crédito;</li>
+              <li><b>Periodo de gracia: </b>Puede existir un período de gracia de hasta 6 (seis) meses;</li>
+              <li><b>Tipo de Vivienda:</b> Vivienda Terminada:</li>
+              <li><b>Ingresos máximos consolidados de los deudores: </b>6,34 Salarios Básicos Unificados <b>($ 2.853,00).</b></li>
             </ul>
           </div>
           <button
@@ -326,7 +333,7 @@ export default {
 }
 #contenido {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 1fr;
 }
 .type_container {

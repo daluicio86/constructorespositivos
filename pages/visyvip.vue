@@ -129,11 +129,7 @@
             <!--<p>De $71.065 a $91.368<br /><br /></p>-->
 
             <img src="../assets/images/vipimg.jpg" />
-            <!--<span class="subtitulo"
-              >Adquiera su vivienda en proyectos de Interés Público
-              desarrollados por Promotores Inmobiliarios Privados Casas y/o
-              departamentos.</span
-            >-->
+            <span class="subtitulo">*El monto máximo del crédito VIS y VIP se contempla considerando el 5% de entrada como indica la norma</span>
             <ul>
               <li>
                 <b>Valor de la vivienda:</b> Desde 178,01 hasta 229 Salarios Básicos Unificados; <b>($ 80.104,50 – $103.050,00).</b>
@@ -169,7 +165,7 @@
         <button
           @click="
             gotoUrl(
-              'https://constructorespositivos.com/calculadora',
+              'https://constructorespositivos.com/calculadoraPichincha',
               'calculadora',
               'clic',
               'calculadora'

@@ -111,7 +111,7 @@
             </nuxt-link>
           </div>
           <div class="col-md-3 col-sm-12">
-            <nuxt-link to="/calculadora">
+            <nuxt-link to="/calculadoraPichincha">
               <div class="card_home arrow">
                 <figure>
                   <img
@@ -287,7 +287,7 @@
         <button
           @click="
             gotoUrl(
-              'https://constructorespositivos.com/calculadora',
+              'https://constructorespositivos.com/calculadoraPichincha',
               'calculadora',
               'clic',
               'calculadora'
@@ -526,13 +526,14 @@ export default {
     showRegistro(payload) {
       console.log("show registro" + payload);
       this.website = payload;
-      if (!this.registrado) {
-        this.registroShow = true;
-      } else {
-        if (process.client) {
-          window.open(this.website);
-        }
-      }
+      this.registroShow = true;
+      //if (!this.registrado) {
+      //  this.registroShow = true;
+      //} else {
+      //  if (process.client) {
+      //    window.open(this.website);
+      //  }
+      //}
     },
     handleSubmit() {
       console.log("submit");

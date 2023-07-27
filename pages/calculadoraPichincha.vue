@@ -118,22 +118,22 @@
         <br/>
         <div class="row">
             <div class="col-sm col-md-2 center">
-                <label class="form-vlabel">$1.280,38</label><br>                
+                <label class="form-vlabel">$0</label><br>                
                 <label class="form-mslabel">Capital + interés</label>
             </div>
             <div class="col-sm col-md-1"><h5>+</h5></div>
             <div class="col-sm col-md-2 center">
-                <label class="form-vlabel">$1.280,38</label><br>     
+                <label class="form-vlabel">$0</label><br>     
                 <label class="form-mslabel">Seguro de desgravamen</label>
             </div>
             <div class="col-sm col-md-1"><h5>+</h5></div>
             <div class="col-sm col-md-3 center">
-                <label class="form-vlabel">$1.280,38</label><br>     
+                <label class="form-vlabel">$0</label><br>     
                 <label class="form-mslabel">Seguro contra incendio y terremotos</label>
             </div>
             <div class="col-sm col-md-1"><h5>=</h5></div>
             <div class="col-sm col-md-2 center">
-                <label class="form-vlabel">$1.280,38</label><br>     
+                <label class="form-vlabel">$0</label><br>     
                 <label class="form-mslabel">Cuota mensual</label>
             </div>
         </div>    
@@ -151,7 +151,7 @@
                 <h2>Haz realidad el sueño de tu hogar con Banco Pichincha</h2>
             </div>
             <div class="col-sm col-md-12 center">
-                <button class="btn-ph">Empieza Ahora</button>
+                <a href="https://creditohipotecario.pichincha.com/login/plusvalia?utm_source=plusvalia&utm_medium=calculator&utm_campaign=plusvalia_integration" class="btn-ph" target="_blank">Empieza Ahora</a>
             </div>
         </div>
       </div>
